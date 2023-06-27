@@ -1,0 +1,12 @@
+{
+  "id": 119,
+  "name": "Menu Item",
+  "module": "developer",
+  "type": "Document",
+  "is_single": 0,
+  "is_static": 0,
+  "search_fields": "name",
+  "title_fields": "name",
+  "doc_structure": "[{\"element\":\"input\",\"is_writable\":true,\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"id\":\"input339_el5561128133\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el68059727519\",\"id\":\"row20_el74198279416\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el109499672148\",\"id\":\"col41_el728905163266\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"select\",\"is_writable\":true,\"data\":{\"name\":\"menu_link\",\"id\":\"select146_el292406485166\",\"label\":\"Menu Link\",\"options\":\"Document\",\"required\":1,\"in_list_view\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col651_el50020111152\",\"id\":\"col42_el728335875431\",\"label\":\"Col651\"},\"elements\":[{\"element\":\"input\",\"is_writable\":true,\"data\":{\"name\":\"description\",\"id\":\"input334_el1621604437\",\"label\":\"Description\",\"required\":1,\"in_list_view\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row33_el687443337500\",\"id\":\"row21_el146992447937\",\"label\":\"Row33\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col96_el79149827367\",\"id\":\"col43_el177368948609\",\"label\":\"Col96\"},\"elements\":[{\"element\":\"input\",\"is_writable\":true,\"data\":{\"name\":\"document_parent\",\"id\":\"input336_el36531377246\",\"label\":\"Document Parent\",\"hidden\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col131_el7446029241\",\"id\":\"col44_el217375041008\",\"label\":\"Col131\"},\"elements\":[{\"element\":\"input\",\"is_writable\":true,\"data\":{\"name\":\"document_parent_name\",\"id\":\"input338_el71356327106\",\"label\":\"Dcoument Parent Name\",\"hidden\":1},\"elements\":[]}]}]},{\"element\":\"date_time\",\"is_writable\":true,\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time95_el145559974942\"},\"elements\":[]}]",
+  "deleted_at": null
+}

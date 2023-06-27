@@ -1,0 +1,12 @@
+{
+  "id": 323,
+  "name": "GPT",
+  "module": "Integrations",
+  "type": "Document",
+  "is_single": "1",
+  "is_static": 0,
+  "doc_structure": "[{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"required\":1,\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"input47_el54262823476\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el1235782781905\",\"id\":\"row1_el1235782781905\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el103951524304\",\"id\":\"col1_el103951524304\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"URL\",\"name\":\"url\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5}},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el337400563646\",\"id\":\"col2_el337400563646\",\"label\":\"Col2\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Model\",\"name\":\"model\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5}},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el65918410404\",\"id\":\"row1_el65918410404\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el46005353440\",\"id\":\"col1_el46005353440\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Organization ID\",\"name\":\"organization_id\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"input44_el433830570525\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el33883691971\",\"id\":\"col2_el33883691971\",\"label\":\"Col2\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"API Key\",\"name\":\"api_key\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"password1_el256732428039\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1},\"elements\":[]}]",
+  "search_fields": "undefined",
+  "title_fields": "undefined",
+  "deleted_at": null
+}

@@ -1,0 +1,12 @@
+{
+  "id": 87,
+  "name": "Not Found",
+  "module": "core",
+  "type": "Page",
+  "is_single": 1,
+  "is_static": 0,
+  "doc_structure": "[{\"element\":\"section\",\"data\":{\"name\":\"section1_el127527307717\",\"id\":\"section1_el127527307717\",\"label\":\"Section1\"},\"elements\":[{\"element\":\"banner\",\"data\":{\"label\":\"404\",\"name\":\"banner1_el513003900236\",\"description\":\"Page Not Found\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[{\"name\":\"404.svg\",\"type\":\"image\",\"size\":26575,\"created_at\":1686704277790.1924,\"src\":\"/uploads/404.svg\",\"extention\":\"svg\",\"previewSrc\":\"/uploads/404.svg\",\"selected\":true}],\"background_size\":\"cover\",\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"style\":\"width:100%;\"},\"elements\":[]}]}]",
+  "search_fields": "null",
+  "title_fields": "null",
+  "deleted_at": null
+}
