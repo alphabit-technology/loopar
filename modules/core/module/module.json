@@ -2,6 +2,7 @@
   "id": 3,
   "name": "Module",
   "module": "core",
+  "default_list_view": "Grid",
   "type": "Document",
   "is_single": 0,
   "is_static": 0,

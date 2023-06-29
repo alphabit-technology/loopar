@@ -15,18 +15,27 @@ export default class AppForm extends FormContext {
 
    componentDidMount(){
       super.componentDidMount();
+      const type = this.get_field('type');
+      const has_footer = this.get_field('has_footer');
+      const has_copyrigth = this.get_field('has_copyright');
 
-      this.get_field('type').onChange = (e) => {
+      type.onChange = (e) => {
          this.web_app_settings[e.target.value === 'Web App' ? 'show' : 'hide']();
       }
 
-      this.get_field("has_footer").onChange = (e) => {
+      has_footer.onChange = (e) => {
+         console.log('has_footer', e.target.checked);
          this.get_field("footer")[e.target.checked ? 'show' : 'hide']();
       }
 
-      this.get_field("has_copyright").onChange = (e) => {
+      has_copyrigth.onChange = (e) => {
          this.get_field("copyright")[e.target.checked ? 'show' : 'hide']();
       }
+
+      type.onChange({target: {value: type.val()}});
+      has_footer.onChange({target: {checked: has_footer.val()}});
+      has_copyrigth.onChange({target: {checked: has_copyrigth.val()}});
+
    }
    /*async onLoad() {
       this.get_field('autor').disable();

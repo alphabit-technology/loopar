@@ -46,4 +46,14 @@ export default class AppManagerController extends InstallerController {
             return await this.success('App updated successfully');
         }
     }
+
+    async action_clone(){
+        const model = await loopar.new_document('App Manager');
+
+        Object.assign(model, { git_repo: this.data.git_repo });
+
+        if (await model.clone()) {
+            return await this.success('App cloned successfully');
+        }
+    }
 }

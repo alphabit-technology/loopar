@@ -47,6 +47,14 @@ export default class App extends BaseDocument {
          await super.save();
          await this.make_app_structure();
       }
+
+      if ([true, 'true', 1, '1'].includes(this.default_app) && this.type === 'Web App'){
+         loopar.default_web_app = this.name;
+      }else{
+         if (loopar.default_web_app === this.name){
+            loopar.default_web_app = null;
+         }
+      }
    }
 
    async make_app_structure() {

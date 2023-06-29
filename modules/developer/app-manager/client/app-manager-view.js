@@ -12,14 +12,60 @@ export default class AppManagerView extends ViewContext {
    }
 
    render() {
-      const apps = this.apps();
+      const apps = this.makeApps();
+      this.addCustomActions();
 
       return super.render([
          apps.length > 0 ? div({className: "row"}, apps ) : div({}, React.createElement(no_data, {}))
       ]);
    }
 
-   apps() {
+   clone(){
+      loopar.prompt({
+         title: "Get App",
+         label: "Enter the Github URL of the app you want to install",
+         placeholder: "Github URL",
+         ok: (git_repo) => {
+            if (git_repo) {
+               loopar.method('App Manager', 'clone', { git_repo: git_repo }).then(() => {
+                  loopar.root_app.refresh();
+               });
+            } else {
+               loopar.dialog({
+                  type: "alert",
+                  title: "Error",
+                  message: "Please enter a valid Github URL",
+               });
+            }
+         }
+      });
+   }
+
+   addCustomActions() {
+      this.addCustomAction('add_app', button({
+         className: "btn btn-primary",
+         type: "button",
+         onClick: () => {
+            loopar.navigate('/desk/core/App/create');
+         }
+      }, [
+         i({ className: "fa fa-fw fa-plus" }),
+         " Add App"
+      ]));
+
+      this.addCustomAction('get_app',  button({
+         className: "btn btn-secondary",
+         type: "button",
+         onClick: () => {
+            this.clone();
+         },
+      }, [
+         i({className: "fa fa-fw fa-download"}),
+         " Get App"
+      ]));
+   }
+
+   makeApps() {
       const meta = this.props.meta;
       const apps = meta.apps || [];
 

@@ -18,7 +18,7 @@ export default class Document extends BaseDocument {
 
       this.fix_fields();
       this.validate_fields();
-      this.validate_table_name();
+      this.validateTableName();
       !loopar.installing && await this.validate_document_for_select_type();
 
       await loopar.db.begin_transaction();
@@ -169,8 +169,50 @@ export default class Document extends BaseDocument {
       await this.save();*/
    }
 
+   validateFieldName(name) {
+      if (name.length < 3 && name !== 'id') {
+         loopar.throw('Field name must be at least 3 characters long.');
+      }
+
+      if (name.length > 64) {
+         loopar.throw('Field name must be at most 64 characters long.');
+      }
+
+      if (!/^[a-zA-Z0-9_]+$/.test(name)) {
+         loopar.throw('Field name must contain only letters, numbers and underscores.');
+      }
+
+      if (/^[0-9_]+$/.test(name)) {
+         loopar.throw('Field name must not start with a number.');
+      }
+
+      const reservedKeywords = [
+         // Reserved keywords for PostgreSQL
+         'DEFAULT', 'UNIQUE', 'PRIMARY', 'FOREIGN', 'INDEX', 'CHECK', 'KEY', 'WHERE',
+         'ORDER', 'GROUP', 'LIMIT', 'JOIN', 'AS', 'ON', 'BETWEEN', 'LIKE', 'IN', 'AND',
+         'OR', 'NOT', 'NULL', 'TRUE', 'FALSE', 'DATABASE', 'TABLE', 'COLUMN', 'VIEW',
+         'TRIGGER', 'PROCEDURE', 'FUNCTION', 'INDEX', 'CONSTRAINT', 'MODE',
+
+         // Reserved keywords for MySQL
+         'COLLECTION', 'INSERT', 'UPDATE', 'DELETE', 'SELECT', 'FIND',
+         'DISTINCT', 'AGGREGATE', 'SORT', 'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'JOIN',
+         'UNWIND', 'GROUP', 'MATCH', 'PIPELINE',
+
+         // Reserved keywords for MongoDB
+         // ... (Add MongoDB specific reserved keywords here if known)
+      ];
+
+      if (reservedKeywords.includes(name.toUpperCase())) {
+         loopar.throw(`FieldName <strong>"${name}"</strong> is a reserved keyword.`);
+      }
+   }
+
    validate_fields() {
       const fields = this.client_fields_list();
+
+      for (const field of fields) {
+         this.validateFieldName(field.data.name);
+      }
 
       const duplicates = fields.map(field => field.data.name).filter((value, index, self) => self.indexOf(value) !== index);
 
@@ -199,7 +241,7 @@ export default class Document extends BaseDocument {
       }
    }
 
-   validate_table_name() {
+   validateTableName() {
       const table_name = this.name;
 
       if (table_name.length < 3) {

@@ -19,11 +19,30 @@ export default class AppManager extends BaseDocument {
 
         return new Promise((resolve, reject) => {
           loopar.git(this.app_name).pull(async (err, update) => {
-             err && loopar.throw(err);
+            err && loopar.throw(err);
 
              //await loopar.make_config();
-             resolve(true);
+            resolve(true);
           });
         });
     }
+
+    async clone(){
+         //console.log('cloning app');
+        const app_name = this.git_repo.split('/').pop().replace('.git', '');
+        const exist = await loopar.db.get_value('App', "name", app_name, null, null);
+        
+        console.log("On clone", app_name, exist, this.get_repo)
+        if(exist){
+            loopar.throw(`App ${app_name} is already installed, please update it instead`);
+            return;
+        }
+
+        return new Promise((resolve, reject) => {
+            loopar.git().clone(this.git_repo, async (err, update) => {
+                err && loopar.throw(err);
+                resolve(true);
+            });
+        });
+     }
 }
