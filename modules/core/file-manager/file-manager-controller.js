@@ -5,6 +5,7 @@ import {BaseController, loopar} from 'loopar-env';
 import fs from "fs";
 import path from "path";
 import mime from "mime-types";
+import multer from "multer";
 
 export default class FileManagerController extends BaseController {
     constructor(props){
@@ -12,7 +13,7 @@ export default class FileManagerController extends BaseController {
     }
 
     getFileType(file) {
-        const ext = file.name.split('.').pop().toLowerCase();
+        const ext = (file.name || file.originalname).split('.').pop().toLowerCase();
         const type = file.type;
 
         if (type === 'folder') {
@@ -31,7 +32,7 @@ export default class FileManagerController extends BaseController {
         }
     }
 
-    async action_list(){
+    async action_view(){
         const doc = await loopar.get_list("File Manager");
 
         const files = await this.#files_list();
@@ -42,59 +43,15 @@ export default class FileManagerController extends BaseController {
     }
 
     async action_upload() {
-        /*const files = this.data.files;
-        const route = this.data.route;
-        const pathBase = path.join(loopar.path_root, 'public', 'uploads', route || '');
+        const files = this.req.files || [];
 
-        if (!fs.existsSync(pathBase)) {
-            fs.mkdirSync(pathBase, {recursive: true});
+        for (const file of files) {
+            const file_manager = await loopar.new_document("File Manager");
+            file_manager.req_upload_file = file;
+            await file_manager.save();
         }
 
-        const uploadedFiles = [];
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const filePath = path.join(pathBase, file.name);
-
-            if (fs.existsSync(filePath)) {
-                continue;
-            }
-        }
-
-        return super.render({files: uploadedFiles});*/
-
-        return this.success('ok')
-    }
-
-    async action_delete() {
-        const files = this.data.files;
-        const route = this.data.route;
-        const pathBase = path.join(loopar.path_root, 'public', 'uploads', route || '');
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const filePath = path.join(pathBase, file.name);
-
-            if (fs.existsSync(filePath)) {
-                if (file.type === 'folder') {
-                    if (fs.existsSync(filePath)) {
-                        fs.rmdirSync(filePath, {recursive: true});
-                    }
-                } else {
-                    if (fs.existsSync(filePath)) {
-                        fs.unlinkSync(filePath);
-                    }
-
-                    const thumbnailPath = path.join(pathBase, 'thumbnails', file.name);
-
-                    if (fs.existsSync(thumbnailPath)) {
-                        fs.unlinkSync(thumbnailPath);
-                    }
-                }
-            }
-        }
-
-        return super.render({files});
+        return this.success('ok');
     }
 
     async action_files() {
@@ -124,5 +81,4 @@ export default class FileManagerController extends BaseController {
 
         return files;
     }
-
 }

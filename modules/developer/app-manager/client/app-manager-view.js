@@ -13,7 +13,7 @@ export default class AppManagerView extends ViewContext {
 
    render() {
       const apps = this.makeApps();
-      this.addCustomActions();
+      this.setCustomActions();
 
       return super.render([
          apps.length > 0 ? div({className: "row"}, apps ) : div({}, React.createElement(no_data, {}))
@@ -41,8 +41,10 @@ export default class AppManagerView extends ViewContext {
       });
    }
 
-   addCustomActions() {
-      this.addCustomAction('add_app', button({
+   setCustomActions() {
+      super.setCustomActions();
+
+      this.setCustomAction('add_app', button({
          className: "btn btn-primary",
          type: "button",
          onClick: () => {
@@ -53,7 +55,7 @@ export default class AppManagerView extends ViewContext {
          " Add App"
       ]));
 
-      this.addCustomAction('get_app',  button({
+      this.setCustomAction('get_app',  button({
          className: "btn btn-secondary",
          type: "button",
          onClick: () => {

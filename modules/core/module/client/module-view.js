@@ -12,18 +12,18 @@ export default class ModuleView extends ListContext {
       super(props);
    }
 
-   render(){
+   /*render(){
       return super.render()
-   }
+   }*/
 
    gridTemplate(row, action){
       return [
          div({ className: "card-header border-0" }, [
             div({ className: "d-flex justify-content-between align-items-center" }, [
-               span({ className: "badge bg-muted", title: "Enabled" }, [
+               /*span({ className: "badge bg-muted", title: "Enabled" }, [
                   span({ className: "sr-only" }, "Enabled"),
                   i({ className: "fa fa-fw fa-check-circle text-teal" }, "i")
-               ]),
+               ]),*/
                div({ className: "dropdown", style: { display: 'none' } }, [
                   button({ className: "btn btn-icon btn-light", type: "button", "data-toggle": "dropdown", "aria-expanded": "false" }, [
                      i({ className: "fa fa-ellipsis-v" })
@@ -39,7 +39,10 @@ export default class ModuleView extends ListContext {
             ])
          ]),
          div({ className: "card-body text-center" }, [
-            a({ className: `tile tile-lg bg-${loopar.bg_color(row.name)} mb-2`, href: `/${row.module}/${row.name}/${action}`, element: `element-${action}` }, avatar(row.name)),
+            a({ 
+               className: `tile tile-lg bg-${loopar.bg_color(row.name)} mb-2`, 
+               href: `/${row.module}/${row.name}/${action}`, element: `element-${action}`
+            }, avatar(row.name)),
             h5({ className: "card-title" }, [
                a({ className: "card-title", href: "#" }, row.name)
             ]),
@@ -51,73 +54,12 @@ export default class ModuleView extends ListContext {
             a({
                className: "card-footer-item card-footer-item-bordered card-link",
                href: `/${row.module}/${row.name}/${action}`,
-               element: "view_list"
             }, Capitalize(action === 'list' ? 'View List' : action)),
-            a({
+            !row.is_single ? a({
                className: "card-footer-item card-footer-item-bordered card-link",
                href: `/${row.module}/${row.name}/create`,
-               element: "add",
-               style: row.is_single ? { display: 'none' } : {}
-            }, "Add")
+            }, "Add") : null
          ])
       ];
    }
-
-   /*make_links() {
-      const data = this.props.meta;
-
-      if(!data) return [];
-      return data.rows.map(row => {
-         const action = row.is_single ? (row.type === 'Page' ? 'view' : 'update') : 'list';
-
-         return [
-            div({ className: "col-lg-3 col-md-4 col-sm-6"}, [
-               div({className: "card"}, [
-                  div({className: "card-header border-0"}, [
-                     div({className: "d-flex justify-content-between align-items-center"}, [
-                        span({className: "badge bg-muted", title: "Enabled"}, [
-                           span({className: "sr-only"}, "Enabled"),
-                           i({className: "fa fa-fw fa-check-circle text-teal"}, "i")
-                        ]),
-                        div({className: "dropdown", style: {display: 'none'}}, [
-                           button({className: "btn btn-icon btn-light", type: "button", "data-toggle": "dropdown", "aria-expanded": "false"}, [
-                              i({className: "fa fa-ellipsis-v"})
-                           ]),
-                           div({className: "dropdown-menu dropdown-menu-right"}, [
-                              div({className: "dropdown-arrow"}),
-                              a({className: "dropdown-item", href: "#", element: "view-list"}, "View List"),
-                              a({className: "dropdown-item", href: "#", element: "add-document"}, `Add ${row.name}`),
-                              a({className: "dropdown-item", href: "#", element: "edit-document"}, `Edit ${row.name}`),
-                              a({className: "dropdown-item", href: "#", element: "delete-document"}, `Remove ${row.name}`)
-                           ])
-                        ])
-                     ])
-                  ]),
-                  div({className: "card-body text-center"}, [
-                     a({className: `tile tile-lg bg-${loopar.bg_color(row.name)} mb-2`, href: `/${row.module}/${row.name}/${action}`, element: `element-${action}`}, avatar(row.name)),
-                     h5({className: "card-title"}, [
-                        a({className: "card-title", href: "#"}, row.name)
-                     ]),
-                     div({className: "my-3"}, [
-                        div({className: "avatar-group"})
-                     ])
-                  ]),
-                  div({className: "card-footer"}, [
-                     a({
-                        className: "card-footer-item card-footer-item-bordered card-link",
-                        href: `/${row.module}/${row.name}/${action}`,
-                        element: "view_list"
-                     }, Capitalize(action === 'list' ? 'View List' : action)),
-                     a({
-                        className: "card-footer-item card-footer-item-bordered card-link",
-                        href: `/${row.module}/${row.name}/create`,
-                        element: "add",
-                        style: row.is_single ? {display:'none'} : {}
-                     }, "Add")
-                  ])
-               ])
-            ])
-         ];
-      });
-   }*/
 }
