@@ -10,11 +10,11 @@ export default class ModuleController extends BaseController {
    async action_view(){
       if (this.has_data()) {
          const data = this.data;
-         if(this.module_name) data.module = this.module_name;
+         if (this.document_name) data.module = this.document_name;
          await loopar.session.set(this.document + '_q', data.q || {});
          await loopar.session.set(this.document + '_page', data.page || 1);
       }else{
-         await loopar.session.set(this.document + '_q', { ...(this.data.q || {}), module: this.module_name });
+         await loopar.session.set(this.document + '_q', { ...(this.data.q || {}), module: this.document_name });
       }
       const data = { ...loopar.session.get(this.document + '_q') || {} };
 

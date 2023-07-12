@@ -59,15 +59,17 @@ export default class App extends BaseDocument {
 
    async make_app_structure() {
       if(loopar.installing) return;
-      await file_manage.make_folder('apps', this.name);
-      await file_manage.make_folder(path.join('apps', this.name), 'modules');
 
-      if(!file_manage.exist_file_sync(path.join('apps', this.name, 'installer.json'))) {
-         await file_manage.set_config_file('installer', {}, 'apps/' + this.name);
+      const name_to_path = this.name.replaceAll(" ", "-").toLowerCase();
+      await file_manage.make_folder('apps', name_to_path);
+      await file_manage.make_folder(path.join('apps', name_to_path), 'modules');
+
+      if (!file_manage.exist_file_sync(path.join('apps', name_to_path, 'installer.json'))) {
+         await file_manage.set_config_file('installer', {}, 'apps/' + name_to_path);
       }
 
-      const values = await this.values();
-      await loopar.update_installer(path.join("apps", this.name), this.__DOCTYPE__.name, this.name, values);
+      const values = await this.rawValues();
+      await loopar.update_installer(path.join("apps", name_to_path), this.__DOCTYPE__.name, this.name, values);
    }
 
    async set_apps(){

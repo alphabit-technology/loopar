@@ -12,7 +12,7 @@ export default class GPTController extends SingleController {
         const gpt = await loopar.get_document("GPT");
 
         const data = this.data;
-        const r = await gpt.prompt(data.prompt);
+        const r = await gpt.prompt(data);
 
         return await this.success(r);
     }

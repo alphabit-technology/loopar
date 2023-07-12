@@ -27,8 +27,6 @@ export default class FileManagerList extends ListContext {
 
    gridTemplate(row, action) {
       row.extention = row.name.split('.').pop();
-
-      console.log("gridTemplate", row);
       
       const file = this.file([row])[0]
 
@@ -110,7 +108,6 @@ export default class FileManagerList extends ListContext {
    }
 
    componentDidUpdate(prevProps, prevState) {
-      console.log("componentDidUpdate");
       if (prevProps.meta.rows !== this.props.meta.rows) {
          this.setState({});
       }

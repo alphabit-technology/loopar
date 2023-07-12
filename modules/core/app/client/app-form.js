@@ -24,7 +24,6 @@ export default class AppForm extends FormContext {
       }
 
       has_footer.onChange = (e) => {
-         console.log('has_footer', e.target.checked);
          this.get_field("footer")[e.target.checked ? 'show' : 'hide']();
       }
 

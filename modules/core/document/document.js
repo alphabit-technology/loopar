@@ -1,6 +1,7 @@
 import { BaseDocument, file_manage, loopar } from "loopar-env";
 import path from "path";
 import { Helpers } from "loopar-env";
+import decamelize from "decamelize";
 
 export default class Document extends BaseDocument {
    constructor(props) {
@@ -19,7 +20,8 @@ export default class Document extends BaseDocument {
       this.fix_fields();
       this.validate_fields();
       this.validateTableName();
-      !loopar.installing && await this.validate_document_for_select_type();
+      !loopar.installing && await this.validateLinkedDocument(SELECT);
+      !loopar.installing && await this.validateLinkedDocument(FORM_TABLE);
 
       await loopar.db.begin_transaction();
       if (this.type === 'Document' && !this.is_single) {
@@ -39,9 +41,8 @@ export default class Document extends BaseDocument {
    }
 
    async update_installer(delete_document = false) {
-      const app_name = await this.app_name();
       const values = await this.values();
-      await loopar.update_installer('apps/' + app_name, "Document", this.name, values, delete_document);
+      await loopar.update_installer('apps/' + await this.appNameToDir(), "Document", this.name, values, delete_document);
    }
 
    client_fields_list(fields = this.doc_structure) {
@@ -221,16 +222,16 @@ export default class Document extends BaseDocument {
       }
    }
 
-   async validate_document_for_select_type() {
+   async validateLinkedDocument(type) {
       const errors = [];
       const fields = this.client_fields_list();
       for (const field of fields) {
-         if (field.element === SELECT) {
+         if (field.element === type && field.data.options && typeof field.data.options === "string") {
             const options = (field.data.options || "").split("\n");
 
             if (options.length === 1 && options[0] !== "") {
-               if (await loopar.db.count("Document", options[0]) === 0) {
-                  errors.push("Document " + options[0] + " is not a valid Document");
+               if (await loopar.db._count("Document", options[0]) === 0) {
+                  errors.push(`Document ${options[0]} is not a valid Document for ${field.data.name}, please check the options.`);
                }
             }
          }
@@ -261,12 +262,16 @@ export default class Document extends BaseDocument {
       }
    }
 
+   to_dir(value){
+      return decamelize(value.replaceAll(/\s/g, ''), { separator: '-' });
+   }
+
    name_to_file() {
-      return this.name.replaceAll(/\s+/g, '-').toLowerCase();
+      return this.to_dir(this.name);
    }
 
    module_to_file() {
-      return this.module.replaceAll(/\s+/g, '-').toLowerCase();
+      return this.to_dir(this.module);
    }
 
    async app_name() {
@@ -274,8 +279,13 @@ export default class Document extends BaseDocument {
       return this.__app__;
    }
 
+   async appNameToDir() {
+      const app_name = await this.app_name();
+      return this.to_dir(app_name);
+   }
+
    async module_path() {
-      return path.join("apps", await this.app_name(), "modules", this.module_to_file());
+      return path.join("apps", await this.appNameToDir(), "modules", this.module_to_file());
    }
 
    async document_path() {

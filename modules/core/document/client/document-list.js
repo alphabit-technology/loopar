@@ -23,7 +23,6 @@ export default class DocumentList extends ListContext {
    }
 
    gridTemplate(row, action) {
-      console.log('gridTemplate', row);
       return [
          div({ className: "card-header border-0" }, [
             div({ className: "d-flex justify-content-between align-items-center" }, [
