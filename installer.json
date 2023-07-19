@@ -14,7 +14,7 @@
       "github_pass": "",
       "name": "loopar",
       "description": "Loopar",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "autor": "Administrator",
       "info": "Loopar Framework"
     }
@@ -242,29 +242,9 @@
       "deleted_at": null
     }
   },
-  "Module Group": {
-    "administration": {
-      "id": 1,
-      "name": "administration",
-      "description": "Administration",
-      "in_sidebar": 1
-    },
-    "modules": {
-      "id": 2,
-      "name": "modules",
-      "description": "Modules",
-      "in_sidebar": 1
-    },
-    "developer": {
-      "id": 3,
-      "name": "developer",
-      "description": "Developer",
-      "in_sidebar": 1
-    }
-  },
+  "Module Group": {},
   "Module": {
     "core": {
-      "id": 1,
       "name": "core",
       "description": "Core",
       "app_name": "loopar",
@@ -274,7 +254,6 @@
       "deleted_at": null
     },
     "developer": {
-      "id": 2,
       "name": "developer",
       "description": "Developer",
       "app_name": "loopar",
@@ -284,7 +263,6 @@
       "deleted_at": null
     },
     "auth": {
-      "id": 3,
       "name": "auth",
       "description": "Auth",
       "app_name": "loopar",
@@ -294,7 +272,6 @@
       "deleted_at": null
     },
     "integrations": {
-      "id": 223,
       "name": "Integrations",
       "description": "Integrations",
       "app_name": "loopar",

@@ -17,11 +17,16 @@ export default class Document extends BaseDocument {
 
       this.is_static = 0;
 
-      this.fix_fields();
-      this.validate_fields();
-      this.validateTableName();
-      !loopar.installing && await this.validateLinkedDocument(SELECT);
-      !loopar.installing && await this.validateLinkedDocument(FORM_TABLE);
+      const args = arguments[0] || {};
+      const validate = args.validate !== false;
+
+      if(validate){
+         this.fix_fields();
+         this.validate_fields();
+         this.validateTableName();
+         !loopar.installing && await this.validateLinkedDocument(SELECT);
+         !loopar.installing && await this.validateLinkedDocument(FORM_TABLE);
+      }
 
       await loopar.db.begin_transaction();
       if (this.type === 'Document' && !this.is_single) {
