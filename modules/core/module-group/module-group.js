@@ -18,6 +18,7 @@ export default class ModuleGroup extends BaseDocument {
    }
 
    async update_installer(delete_module_group = false) {
-      await loopar.update_installer(this.app_path(), this.__DOCTYPE__.name, this.name, this.values, delete_module_group);
+      const values = await this.values();
+      await loopar.update_installer(this.app_path(), this.__DOCTYPE__.name, this.name, values, delete_module_group);
    }
 }

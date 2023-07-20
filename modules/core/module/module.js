@@ -16,11 +16,11 @@ export default class Module extends BaseDocument {
    }
 
    app_path() {
-      return path.join('apps', this.app_name).replaceAll(/\s+/g, '-').toLowerCase();
+      return loopar.makePath('apps', this.app_name);
    }
 
    module_path() {
-      return path.join(this.app_path(), 'modules');
+      return loopar.makePath(this.app_path(), 'modules');
    }
 
    async make_module_route() {
