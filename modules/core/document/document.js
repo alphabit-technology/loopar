@@ -20,8 +20,9 @@ export default class Document extends BaseDocument {
       const args = arguments[0] || {};
       const validate = args.validate !== false;
 
+      this.fix_fields();
+      
       if(validate){
-         this.fix_fields();
          this.validate_fields();
          this.validateTableName();
          !loopar.installing && await this.validateLinkedDocument(SELECT);
