@@ -1,6 +1,6 @@
 'use strict'
 
-import {BaseController, loopar} from "loopar-env";
+import { BaseController, loopar } from "loopar-env";
 
 export default class UserController extends BaseController {
    constructor(props) {
@@ -9,11 +9,11 @@ export default class UserController extends BaseController {
 
    async action_update() {
       this.context ??= 'form';
-      const document = await loopar.get_document("User", this.document_name, this.has_data() ? this.data : null);
+      const document = await loopar.getDocument("User", this.document_name, this.has_data() ? this.data : null);
 
       if (this.has_data()) {
          await document.save();
-         return this.render({success: true, message:  `Document ${document.name} saved successfully`, document_name: document.name});
+         return this.render({ success: true, message: `Document ${document.name} saved successfully`, document_name: document.name });
       } else {
          document.password = document.protected_password;
          document.confirm_password = document.protected_password;
@@ -25,7 +25,7 @@ export default class UserController extends BaseController {
       }
    }
 
-   action_logout(){
+   action_logout() {
       loopar.session.destroy();
       this.redirect('/auth/login/login');
    }

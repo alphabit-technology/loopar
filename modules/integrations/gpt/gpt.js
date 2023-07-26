@@ -1,8 +1,7 @@
 'use strict';
 
 import { BaseDocument, loopar } from 'loopar-env';
-import axios from "axios";
-import { elements_names, elementsNameByType } from "loopar-env";
+import { elementsNames} from "loopar-env";
 import { OpenAIApi, Configuration } from "openai";
 
 export default class GPT extends BaseDocument {
@@ -108,7 +107,7 @@ export default class GPT extends BaseDocument {
     async prompt(data) {
         this.validateSettings();
         const { prompt, document_type } = data;
-        const elements = elements_names.filter(e => {
+        const elements = elementsNames.filter(e => {
             if (document_type === "Document") {
                 return e !== SECTION
             } else {

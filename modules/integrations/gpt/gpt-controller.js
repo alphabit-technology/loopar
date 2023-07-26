@@ -8,8 +8,8 @@ export default class GPTController extends SingleController {
         super(props);
     }
 
-    async action_prompt() {
-        const gpt = await loopar.get_document("GPT");
+    async actionPrompt() {
+        const gpt = await loopar.getDocument("GPT");
 
         const data = this.data;
         const r = await gpt.prompt(data);

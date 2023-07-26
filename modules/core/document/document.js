@@ -1,5 +1,4 @@
-import { BaseDocument, file_manage, loopar } from "loopar-env";
-import path from "path";
+import { BaseDocument, fileManage, loopar } from "loopar-env";
 import { Helpers } from "loopar-env";
 import decamelize from "decamelize";
 
@@ -20,47 +19,45 @@ export default class Document extends BaseDocument {
       const args = arguments[0] || {};
       const validate = args.validate !== false;
 
-      this.fix_fields();
+      this.fixFields();
       
       if(validate){
-         this.validate_fields();
+         this.validateFields();
          this.validateTableName();
          !loopar.installing && await this.validateLinkedDocument(SELECT);
          !loopar.installing && await this.validateLinkedDocument(FORM_TABLE);
       }
 
-      await loopar.db.begin_transaction();
+      await loopar.db.beginTransaction();
       if (this.type === 'Document' && !this.is_single) {
-         await loopar.db.make_table(this.name, this.doc_structure);
+         await loopar.db.makeTable(this.name, this.doc_structure);
       }
       await super.save(arguments[0] || {});
-      await loopar.db.end_transaction();
+      await loopar.db.endTransaction();
 
       if (loopar.installing) return;
 
-      await this.make_document_structure();
-      await this.make_files();
-      await this.make_json();
-      await this.update_installer();
+      await this.makeDocumentStructure();
+      await this.makeFiles();
+      await this.makeJSON();
 
-      await loopar.make_config();
+      await loopar.makeConfig();
    }
 
-   async update_installer(delete_document = false) {
-      const values = await this.values();
-      await loopar.update_installer('apps/' + await this.appNameToDir(), "Document", this.name, values, delete_document);
-   }
-
-   client_fields_list(fields = this.doc_structure) {
+   clientFieldsList(fields = this.doc_structure) {
       return (fields || []).reduce((acc, field) => {
-         return acc.concat(field, this.client_fields_list(field.elements || []));
+         return acc.concat(field, this.clientFieldsList(field.elements || []));
       }, []);
    }
 
-   fix_fields() {
+   writableFieldsList(){
+      return this.clientFieldsList().filter(field => fieldIsWritable(field));
+   }
+
+   fixFields() {
       let exist_column = false;
 
-      const fix_fields = (fields = this.doc_structure, field_data = {}) => {
+      const fixFields = (fields = this.doc_structure, field_data = {}) => {
          return (fields || []).map(field => {
             field.data = Object.entries(field.data || {}).reduce((obj, [key, value]) => {
                if (value === null || value === undefined || value === "" || value === "null" || value === "undefined" || value === 0 || value === "0") {
@@ -77,7 +74,7 @@ export default class Document extends BaseDocument {
                Object.assign(field.data, field_d);
             }
 
-            field.elements = fix_fields(field.elements || [], field_data);
+            field.elements = fixFields(field.elements || [], field_data);
 
             if (this.__IS_NEW__ && field.data.required) {
                field.data.in_list_view = 1;
@@ -140,26 +137,26 @@ export default class Document extends BaseDocument {
       };
 
       if (this.type === 'Document') {
-         this.doc_structure = fix_fields(this.doc_structure, name_structure);
+         this.doc_structure = fixFields(this.doc_structure, name_structure);
          if (!exist_column) {
             name_structure.data.hidden = 1;
             this.doc_structure = [name_structure, ...this.doc_structure];
          }
          exist_column = false;
 
-         this.doc_structure = fix_fields(this.doc_structure, id_structure);
+         this.doc_structure = fixFields(this.doc_structure, id_structure);
          if (!exist_column) {
             this.doc_structure = [id_structure, ...this.doc_structure];
          }
          exist_column = false;
 
-         this.doc_structure = fix_fields(this.doc_structure, deleted_at);
+         this.doc_structure = fixFields(this.doc_structure, deleted_at);
          if (!exist_column) {
             this.doc_structure = [...this.doc_structure, deleted_at];
          }
          exist_column = false;
       } else {
-         this.doc_structure = fix_fields(this.doc_structure);
+         this.doc_structure = fixFields(this.doc_structure);
       }
    }
 
@@ -214,8 +211,8 @@ export default class Document extends BaseDocument {
       }
    }
 
-   validate_fields() {
-      const fields = this.client_fields_list();
+   validateFields() {
+      const fields = this.clientFieldsList();
 
       for (const field of fields) {
          this.validateFieldName(field.data.name);
@@ -230,7 +227,7 @@ export default class Document extends BaseDocument {
 
    async validateLinkedDocument(type) {
       const errors = [];
-      const fields = this.client_fields_list();
+      const fields = this.clientFieldsList();
       for (const field of fields) {
          if (field.element === type && field.data.options && typeof field.data.options === "string") {
             const options = (field.data.options || "").split("\n");
@@ -268,55 +265,54 @@ export default class Document extends BaseDocument {
       }
    }
 
-   to_dir(value){
-      return decamelize(value.replaceAll(/\s/g, ''), { separator: '-' });
+   toDir(value){
+      return decamelize(value, { separator: '-' });
    }
 
-   name_to_file() {
-      return this.to_dir(this.name);
+   nameToFile() {
+      return this.toDir(this.name);
    }
 
-   module_to_file() {
-      return this.to_dir(this.module);
+   moduleToFile() {
+      return this.toDir(this.module);
    }
 
-   async app_name() {
+   /*async app_name() {
       this.__app__ = await loopar.db.get_value("Module", "app_name", this.module);
       return this.__app__;
-   }
+   }*/
 
    async appNameToDir() {
-      const app_name = await this.app_name();
-      return this.to_dir(app_name);
+      return this.toDir(this.__APP__);
    }
 
-   async module_path() {
-      return path.join("apps", await this.appNameToDir(), "modules", this.module_to_file());
+   async modulePath() {
+      return loopar.makePath("apps", this.__APP__, "modules", this.module);
    }
 
-   async document_path() {
-      return path.join(await this.module_path(), this.name_to_file());
+   async documentPath() {
+      return loopar.makePath(await this.modulePath(), this.name);
    }
 
-   async client_path() {
-      return path.join(await this.document_path(), 'client');
+   async clientPath() {
+      return loopar.makePath(await this.documentPath(), 'client');
    }
 
-   async make_document_structure() {
-      await file_manage.make_folder(await this.document_path(), 'client');
+   async makeDocumentStructure() {
+      await fileManage.makeFolder(await this.documentPath(), 'client');
    }
 
-   async __app_type__() {
-      return await loopar.db.get_value("App", "type", this.__app__);
+   async __appType__() {
+      return await loopar.db.getValue("App", "type", this.__app__);
    }
 
-   async make_files() {
-      const document_path = await this.document_path();
-      const client_path = await this.client_path();
-      const app_type = await this.__app_type__();
+   async makeFiles() {
+      const documentPath = await this.documentPath();
+      const clientPath = await this.clientPath();
+      const appType = await this.__appType__();
 
       /*Document Model*/
-      await file_manage.make_class(document_path, this.name, {
+      await fileManage.makeClass(documentPath, this.name, {
          IMPORTS: {
             'BaseDocument': 'loopar-env',
          },
@@ -326,7 +322,7 @@ export default class Document extends BaseDocument {
 
       /*Document Controller*/
       const extendController = this.is_single ? "SingleController" : "BaseController";
-      await file_manage.make_class(document_path, `${this.name}Controller`, {
+      await fileManage.makeClass(documentPath, `${this.name}Controller`, {
          IMPORTS: {
             [extendController]: 'loopar-env',
          },
@@ -334,30 +330,30 @@ export default class Document extends BaseDocument {
       });
       /*Document Controller*/
 
-      const make_view = async (view, context = view) => {
-         const import_context = `${Helpers.Capitalize(context)}Context`;
+      const makeView = async (view, context = view) => {
+         const importContext = `${Helpers.Capitalize(context)}Context`;
 
-         await file_manage.make_class(client_path, this.name + Helpers.Capitalize(view), {
+         await fileManage.makeClass(clientPath, this.name + Helpers.Capitalize(view), {
             IMPORTS: {
-               [import_context]: `/gui/document/${context}-context.js`,
+               [importContext]: `/gui/document/${context}-context.js`,
             },
-            EXTENDS: import_context
+            EXTENDS: importContext
          }, 'default');
       }
 
       /*Document Client*/
-      if (app_type === "Web App" && this.type === "Page") {
-         await make_view("view", "web");
+      if (appType === "Web App" && this.type === "Page") {
+         await makeView("view", "web");
       } else {
          if (this.type === "Page") {
-            await make_view("view");
+            await makeView("view");
          } else if (this.type === "Form") {
-            await make_view("form");
+            await makeView("form");
          } else if (this.type === "Report") {
-            await make_view("report");
+            await makeView("report");
          } else if (this.type === "Document") {
             for (const context of ["list", "form", "view", "report"]) {
-               await make_view(context);
+               await makeView(context);
             }
          }
       }
@@ -365,8 +361,8 @@ export default class Document extends BaseDocument {
    }
 
    /**installer**/
-   async make_json() {
+   async makeJSON() {
       const data = await this.__data__();
-      await file_manage.set_config_file(this.name_to_file(), data.__DOCUMENT__, await this.document_path());
+      await fileManage.setConfigFile(this.nameToFile(), data.__DOCUMENT__, await this.documentPath());
    }
 }

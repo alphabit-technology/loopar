@@ -1,6 +1,8 @@
 'use strict';
 
-import FormContext from '/gui/document/form-context.js'
+import FormContext from '/gui/document/form-context.js';
+import {button, div, i, label} from '/components/elements.js';
+import { loopar } from '/loopar.js';
 
 export default class AppForm extends FormContext {
    web_app_settings = {}; /** @type {FormContext} will be set on load document*/
@@ -10,7 +12,23 @@ export default class AppForm extends FormContext {
    }
 
    render() {
+      this.setCustomActions();
       return super.render();
+   }
+
+   setCustomActions() {
+      super.setCustomActions();
+
+      this.setCustomAction('update_installer', button({
+         className: "btn btn-secondary",
+         type: "button",
+         onClick: () => {
+            loopar.method("App Manager", "update_installer", this.getValue('name'));
+         }
+      }, [
+         i({ className: "fa fa-upload" }),
+         " Update Installer"
+      ]));
    }
 
    componentDidMount(){

@@ -1,14 +1,13 @@
 
 'use strict';
 
-import {BaseController, loopar} from 'loopar-env';
+import { BaseController, loopar } from 'loopar-env';
 import fs from "fs";
 import path from "path";
 import mime from "mime-types";
-import multer from "multer";
 
 export default class FileManagerController extends BaseController {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -32,17 +31,17 @@ export default class FileManagerController extends BaseController {
         }
     }
 
-    async action_view(){
-        const doc = await loopar.get_list("File Manager");
+    async actionView() {
+        const doc = await loopar.getList("File Manager");
 
-        const files = await this.#files_list();
+        const files = await this.#filesList();
 
         doc.rows = files;
 
         return super.render(doc);
     }
 
-    async action_upload() {
+    async actionUpload() {
         const files = this.req.files || [];
 
         for (const file of files) {
@@ -54,14 +53,14 @@ export default class FileManagerController extends BaseController {
         return this.success('ok');
     }
 
-    async action_files() {
+    async actionFiles() {
         const route = (this.data || {}).route;
-        const files = await this.#files_list(route);
-        return super.render({files});
+        const files = await this.#filesList(route);
+        return super.render({ files });
     }
 
-    async #files_list(route){
-        const pathBase = path.join(loopar.path_root, 'public', 'uploads', route || '');
+    async #filesList(route) {
+        const pathBase = loopar.makePath(loopar.pathRoot, 'public', 'uploads', route || '');
         const files = [];
         const dir = await fs.promises.opendir(pathBase);
 

@@ -1,7 +1,6 @@
 'use strict';
 
-import {BaseDocument, file_manage, loopar} from 'loopar-env';
-import path from "path";
+import { BaseDocument, fileManage, loopar } from 'loopar-env';
 
 export default class App extends BaseDocument {
    constructor(props) {
@@ -9,20 +8,20 @@ export default class App extends BaseDocument {
    }
 
    async save() {
-      if(this.__IS_NEW__ && this.git_repo && !["null", "undefined"].includes(this.git_repo)){
+      if (this.__IS_NEW__ && this.git_repo && !["null", "undefined"].includes(this.git_repo)) {
          loopar.validateGitRepository(this.git_repo);
 
          const app_name = this.git_repo.split('/').pop().replace('.git', '');
-         const app_status = await loopar.app_status(app_name);
+         const app_status = await loopar.appStatus(app_name);
 
-         if(file_manage.exist_file_sync(path.join('apps', app_name))){
-            if(app_status ==='installer')
+         if (fileManage.existFileSync(loopar.makePath('apps', app_name))) {
+            if (app_status === 'installer')
                loopar.throw('App already exists, update or install it in <a href="/developer/App%20Manager/view" element="app-manage">App Manage</a>');
             else
                await super.save();
-         }else {
+         } else {
             await loopar.git(app_name).clone(this.git_repo).then(async () => {
-               const app_data = file_manage.get_app_data(app_name);
+               const app_data = fileManage.getAppData(app_name);
 
                if (!app_data || !app_data.DeskWorkspace || !app_data.DeskWorkspace[app_name]) {
                   loopar.throw('Invalid App Structure');
@@ -41,43 +40,132 @@ export default class App extends BaseDocument {
                await super.save();
             });
          }
-      }else{
-         this.autor = !this.autor || this.autor === '' ? loopar.current_user.email : this.autor;
+      } else {
+         this.autor = !this.autor || this.autor === '' ? loopar.currentUser.email : this.autor;
          this.version = !this.version || this.version === '' ? '0.0.1' : this.version;
          await super.save();
-         await this.make_app_structure();
+         await this.makeAppStructure();
       }
 
-      if ([true, 'true', 1, '1'].includes(this.default_app) && this.type === 'Web App'){
-         loopar.default_web_app = this.name;
-      }else{
-         if (loopar.default_web_app === this.name){
-            loopar.default_web_app = null;
+      if ([true, 'true', 1, '1'].includes(this.default_app) && this.type === 'Web App') {
+         loopar.defaultWebApp = this.name;
+      } else {
+         if (loopar.defaultWebApp === this.name) {
+            loopar.defaultWebApp = null;
          }
       }
    }
 
-   async make_app_structure() {
-      if(loopar.installing) return;
+   async makeAppStructure() {
+      if (loopar.installing) return;
 
-      const name_to_path = this.name.replaceAll(" ", "-").toLowerCase();
-      await file_manage.make_folder('apps', name_to_path);
-      await file_manage.make_folder(path.join('apps', name_to_path), 'modules');
+      //await fileManage.makeFolder('apps', this.name);
+      await fileManage.makeFolder(loopar.makePath('apps', this.name), 'modules');
 
-      if (!file_manage.exist_file_sync(path.join('apps', name_to_path, 'installer.json'))) {
-         await file_manage.set_config_file('installer', {}, 'apps/' + name_to_path);
+      if (!fileManage.existFileSync(loopar.makePath('apps', this.name, 'installer.json'))) {
+         await fileManage.setConfigFile('installer', {}, loopar.makePath('apps', this.name));
       }
 
-      const values = await this.rawValues();
-      await loopar.update_installer(path.join("apps", name_to_path), this.__DOCTYPE__.name, this.name, values);
+      await fileManage.makeClass(loopar.makePath('apps', this.name), 'installer', {
+         IMPORTS: {
+            CoreInstaller: 'loopar-env'
+         },
+         EXTENDS: 'CoreInstaller',
+      });
+
    }
 
-   async set_apps(){
-      await file_manage.set_config_file('apps', {}, 'apps');
-      const apps = file_manage.get_config_file('apps', "apps") || {};
+   async syncFilesInstaller() {
+      if (loopar.installing) return;
 
-      apps[this.name] = apps[this.name] || {};
+      if (await loopar.appStatus(this.name) !== 'installed') {
+         loopar.throw('App is not installed yet, install it in <a href="/developer/App%20Manager/view" element="app-manage">App Manage</a>');
+      }
 
-      await file_manage.set_config_file('apps', apps, "apps");
+      /**
+       * Update App
+       */
+      const doc = await loopar.getDocument("Document", "Document");
+
+      await loopar.updateInstaller({
+         doctype: this.__DOCTYPE__,
+         documentName: this.__DOCTYPE__.name,
+         appName: this.name,
+         record: await this.rawValues()
+      });
+
+
+      /**
+       * Update Modules
+       */
+      const moduleDoctype = await loopar.getDocument("Document", "Module");
+
+      const modules = await loopar.db.getAll('Module', moduleDoctype.writableFieldsList().map(field => field.data.name), {
+         "=": { app_name: this.name }
+      });
+
+      await loopar.updateInstaller({
+         doctype: moduleDoctype,
+         documentName: "Module",
+         appName: this.name,
+         record: modules
+      });
+
+      /**
+       * Update Doctypes
+       */
+      const documents = await loopar.db.getAll('Document', ["id", "name", "module", "type"], {
+         "in": { module: modules.map(module => module.name) }
+      });
+
+      await loopar.updateInstaller({
+         doctype: doc,
+         documentName: "Document",
+         appName: this.name,
+         record: documents
+      });
+
+      /**
+       * Update Module Group
+       */
+      if (this.name === "loopar") {
+         const moduleGroupDoctype = await loopar.getDocument("Document", "Module Group");
+         const module_group_list = await loopar.db.getAll('Module Group', moduleGroupDoctype.writableFieldsList().map(field => field.data.name));
+
+         await loopar.updateInstaller({
+            doctype: moduleGroupDoctype,
+            documentName: "Module Group",
+            appName: this.name,
+            record: module_group_list
+         });
+      }
+
+      /**
+       * Update Documents of Documents
+       */
+      for (const document of documents) {
+         const doc = await loopar.getDocument("Document", document.name);
+
+         if (![true, "true", 1, "1"].includes(doc.include_in_installer)) continue;
+         const fields = doc.writableFieldsList().map(field => field.data.name);
+
+         const docs = await loopar.db.getAll(
+            document.name,
+            fields,
+            fields.includes("app_name") ? {
+               "=": { app_name: this.name }
+            } : null,
+            [true, "true", 1, "1"].includes(doc.is_single)
+         );
+
+         await loopar.updateInstaller({
+            doctype: doc,
+            documentName: document.name,
+            appName: this.name,
+            record: docs
+         });
+      }
+
+      return true;
    }
 }

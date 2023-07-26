@@ -1,16 +1,16 @@
 
 'use strict';
 
-import {SingleController} from 'loopar-env';
+import { SingleController } from 'loopar-env';
 import { loopar } from "loopar-env";
 
 export default class StripeController extends SingleController {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
     async action_clientSecret() {
-        const stripe = await loopar.get_document("Stripe");
+        const stripe = await loopar.getDocument("Stripe");
 
         return await this.success(await stripe.authorize());
     }

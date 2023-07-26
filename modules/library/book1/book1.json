@@ -1,0 +1,14 @@
+{
+  "id": 28,
+  "name": "Book1",
+  "module": "library",
+  "default_list_view": "List",
+  "type": "Document",
+  "is_single": 0,
+  "is_static": 0,
+  "include_in_installer": "0",
+  "doc_structure": "[{\"element\":\"input\",\"is_writable\":true,\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"hidden\":1},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Book Name\",\"name\":\"book_name\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5}},\"elements\":[]},{\"element\":\"date_time\",\"is_writable\":true,\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1},\"elements\":[]}]",
+  "search_fields": "undefined",
+  "title_fields": "undefined",
+  "deleted_at": null
+}

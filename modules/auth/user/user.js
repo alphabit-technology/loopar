@@ -1,6 +1,6 @@
 'use strict'
 
-import {BaseDocument, loopar} from "loopar-env";
+import { BaseDocument, loopar } from "loopar-env";
 
 export default class User extends BaseDocument {
    constructor(props) {
@@ -33,7 +33,7 @@ export default class User extends BaseDocument {
       }
 
       /**Test Email */
-      if (await loopar.db.get_value('User', 'id', {'=': {email: this.email}}, this.id)) {
+      if (await loopar.db.get_value('User', 'id', { '=': { email: this.email } }, this.id)) {
          loopar.throw(`The email <strong>${this.email}</strong> is invalid`);
       }
    }
@@ -48,34 +48,34 @@ export default class User extends BaseDocument {
       this.validate_password_strong();
    }
 
-   async save(){
+   async save() {
       const password = this.password;
       const confirm_password = this.confirm_password;
 
-      if(this.__IS_NEW__){
+      if (this.__IS_NEW__) {
          this.password = loopar.hash(password);
          this.confirm_password = loopar.hash(confirm_password);
-      }else{
-         const user = await loopar.get_document('User', this.name);
+      } else {
+         const user = await loopar.getDocument('User', this.name);
 
-         if(password && password.length > 0 && password !== this.protected_password){
+         if (password && password.length > 0 && password !== this.protected_password) {
             this.password = loopar.hash(password);
             this.confirm_password = loopar.hash(confirm_password);
-         }else{
+         } else {
             this.password = user.password;
             this.confirm_password = user.confirm_password;
          }
       }
 
-      if(password !== confirm_password){
+      if (password !== confirm_password) {
          loopar.throw('The password and confirmation password do not match.');
       }
 
       await super.save();
    }
 
-   async delete(){
-      if(this.name === 'Administrator'){
+   async delete() {
+      if (this.name === 'Administrator') {
          loopar.throw('The "Administrator" user cannot be deleted.');
          return;
       }
