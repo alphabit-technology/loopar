@@ -100,7 +100,7 @@ export default class GPT extends BaseDocument {
 
     validateSettings() {
         if(!this.api_key){
-            loopar.throw("Please set the API key in the settings of the GPT module");
+            loopar.throw(`Please set the API key in the settings of the GPT model<br/><br/><a href="/desk/Integrations/GPT/update">Chat GPT Api Settings</a>`);
         }
     }
 

@@ -3,7 +3,7 @@
 
 import {BaseDocument} from 'loopar-env';
 
-export default class DocumentSingleValues extends BaseDocument {
+export default class Error extends BaseDocument {
     constructor(props){
         super(props);
     }

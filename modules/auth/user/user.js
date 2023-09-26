@@ -8,14 +8,14 @@ export default class User extends BaseDocument {
    }
 
    /**function validate password strong */
-   validate_password_strong() {
+   validatePasswordStrong() {
       const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
       if (!strongRegex.test(this.password)) {
          //loopar.throw('Your password must be at least 8 characters long, contain at least one lowercase letter, one uppercase letter, one number and one special character');
       }
    }
 
-   async validate_name_user() {
+   async validateUserName() {
       const regex = new RegExp("^[a-zA-Z ]+$");
 
       if (!regex.test(this.name)) {
@@ -28,12 +28,12 @@ export default class User extends BaseDocument {
       }
 
       /**Test Name */
-      if (await loopar.db.get_value('User', 'id', this.name, this.id)) {
+      if (await loopar.db.getValue('User', 'id', this.name, this.id)) {
          loopar.throw(`The name <strong>${this.name}</strong> is invalid`);
       }
 
       /**Test Email */
-      if (await loopar.db.get_value('User', 'id', { '=': { email: this.email } }, this.id)) {
+      if (await loopar.db.getValue('User', 'id', { '=': { email: this.email } }, this.id)) {
          loopar.throw(`The email <strong>${this.email}</strong> is invalid`);
       }
    }
@@ -44,30 +44,30 @@ export default class User extends BaseDocument {
       }
 
       await super.validate();
-      await this.validate_name_user();
-      this.validate_password_strong();
+      await this.validateUserName();
+      this.validatePasswordStrong();
    }
 
    async save() {
       const password = this.password;
-      const confirm_password = this.confirm_password;
+      const confirmPassword = this.confirm_password;
 
       if (this.__IS_NEW__) {
          this.password = loopar.hash(password);
-         this.confirm_password = loopar.hash(confirm_password);
+         this.confirm_password = loopar.hash(confirmPassword);
       } else {
          const user = await loopar.getDocument('User', this.name);
 
-         if (password && password.length > 0 && password !== this.protected_password) {
+         if (password && password.length > 0 && password !== this.protectedPassword) {
             this.password = loopar.hash(password);
-            this.confirm_password = loopar.hash(confirm_password);
+            this.confirm_password = loopar.hash(confirmPassword);
          } else {
             this.password = user.password;
             this.confirm_password = user.confirm_password;
          }
       }
 
-      if (password !== confirm_password) {
+      if (password !== confirmPassword) {
          loopar.throw('The password and confirmation password do not match.');
       }
 

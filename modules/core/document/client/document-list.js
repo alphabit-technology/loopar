@@ -1,5 +1,4 @@
 import { div, span, button, i, a, h5 } from '/components/elements.js';
-import { avatar, Capitalize } from '/tools/helper.js';
 import ListContext from '/gui/document/list-context.js'
 import { loopar } from "/loopar.js";
 
@@ -45,7 +44,11 @@ export default class DocumentList extends ListContext {
             ])
          ]),
          div({ className: "card-body text-center" }, [
-            a({ className: `tile tile-lg bg-${loopar.bg_color(row.name)} mb-2`, href: `/${row.module}/${row.name}/${action}`, element: `element-${action}` }, avatar(row.name)),
+            a({
+               className: `tile tile-lg bg-${loopar.bgColor(row.name)} mb-2`, 
+               href: `/${row.module}/${row.name}/${action}`, 
+               //element: `element-${action}`
+            }, loopar.utils.avatar(row.name)),
             h5({ className: "card-title" }, [
                a({ className: "card-title", href: "#" }, row.name)
             ]),
@@ -58,7 +61,7 @@ export default class DocumentList extends ListContext {
                className: "card-footer-item card-footer-item-bordered card-link",
                href: `/${row.module}/${row.name}/${action}`,
                element: "view_list"
-            }, Capitalize(action === 'list' ? 'View List' : action)),
+            }, loopar.utils.Capitalize(action === 'list' ? 'View List' : action)),
             a({
                className: "card-footer-item card-footer-item-bordered card-link",
                href: `/${row.module}/${row.name}/create`,

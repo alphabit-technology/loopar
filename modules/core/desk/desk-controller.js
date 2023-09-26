@@ -1,17 +1,16 @@
 
 'use strict';
 
-import {BaseController} from 'loopar-env';
-import {loopar} from "../../../../../loopar-env/index.js";
+import {loopar, BaseController} from "loopar-env";
 
 export default class DeskController extends BaseController {
     constructor(props){
         super(props);
     }
 
-    async action_sidebar(){
+    async actionSidebar(){
         return await super.render({
-            sidebarData: loopar.modules_group
+            sidebarData: loopar.modulesGroup
         });
     }
 }

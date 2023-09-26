@@ -9,7 +9,7 @@ export default class StripeController extends SingleController {
         super(props);
     }
 
-    async action_clientSecret() {
+    async actionClientSecret() {
         const stripe = await loopar.getDocument("Stripe");
 
         return await this.success(await stripe.authorize());

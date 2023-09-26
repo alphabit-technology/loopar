@@ -3,7 +3,7 @@
 
 import ReportContext from '/gui/document/report-context.js';
 
-export default class Book1Report extends ReportContext {
+export default class ConnectedDocumentReport extends ReportContext {
     constructor(props){
         super(props);
     }

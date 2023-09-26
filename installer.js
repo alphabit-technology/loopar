@@ -13,7 +13,7 @@ export default class Installer extends CoreInstaller {
     await loopar.db.alterSchema();
     await this.#makeCoreTable();
 
-    await super.install();
+    return await super.install();
   }
 
   async setDbConfig() {
@@ -21,7 +21,7 @@ export default class Installer extends CoreInstaller {
 
       db_config.database = 'db_' + sha1(this.company);
 
-      env.db_config = db_config;
+      env.dbConfig = db_config;
       return await fileManage.setConfigFile('db.config', db_config);
   }
 

@@ -3,7 +3,7 @@
 
 import ViewContext from '/gui/document/view-context.js';
 
-export default class Book1View extends ViewContext {
+export default class DocumentHistoryView extends ViewContext {
     constructor(props){
         super(props);
     }

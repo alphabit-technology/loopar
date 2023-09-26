@@ -10,7 +10,7 @@ export default class AppManager extends BaseDocument {
 
     async pull() {
         //console.log('pulling app');
-        const exist = await loopar.db.get_value('App', "name", this.app_name, null, null);
+        const exist = await loopar.db.getValue('App', "name", this.app_name);
 
         if (!exist) {
             loopar.throw(`App ${this.app_name} is not installed, please install it first`);
@@ -29,7 +29,7 @@ export default class AppManager extends BaseDocument {
 
     async clone() {
         const app_name = this.git_repo.split('/').pop().replace('.git', '');
-        const exist = await loopar.db.get_value('App', "name", app_name, null, null);
+        const exist = await loopar.db.getValue('App', "name", app_name);
 
         if (exist) {
             loopar.throw(`App ${app_name} is already installed, please update it instead`);
@@ -45,7 +45,7 @@ export default class AppManager extends BaseDocument {
     }
 
     async updateIntaller() {
-        const modules = await loopar.db.get_all('Module', ["name"]);
+        const modules = await loopar.db.getAll('Module', ["name"]);
 
         for (const module of modules) {
             const document = await loopar.getDocument(module.name);

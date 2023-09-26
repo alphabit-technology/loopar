@@ -45,6 +45,8 @@ export default class App extends BaseDocument {
          this.version = !this.version || this.version === '' ? '0.0.1' : this.version;
          await super.save();
          await this.makeAppStructure();
+
+         
       }
 
       if ([true, 'true', 1, '1'].includes(this.default_app) && this.type === 'Web App') {
@@ -54,6 +56,8 @@ export default class App extends BaseDocument {
             loopar.defaultWebApp = null;
          }
       }
+
+      return true;
    }
 
    async makeAppStructure() {
@@ -130,13 +134,13 @@ export default class App extends BaseDocument {
        */
       if (this.name === "loopar") {
          const moduleGroupDoctype = await loopar.getDocument("Document", "Module Group");
-         const module_group_list = await loopar.db.getAll('Module Group', moduleGroupDoctype.writableFieldsList().map(field => field.data.name));
+         const moduleGroupList = await loopar.db.getAll('Module Group', moduleGroupDoctype.writableFieldsList().map(field => field.data.name));
 
          await loopar.updateInstaller({
             doctype: moduleGroupDoctype,
             documentName: "Module Group",
             appName: this.name,
-            record: module_group_list
+            record: moduleGroupList
          });
       }
 
@@ -167,5 +171,53 @@ export default class App extends BaseDocument {
       }
 
       return true;
+   }
+
+   async unInstall(){
+      return await loopar.unInstallApp(this.name);
+
+      /*loopar.installing = true;
+
+      if (this.name === "loopar") {
+         loopar.throw("You can't uninstall app Loopar");
+      }
+
+      const modules = await loopar.db.getAll("Module", ["name"], {
+         '=': { app_name: this.name } 
+      });
+
+      //console.log("Uninstalling App", this.name, modules)
+      loopar.db.beginTransaction();
+
+      for (const module of modules) {
+         const documents = await loopar.db.getAll("Document", ["name"], {
+            '=': { module: module.name } 
+         });
+
+         for (const document of documents) {
+            //setTimeout(async () => {
+               await loopar.deleteDocument("Document", document.name, {updateInstaller: false, sofDelete: false});
+            //}, 0);
+            //await loopar.delete_document("Document", document.name, false);
+         }
+
+         //setTimeout(async () => {
+            await loopar.deleteDocument("Module", module.name, {updateInstaller: false});
+         //}, 0);
+      }
+
+      await loopar.makeConfig();
+
+      //setTimeout(async () => {
+         await this.delete();
+
+         console.log("App uninstalled", loopar.db.transactions);
+         await loopar.db.endTransaction();
+      //}, 0);
+      //await this.delete();
+
+      //loopar.db.endTransaction();
+
+      return 'App uninstalled successfully';*/
    }
 }

@@ -13,28 +13,27 @@ export default class AppManagerController extends InstallerController {
 
     async actionView() {
         this.client = "view";
-        const apps_list = [];
+        const appsList = [];
 
         const dir = await fs.promises.opendir(loopar.makePath(loopar.pathRoot, "apps"));
 
         for await (const dirent of dir) {
             const appData = fileManage.getConfigFile('installer', loopar.makePath("apps", dirent.name), null);
 
-            if (appData && appData.App && appData.App.documents) {
-                for (const app of Object.values(appData.App.documents)) {
-                    const installedApp = await loopar.getApp(app.name);
+            for (const app of Object.values(appData?.App?.documents ?? {})) {
+                const installedApp = await loopar.getApp(app.name);
 
-                    app.installed = !!installedApp;
-                    app.version ??= '0.0.1';
-                    app.installed_version = installedApp ? installedApp.version : app.version;
-                    app.valid_repo = loopar.gitRepositoryIsValid(app.git_repo);
+                app.installed = !!installedApp;
+                app.version ??= '0.0.1';
+                app.installed_version = installedApp ? installedApp.version : app.version;
+                app.valid_repo = loopar.gitRepositoryIsValid(app.git_repo);
 
-                    apps_list.push(app);
-                }
+                appsList.push(app);
             }
         }
 
-        this.response.apps = apps_list;
+        this.response.apps = appsList;
+        //return await this.render(this.response);
         await super.actionUpdate();
     }
 
@@ -58,10 +57,9 @@ export default class AppManagerController extends InstallerController {
         }
     }
 
-    async actionUpdateInstaller() {
+    async actionSyncInstaller() {
         const model = await loopar.getDocument("App", this.data.documentName)
 
-        console.log("update installer", model)
         if (await model.syncFilesInstaller()) {
             return await this.success('Installer updated successfully');
         }

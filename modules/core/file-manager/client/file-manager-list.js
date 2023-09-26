@@ -1,20 +1,21 @@
 'use strict';
 
-import { FileBrowser } from '/components/tools/file-browser.js';
 import ListContext from '/gui/document/list-context.js';
-import { button, i, File_uploader } from '/components/elements.js';
-import { element_manage } from '/components/element-manage.js';
+import { button, i, FileUploader, span, div, a } from '/components/elements.js';
 import { loopar } from '/loopar.js';
 import { fileManager } from "/components/tools/file-manager.js";
-import { FilePreview } from "/components//base/file-preview.js";
+import { FilePreview } from "/components/base/file-preview.js";
 
 
 export default class FileManagerList extends ListContext {
-   //has_header = false;
    renderGrid = true;
+   hiddenColumns = ["id", "size", "type", "src", "previewSrc"];
+   filesRefs = {};
+
    constructor(props) {
       super(props);
 
+      typeof props.onlyGrid !== "undefined" && (this.onlyGrid = props.onlyGrid);
       this.state = {
          ...this.state,
          uploading: false,
@@ -25,68 +26,66 @@ export default class FileManagerList extends ListContext {
       return fileManager.getMappedFiles(file);
    }
 
-   gridTemplate(row, action) {
-      row.extention = row.name.split('.').pop();
-      
-      const file = this.file([row])[0]
-
-      
+   get mappedColumns() {
       return [
+         {
+            data: {
+               label: "Name",
+               name: "name",
+               value: (row) => {
+                  const type = fileManager.getFileType(row);
+                  const icon = fileManager.getRenderedFileIcon(type);
+                  return [
+                     div({className: "media align-items-center"}, [
+                        a({ className: "mr-2"}, [
+                           icon
+                        ]),
+                        div({className: "media-body"}, [
+                           a({
+                              href: `update?documentName=${row.name}`
+                           }, row.name),
+                           span({className: "d-block text-muted"}, [
+                              fileManager.getFileSize(row.size)
+                           ])
+                        ])
+                     ])
+                  ]
+               }
+            }
+         }
+      ];
+   }
 
+   get multiple() {
+      return this.props.multiple !== 0;
+   }
+
+   gridTemplate(row, action, grid) {
+      row.extention = row.name.split('.').pop();
+      const file = this.file([row])[0];
+
+      return [
          FilePreview({
-            //key: element_manage.getUniqueKey(),
+            data: row,
             file: file,
-            //selected: file.selected,
+            key: ``,
+            onSelect: (src) => {
+               this.props.onSelect && this.props.onSelect(src);
+            },
+            accept: this.props.accept || "/*",
+            multiple: this.props.multiple !== 0,
+            docRef: this,
+            grid,
+            ref: (ref) => {
+               this.filesRefs[row.name] = ref;
+            }
          })
-         /*div({ className: "card-header border-0" }, [
-            div({ className: "d-flex justify-content-between align-items-center" }, [
-               span({ className: "badge bg-muted", title: "Enabled" }, [
-                  span({ className: "sr-only" }, "Enabled"),
-                  i({ className: "fa fa-fw fa-check-circle text-teal" }, "i")
-               ]),
-               div({ className: "dropdown", style: { display: 'none' } }, [
-                  button({ className: "btn btn-icon btn-light", type: "button", "data-toggle": "dropdown", "aria-expanded": "false" }, [
-                     i({ className: "fa fa-ellipsis-v" })
-                  ]),
-                  div({ className: "dropdown-menu dropdown-menu-right" }, [
-                     div({ className: "dropdown-arrow" }),
-                     a({ className: "dropdown-item", href: "#", element: "view-list" }, "View List"),
-                     a({ className: "dropdown-item", href: "#", element: "add-document" }, `Add ${row.name}`),
-                     a({ className: "dropdown-item", href: "#", element: "edit-document" }, `Edit ${row.name}`),
-                     a({ className: "dropdown-item", href: "#", element: "delete-document" }, `Remove ${row.name}`)
-                  ])
-               ])
-            ])
-         ]),
-         div({ className: "card-body text-center" }, [
-            a({ className: `tile tile-lg bg-${loopar.bg_color(row.name)} mb-2`, href: `/${row.module}/${row.name}/${action}`, element: `element-${action}` }, avatar(row.name)),
-            h5({ className: "card-title" }, [
-               a({ className: "card-title", href: "#" }, row.name)
-            ]),
-            div({ className: "my-3" }, [
-               div({ className: "avatar-group" })
-            ])
-         ]),
-         div({ className: "card-footer" }, [
-            a({
-               className: "card-footer-item card-footer-item-bordered card-link",
-               href: `/${row.module}/${row.name}/${action}`,
-               element: "view_list"
-            }, Capitalize(action === 'list' ? 'View List' : action)),
-            a({
-               className: "card-footer-item card-footer-item-bordered card-link",
-               href: `/${row.module}/${row.name}/create`,
-               element: "add",
-               style: row.is_single ? { display: 'none' } : {}
-            }, "Add")
-         ])*/
       ];
    }
 
    render(){
-      this.setCustomActions();
       return super.render([
-         this.state.uploading ? File_uploader({
+         this.state.uploading ? FileUploader({
             meta: {
                data: {
                   name: "file",
@@ -113,14 +112,18 @@ export default class FileManagerList extends ListContext {
       }
    }
 
-   /*render() {
-      return super.render([
-         FileBrowser({
-            has_title: true,
-            files: this.props.meta.rows,
-         })
-      ]);
-   }*/
+   componentDidMount() {
+      this.setCustomActions();
+   }
+
+   getSelectedFiles() {
+      console.log(this.grid?.selectedRows);
+      return this.grid?.selectedRows || [];
+   }
+
+   getFiles() {
+      return this.props.meta.rows;
+   }
 
    primaryAction() {
       return button({

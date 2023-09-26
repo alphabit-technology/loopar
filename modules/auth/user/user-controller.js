@@ -7,16 +7,16 @@ export default class UserController extends BaseController {
       super(props);
    }
 
-   async action_update() {
+   async actionUpdate() {
       this.context ??= 'form';
-      const document = await loopar.getDocument("User", this.document_name, this.has_data() ? this.data : null);
+      const document = await loopar.getDocument("User", this.documentName, this.hasData() ? this.data : null);
 
-      if (this.has_data()) {
+      if (this.hasData()) {
          await document.save();
-         return this.render({ success: true, message: `Document ${document.name} saved successfully`, document_name: document.name });
+         return this.success(`Document ${document.name} saved successfully`);
       } else {
-         document.password = document.protected_password;
-         document.confirm_password = document.protected_password;
+         //document.password = document.protectedPassword;
+         //document.confirm_password = document.protectedPassword;
 
          Object.assign(this.response, await document.__data__());
          this.response.app = 'form';
@@ -25,7 +25,7 @@ export default class UserController extends BaseController {
       }
    }
 
-   action_logout() {
+   actionLogout() {
       loopar.session.destroy();
       this.redirect('/auth/login/login');
    }

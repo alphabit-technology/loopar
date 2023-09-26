@@ -3,7 +3,7 @@
 
 import ViewContext from '/gui/document/view-context.js';
 
-export default class DocumentSingleValuesView extends ViewContext {
+export default class ConnectedDocumentView extends ViewContext {
     constructor(props){
         super(props);
     }

@@ -7,14 +7,14 @@ import GlobalContext from "/components/global-context.js";
 
 export default class DocumentForm extends FormContext {
    static contextType = GlobalContext;
-   editing_element = false;
+   editingElement = false;
 
    constructor(props) {
       super(props);
    }
 
    render() {
-      const { sidebar_option } = this.context;
+      const { sidebarOption } = this.context;
 
       return super.render();
    }
@@ -34,7 +34,7 @@ export default class DocumentForm extends FormContext {
             ...meta.__DOCTYPE__.STRUCTURE.map(el => {
                el.element = el.data.name === "doc_designer" ? "designer" : el.element;
 
-               const className = el.element === "designer" && this.state.sidebar_option === "designer" ? "design true" : "";
+               const className = el.element === "designer" && this.state.sidebarOption === "designer" ? "design true" : "";
                return Element(el.element, {
                   className: "tesst",
                   formRef: this,
@@ -48,37 +48,36 @@ export default class DocumentForm extends FormContext {
    }*/
 
    get sidebarHeaderContent() {
-      const sidebar_option = loopar.sidebar_option;
+      const sidebarOption = loopar.sidebarOption;
       return [
          button({
             className: "btn btn-secondary",
             type: "button",
             onClick: () => { this.toggleDesign() }
          }, [
-            span({ className: `oi oi-brush mr-2 ${sidebar_option === "designer" ? "oi-eye" : "oi-brush"}` }),
-            span(sidebar_option === "designer" ? "Preview" : "Design")
+            span({ className: `oi oi-brush mr-2 ${sidebarOption === "designer" ? "oi-eye" : "oi-brush"}` }),
+            span(sidebarOption === "designer" ? "Preview" : "Design")
          ])
       ]
    }
 
    get sidebarContent() {
-      const sidebar_option = (!this.editing_element && loopar.sidebar_option === "editor") ? "designer" : loopar.sidebar_option;
-      loopar.sidebar_option = sidebar_option;
+      const sidebarOption = (!this.editingElement && loopar.sidebarOption === "editor") ? "designer" : loopar.sidebarOption;
+      loopar.sidebarSption = sidebarOption;
 
       const { meta = {} } = this.state;
       const data = meta.data || {};
 
       return [
          DesignerForm({
-            className: ["designer", "preview"].includes(sidebar_option) ? "" : "d-none",
-            data: data,
-            app: this
+            className: ["designer", "preview"].includes(sidebarOption) ? "" : "d-none",
+            data: data
          }),
          ElementEditor({
-            className: "col " + (sidebar_option === "editor" ? "" : " d-none"),
+            className: "col " + (sidebarOption === "editor" ? "" : " d-none"),
             ref: self => {
-               loopar.document_form = this;
-               this.element_editor = self;
+               loopar.documentForm = this;
+               this.elementEditor = self;
                //this.load_document();
             }
          })
@@ -96,16 +95,16 @@ export default class DocumentForm extends FormContext {
    }*/
 
    editElement(element) {
-      this.editing_element = true;
+      this.editingElement = true;
       this.toggleDesign("editor");
       this.gui.toggleSidebar(true);
-      this.element_editor.editElement(element);
+      this.elementEditor.editElement(element);
 
    }
 
    toggleDesign(sidebarOpt = null) {
-      const { sidebar_option: current } = loopar;
-      loopar.sidebar_option = sidebarOpt !== null ? sidebarOpt
+      const { sidebarOption: current } = loopar;
+      loopar.sidebarOption = sidebarOpt !== null ? sidebarOpt
          : ["preview", "editor"].includes(current) ? "designer"
             : "preview";
 
@@ -113,7 +112,7 @@ export default class DocumentForm extends FormContext {
    }
 
 
-   make_doc_structure() {
+   makeDocStructure() {
       /*const elements = (base) => {
          return base.elements_dict.map(e => {
             const el = base.elements_list[e.data.name];
@@ -140,10 +139,10 @@ export default class DocumentForm extends FormContext {
       this.set_value("doc_structure", JSON.stringify(elements(this.doc_designer)));*/
    }
 
-   get form_values() {
+   get formValues() {
       return {
-         ...super.form_values,
-         //doc_structure: this.form_fields.doc_structure.val()
+         ...super.formValues,
+         //doc_structure: this.formFields.doc_structure.val()
       }
    }
 

@@ -8,11 +8,11 @@ export default class Login extends BaseDocument {
    }
 
    async login() {
-      const user = await loopar.get_user(this.user_name);
-      const password_hash = loopar.hash(this.password);
+      const user = await loopar.getUser(this.user_name);
+      const passwordHash = loopar.hash(this.password);
 
       return new Promise(resolve => {
-         if (user && !(user.disabled && user.name !== 'Administrator') && (this.user_name === user.name || this.user_name === user.email) && password_hash === user.password) {
+         if (user && !(user.disabled && user.name !== 'Administrator') && (this.user_name === user.name || this.user_name === user.email) && passwordHash === user.password) {
             loopar.session.set('user', {
                name: user.name,
                email: user.email,

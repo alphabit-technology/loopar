@@ -3,7 +3,7 @@
 
 import ListContext from '/gui/document/list-context.js';
 
-export default class Book1List extends ListContext {
+export default class ConnectedDocumentList extends ListContext {
     constructor(props){
         super(props);
     }

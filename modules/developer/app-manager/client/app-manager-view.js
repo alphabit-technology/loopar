@@ -1,7 +1,6 @@
 'use strict';
 
 import ViewContext from '/gui/document/view-context.js'
-import {avatar} from '/tools/helper.js';
 import noData from "/components/common/no-data.js";
 import {div, span, button, i, a, h5, label} from "/components/elements.js";
 import {loopar} from "/loopar.js";
@@ -13,10 +12,8 @@ export default class AppManagerView extends ViewContext {
 
    render() {
       const apps = this.makeApps();
-      this.setCustomActions();
-
       return super.render([
-         apps.length > 0 ? div({className: "row"}, apps ) : div({}, React.createElement(no_data, {}))
+         apps.length > 0 ? div({ className: "row" }, apps) : div({}, React.createElement(noData, {}))
       ]);
    }
 
@@ -41,10 +38,14 @@ export default class AppManagerView extends ViewContext {
       });
    }
 
+   componentDidMount() {
+      this.setCustomActions();
+   }
+
    setCustomActions() {
       super.setCustomActions();
 
-      this.setCustomAction('add_app', button({
+      this.setCustomAction('addApp', button({
          className: "btn btn-primary",
          type: "button",
          onClick: () => {
@@ -55,7 +56,7 @@ export default class AppManagerView extends ViewContext {
          " Add App"
       ]));
 
-      this.setCustomAction('get_app',  button({
+      this.setCustomAction('getApp',  button({
          className: "btn btn-secondary",
          type: "button",
          onClick: () => {
@@ -94,13 +95,13 @@ export default class AppManagerView extends ViewContext {
                             a({
                               className: `dropdown-item ${app.valid_repo ? '' : 'disabled'}`,
                               href: "#",
-                              onClick: () => this.send_app_action(app.name, 'pull'),
+                              onClick: () => this.sendAppAction(app.name, 'pull'),
                               disabled: !app.valid_repo
                            }, "Pull and Update"),
                            a({
                               className: `dropdown-item ${app.valid_repo ? '' : 'disabled'}`,
                               href: "#",
-                              onClick: () => this.send_app_action(app.name, 'push'),
+                              onClick: () => this.sendAppAction(app.name, 'push'),
                               disabled: !app.valid_repo
                            }, "Push to Github"),
                            app.valid_repo ? a({className: "dropdown-item", href: app.git_repo, _target: "blank"}, "View on Github") : null,
@@ -109,7 +110,7 @@ export default class AppManagerView extends ViewContext {
                   ])
                ]),
                div({className: "card-body text-center"}, [
-                  a({className: `tile tile-lg bg-${app.installed ? 'purple' : 'red'} mb-2`}, avatar(app.name)),
+                  a({className: `tile tile-lg bg-${app.installed ? 'purple' : 'red'} mb-2`}, loopar.utils.avatar(app.name)),
                   h5({className: "card-title"}, [
                      a({className: "card-title", href: "#"}, app.info)
                   ])
@@ -118,7 +119,7 @@ export default class AppManagerView extends ViewContext {
                   div({className: "card-footer-item"}, [
                      button({
                         className: "btn btn-reset text-nowrap text-muted",
-                        onClick: () => this.send_app_action(app.name, app.installed ? 'uninstall' : 'install'),
+                        onClick: () => this.sendAppAction(app.name, app.installed ? 'uninstall' : 'install'),
                      }, [
                         i({className: `fa fa-fw ${app.installed ? 'fa-trash text-danger' : 'oi oi-fork text-warning'} mr-1`}),
                         label(app.installed ? 'Uninstall' : 'Install')
@@ -128,7 +129,7 @@ export default class AppManagerView extends ViewContext {
                      button({
                         className: "btn btn-reset text-nowrap text-muted",
                         disabled: !(app.installed && app.installed_version !== app.version),
-                        onClick: () => this.send_app_action(app.name, 'reinstall')
+                        onClick: () => this.sendAppAction(app.name, 'reinstall')
                      }, [
                         i({className: "oi oi-loop-circular text-warning mr-2"}),
                         label(app.installed && app.installed_version !== app.version ? app.version : "Reinstall")
@@ -140,19 +141,20 @@ export default class AppManagerView extends ViewContext {
       });
    }
 
-   send_app_action(app_name, action) {
+   sendAppAction(appName, action) {
+      const deleteMessage = action === "uninstall" ? `<br/><br/><span class='fa fa-circle text-red pr-2'></span> <strong class='text-red'>All data and Documents related to ${appName} will be deleted.</strong>` : '';
       loopar.dialog({
          type: "confirm",
          title: "Confirm",
-         message: `Are you sure you want to ${action} ${app_name}?`,
+         message: `Are you sure you want to ${action} ${appName}?${deleteMessage}`,
          ok: () => {
             loopar.http.send({
                action: `${action}`,
-               params: {app_name: app_name, installing: true},
-               body: {app_name},
+               params: { app_name: appName, installing: true},
+               body: { app_name: appName },
                success: r => {
                   if (r && r.success) {
-                     loopar.root_app.refresh().then(() => {
+                     loopar.rootApp.refresh().then(() => {
                         loopar.navigate('/developer/App%20Manager/view');
                      });
 

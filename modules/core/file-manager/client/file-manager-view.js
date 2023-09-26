@@ -13,7 +13,7 @@ export default class FileManagerView extends ViewContext {
     render() {
         //return super.render([
         return FileBrowser({
-                has_title: true,
+                hasTitle: true,
                 files: this.props.meta.rows,
             })
         //]);

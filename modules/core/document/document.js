@@ -1,8 +1,11 @@
-import { BaseDocument, fileManage, loopar } from "loopar-env";
+import { BaseDocument, documentManage, fileManage, loopar } from "loopar-env";
 import { Helpers } from "loopar-env";
 import decamelize from "decamelize";
+import { fileTypeFromBuffer } from 'file-type';
+
 
 export default class Document extends BaseDocument {
+   __CORE_FILES__ = [];
    constructor(props) {
       super(props);
    }
@@ -18,8 +21,7 @@ export default class Document extends BaseDocument {
 
       const args = arguments[0] || {};
       const validate = args.validate !== false;
-
-      this.fixFields();
+      await this.fixFields(this.doc_structure);
       
       if(validate){
          this.validateFields();
@@ -33,6 +35,7 @@ export default class Document extends BaseDocument {
          await loopar.db.makeTable(this.name, this.doc_structure);
       }
       await super.save(arguments[0] || {});
+      await this.save__CORE_FILES__();
       await loopar.db.endTransaction();
 
       if (loopar.installing) return;
@@ -44,133 +47,258 @@ export default class Document extends BaseDocument {
       await loopar.makeConfig();
    }
 
+   async save__CORE_FILES__(){
+      for (const file of this.__CORE_FILES__ || []) {
+         const fileManager = await loopar.newDocument("File Manager");
+
+         fileManager.reqUploadFile = file;
+         fileManager.app = this.__APP__;
+         await fileManager.save();
+      }
+
+      this.__CORE_FILES__ = [];
+   }
+
    clientFieldsList(fields = this.doc_structure) {
-      return (fields || []).reduce((acc, field) => {
+      return loopar.utils.fieldList(fields);
+      /*return (fields || []).reduce((acc, field) => {
          return acc.concat(field, this.clientFieldsList(field.elements || []));
-      }, []);
+      }, []);*/
    }
 
    writableFieldsList(){
       return this.clientFieldsList().filter(field => fieldIsWritable(field));
    }
 
-   fixFields() {
-      let exist_column = false;
-
-      const fixFields = (fields = this.doc_structure, field_data = {}) => {
-         return (fields || []).map(field => {
-            field.data = Object.entries(field.data || {}).reduce((obj, [key, value]) => {
-               if (value === null || value === undefined || value === "" || value === "null" || value === "undefined" || value === 0 || value === "0") {
-                  return obj;
-               } else {
-                  return { ...obj, [key]: value };
+   getSpecialFieldsMeta() {
+      return {
+         namedContainer: {
+            element: ROW,
+            data: {
+               name: 'name_and_status_container',
+            },
+            elements: []
+         },
+         elementsNamed: [
+            {
+               element: INPUT,
+               data: {
+                  name: 'name',
+                  label: 'Name',
+                  required: 1,
+                  type: 'text',
+                  in_list_view: 1,
+                  set_only_time: 1,
+                  unique: 1,
+                  searchable: 1
                }
-            }, {});
-
-            const field_d = field_data.data || {};
-
-            if (field_d.name === field.data.name) {
-               exist_column = true;
-               Object.assign(field.data, field_d);
+            },
+            {
+               element: SELECT,
+               data: {
+                  name: '__document_status__',
+                  label: 'Status',
+                  options: 'Active\nInactive\nDraft\nPending\nApproved\nRejected\nArchived\nDeleted',
+                  default_value: 'Active',
+                  hidden: 1,
+               }
+            },
+            {
+               element: ID,
+               data: {
+                  name: 'id',
+                  label: 'ID',
+                  type: INTEGER,
+                  required: 1,
+                  in_list_view: 0,
+                  hidden: 1
+               }
             }
+         ]
+      };
+   }
 
-            field.elements = fixFields(field.elements || [], field_data);
+   insertField(field, targetField, position = 'after') {
+      const fields = this.doc_structure;
 
-            if (this.__IS_NEW__ && field.data.required) {
-               field.data.in_list_view = 1;
+      const insertField = (fields, field, targetField, position = 'after') => {
+         for (let i = 0; i < fields.length; i++) {
+            if (fields[i].data.name === targetField) {
+               if (position === 'after') {
+                  fields.splice(i + 1, 0, field);
+               } else if (position === 'before') {
+                  fields.splice(i, 0, field);
+               }
+               return;
+            } else if (fields[i].elements && fields[i].elements.length > 0) {
+               insertField(fields[i].elements, field, targetField, position);
             }
-
-            return field;
-         });
+         }
       }
 
-      const name_structure = {
-         element: INPUT,
-         is_writable: true,
-         data: {
-            name: 'name',
-            label: 'Name',
-            type: 'text',
-            required: 1,
-            in_list_view: 1,
-            set_only_time: 1,
-            unique: 1,
+      insertField(fields, field, targetField, position);
+   }
+
+   async fixFields(){
+      const __IS_NEW__ = this.__IS_NEW__;
+
+      const updateOrInsertField = ({ fields = this.doc_structure, field, position = null, target = null }) => {
+         let foundField = false;
+         let targetFound = fields;
+
+         const searchAndInsert = (items) => {
+            items.forEach(f => {
+               if (target && f.data.name === target) {
+                  targetFound = f.elements || null;
+               }
+
+               if (field.data.name === f.data.name) {
+                  foundField = true;
+                  Object.assign(f.data, field.data);
+               } else if (f.elements && f.elements.length > 0) {
+                  searchAndInsert(f.elements);
+               }
+            });
+         };
+
+         searchAndInsert(fields);
+
+         if (!foundField && (position === 'after' || position === null)) {
+            targetFound.push(field);
+         } else if (!foundField && position === 'before') {
+            targetFound.unshift(field);
          }
+
+         foundField = false;
+         this.doc_structure = fields;
       };
 
-      /*const is_deleted = {
-         element: INPUT,
-         is_writable: true,
-         data: {
-            name: 'is_deleted',
-            label: 'Is Deleted',
-            type: 'text',
-            required: 0,
-            in_list_view: 0,
-            set_only_time: 0,
-            unique: 0,
-            hidden: 1
-         }
-      };*/
+      const removeField = ({ fields = this.doc_structure, fieldName }) => {
+         const removeField = (fields) => {
+            fields.forEach((field, index) => {
+               if (field.data.name === fieldName) {
+                  fields.splice(index, 1);
+               } else if (field.elements && field.elements.length > 0) {
+                  removeField(field.elements);
+               }
+            });
+         };
 
-      const id_structure = {
-         element: ID,
-         is_writable: true,
-         data: {
-            name: 'id',
-            label: 'ID',
-            type: INTEGER,
-            required: 1,
-            in_list_view: 0,
-            hidden: 1
-         }
+         removeField(fields);
+
+         this.doc_structure = fields;
       };
 
-      const deleted_at = {
-         element: DATE_TIME,
-         is_writable: true,
-         data: {
-            name: 'deleted_at',
-            label: 'Deleted At',
-            hidden: 1
+      const getField = (fieldName) => {
+         const getField = (fields) => {
+            for(const field of fields){
+               if (field.data.name === fieldName) {
+                  return field;
+               } else if (field.elements && field.elements.length > 0) {
+                  const result = getField(field.elements);
+                  if(result){
+                     return result;
+                  }
+               }
+            }
+         };
+
+         return getField(this.doc_structure);
+      };
+
+      const fixFieldData = async (field) => {
+         const updatedData = {};
+         const nullValues = [null, undefined, "", "null", "undefined", 0, "0"];
+
+         for (const [key, value] of Object.entries(field.data || {})) {
+            if(key === "name" && nullValues.includes(value)){
+               updatedData[key] = Helpers.randomString(12);
+            } else {
+               updatedData[key] = value;
+            }
+
+            if (__IS_NEW__ && key === "required" && field.data.required) {
+               updatedData[key] = 1;
+            }
+
+            if (key === "background_image" && value) {
+               const files = value;
+               
+               for (const file of files || []) {
+                  const typeMatches = file.src.match(/^data:(.*);base64,/);
+                  const isFile = typeMatches ? typeMatches[1] : null;
+
+                  if (!isFile) continue;
+                  const binaryData = Buffer.from(file.src.split(';base64,')[1], 'base64');
+                  const fileType = await fileTypeFromBuffer(binaryData);
+
+                  file.src = "uploads/" + file.name
+                  //this.__CORE_FILES__ ??= [];
+
+                  this.__CORE_FILES__.push({
+                     buffer: binaryData,
+                     originalname: file.name,
+                     size: binaryData.length,
+                  });
+               }
+            }
+
          }
+
+         return updatedData;
+      };
+
+      const fixElements = async (elements) => {
+         for(const field of elements){
+            field.data = await fixFieldData(field);
+
+            if (field.elements && field.elements.length > 0) {
+               await fixElements(field.elements);
+            }
+         }
+
+         /*elements.forEach(async field => {
+            await fixFieldData(field);
+            if (field.elements && field.elements.length > 0) {
+               await fixElements(field.elements);
+            }
+         });*/
+
+         this.doc_structure = elements;
       };
 
       if (this.type === 'Document') {
-         this.doc_structure = fixFields(this.doc_structure, name_structure);
-         if (!exist_column) {
-            name_structure.data.hidden = 1;
-            this.doc_structure = [name_structure, ...this.doc_structure];
-         }
-         exist_column = false;
+         const specialFields = this.getSpecialFieldsMeta();
 
-         this.doc_structure = fixFields(this.doc_structure, id_structure);
-         if (!exist_column) {
-            this.doc_structure = [id_structure, ...this.doc_structure];
-         }
-         exist_column = false;
+         updateOrInsertField({ field: specialFields.namedContainer, position: 'before' });
+         specialFields.elementsNamed.map(field => {
+            updateOrInsertField({ field, position: 'after', target: specialFields.namedContainer.data.name });
+         });
 
-         this.doc_structure = fixFields(this.doc_structure, deleted_at);
-         if (!exist_column) {
-            this.doc_structure = [...this.doc_structure, deleted_at];
+         if (getField(specialFields.namedContainer.data.name).elements.length === 0){
+            removeField({ fieldName: specialFields.namedContainer.data.name});
          }
-         exist_column = false;
-      } else {
-         this.doc_structure = fixFields(this.doc_structure);
       }
+
+      await fixElements(this.doc_structure);
    }
 
    async delete() {
-      if (['Document', 'User', 'Module', 'Module Group', 'App'].includes(this.name)) {
+      const {updateInstaller=true, sofDeletetrue} = arguments[0] || {};
+      if (['Document', 'User', 'Module', 'Module Group', 'App', 'Connected Element', 'Document History'].includes(this.name)) {
          loopar.throw(`You can not delete ${this.name}`);
          return;
       }
-
-      //TODO: Change to soft delete and cascade delete
-      await super.delete();
-
-      /*this.is_deleted = 1;
-      await this.save();*/
+      
+      await super.delete(...arguments);
+      
+      /**Is posible that elimate action is calle from uninstall */
+      if (updateInstaller) {
+         const documentPath = await this.documentPath();
+         const meta = await fileManage.getConfigFile(this.name, documentPath);
+         meta.__document_status__ = "Deleted";
+         await fileManage.setConfigFile(this.name, meta, documentPath);
+      }
    }
 
    validateFieldName(name) {
@@ -265,6 +393,14 @@ export default class Document extends BaseDocument {
       }
    }
 
+   async setApp(app) {
+      if (this.__DOCUMENT__.name === "Document") {
+         this.__APP__ === "loopar";
+      } else {
+         this.__APP__ = this.app_name || await loopar.db.getValue("Module", "app_name", this.module);
+      }
+   }
+
    toDir(value){
       return decamelize(value, { separator: '-' });
    }
@@ -276,11 +412,6 @@ export default class Document extends BaseDocument {
    moduleToFile() {
       return this.toDir(this.module);
    }
-
-   /*async app_name() {
-      this.__app__ = await loopar.db.get_value("Module", "app_name", this.module);
-      return this.__app__;
-   }*/
 
    async appNameToDir() {
       return this.toDir(this.__APP__);
@@ -363,6 +494,6 @@ export default class Document extends BaseDocument {
    /**installer**/
    async makeJSON() {
       const data = await this.__data__();
-      await fileManage.setConfigFile(this.nameToFile(), data.__DOCUMENT__, await this.documentPath());
+      await fileManage.setConfigFile(this.name, data.__DOCUMENT__, await this.documentPath());
    }
 }

@@ -1,14 +1,14 @@
 'use strict'
 
-import {BaseController, loopar} from "loopar-env";
+import { BaseController, loopar } from "loopar-env";
 
 export default class LoginController extends BaseController {
    workspace = 'auth';
-   default_action = 'login';
-   has_sidebar = false;
+   defaultAction = 'login';
+   hasSidebar = false;
 
-   free_actions = ['login', 'register', 'recovery_user', 'recovery_password'];
-   actions_enabled = ['login', 'logout'];
+   freeActions = ['login', 'register', 'recovery_user', 'recovery_password'];
+   actionsEnabled = ['login', 'logout'];
 
    constructor(props) {
       super(props);
@@ -19,20 +19,20 @@ export default class LoginController extends BaseController {
       }*/
    }
 
-   async action_login() {
+   async actionLogin() {
       this.client = "form";
-      if (this.has_data()) {
-         const form = await loopar.new_document("Login", this.data);
+      if (this.hasData()) {
+         const form = await loopar.newDocument("Login", this.data);
 
          form.login().then(() => {
             this.redirect('/desk');
          });
       } else {
-         await this.#make_action('Login');
+         await this.#makeAction('Login');
       }
    }
 
-   action_logout() {
+   actionLogout() {
       const [req, res] = [this.req, this.res];
 
       req.session.user = null
@@ -46,21 +46,21 @@ export default class LoginController extends BaseController {
       });
    }
 
-   async action_register() {
-      await this.#make_action('Register');
+   async actionRegister() {
+      await this.#makeAction('Register');
    }
 
-   async action_recovery_user() {
-      await this.#make_action('Recovery User');
+   async actionRecoveryUser() {
+      await this.#makeAction('Recovery User');
    }
 
-   async action_recovery_password() {
-      await this.#make_action('Recovery Password');
+   async actionRecoveryPassword() {
+      await this.#makeAction('Recovery Password');
    }
 
-   async #make_action(form) {
-      this.document_name = form;
-      const _form = await loopar.new_document(form);
+   async #makeAction(form) {
+      this.documentName = form;
+      const _form = await loopar.newDocument(form);
 
       await this.render(await _form.__data__());
    }

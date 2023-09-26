@@ -3,7 +3,7 @@
 
 import ListContext from '/gui/document/list-context.js';
 
-export default class DocumentSingleValuesList extends ListContext {
+export default class DocumentHistoryList extends ListContext {
     constructor(props){
         super(props);
     }
