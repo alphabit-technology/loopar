@@ -33,20 +33,20 @@
   "Document": {
     "doctypeId": 1,
     "documents": {
-      "Document History": {
-        "id": 2,
-        "name": "Document History",
-        "module": "core",
-        "type": "Document"
-      },
       "Document": {
         "id": 1,
         "name": "Document",
         "module": "core",
         "type": "Document"
       },
+      "Document History": {
+        "id": 80,
+        "name": "Document History",
+        "module": "core",
+        "type": "Document"
+      },
       "Module Group": {
-        "id": 3,
+        "id": 5,
         "name": "Module Group",
         "module": "core",
         "type": "Document"
@@ -58,7 +58,7 @@
         "type": "Document"
       },
       "Module": {
-        "id": 5,
+        "id": 3,
         "name": "Module",
         "module": "core",
         "type": "Document"

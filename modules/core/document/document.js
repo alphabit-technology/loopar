@@ -397,7 +397,7 @@ export default class Document extends BaseDocument {
       if (this.__DOCUMENT__.name === "Document") {
          this.__APP__ === "loopar";
       } else {
-         this.__APP__ = this.app_name || await loopar.db.getValue("Module", "app_name", this.module);
+         this.__APP__ = this.__APP__ || await loopar.db.getValue("Module", "app_name", this.module);
       }
    }
 
