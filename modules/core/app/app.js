@@ -122,6 +122,7 @@ export default class App extends BaseDocument {
          "in": { module: modules.map(module => module.name) }
       });
 
+      console.log("Documents", documents);
       await loopar.updateInstaller({
          doctype: doc,
          documentName: "Document",
@@ -149,8 +150,9 @@ export default class App extends BaseDocument {
        */
       for (const document of documents) {
          const doc = await loopar.getDocument("Document", document.name);
+         if(doc.is_single) continue;
 
-         if (![true, "true", 1, "1"].includes(doc.include_in_installer)) continue;
+         //if (![true, "true", 1, "1"].includes(doc.include_in_installer)) continue;
          const fields = doc.writableFieldsList().map(field => field.data.name);
 
          const docs = await loopar.db.getAll(

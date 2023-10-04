@@ -8,7 +8,7 @@ export default class Installer extends CoreInstaller {
   }
 
   async install() {
-    loopar.installing = true;
+    loopar.installingApp = "loopar";
     await this.setDbConfig();
     await loopar.db.initialize();
     await loopar.db.alterSchema();
@@ -26,7 +26,7 @@ export default class Installer extends CoreInstaller {
   }
 
   async #makeCoreTable() {
-      const coreData = await this.getDoctypeData("loopar", "core", "Document");
+    const coreData = await this.getDocumentData("loopar", "core", "Document");
       await this.insertRecord("Document", coreData, "loopar", "core");
   }
 }

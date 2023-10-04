@@ -11,6 +11,7 @@ export default class Document extends BaseDocument {
    }
 
    async save() {
+      //console.log("On save Document APP", this.__APP__);
       if (['Page', 'Form', 'Report'].includes(this.type)) {
          this.is_single = 1;
       } else {
@@ -393,13 +394,13 @@ export default class Document extends BaseDocument {
       }
    }
 
-   async setApp(app) {
+   /*async setApp(app) {
       if (this.__DOCUMENT__.name === "Document") {
          this.__APP__ === "loopar";
       } else {
          this.__APP__ = this.__APP__ || await loopar.db.getValue("Module", "app_name", this.module);
       }
-   }
+   }*/
 
    toDir(value){
       return decamelize(value, { separator: '-' });
@@ -411,6 +412,10 @@ export default class Document extends BaseDocument {
 
    moduleToFile() {
       return this.toDir(this.module);
+   }
+
+   get destinityApp(){
+      return 
    }
 
    async appNameToDir() {
@@ -434,7 +439,7 @@ export default class Document extends BaseDocument {
    }
 
    async __appType__() {
-      return await loopar.db.getValue("App", "type", this.__app__);
+      return await loopar.db.getValue("App", "type", this.__APP__);
    }
 
    async makeFiles() {
