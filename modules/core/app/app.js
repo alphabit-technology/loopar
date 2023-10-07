@@ -91,13 +91,13 @@ export default class App extends BaseDocument {
        */
       const doc = await loopar.getDocument("Document", "Document");
 
+      //console.log("Update App", await this.rawValues(), await this.rawValues1());
       await loopar.updateInstaller({
          doctype: this.__DOCTYPE__,
          documentName: this.__DOCTYPE__.name,
          appName: this.name,
          record: await this.rawValues()
       });
-
 
       /**
        * Update Modules
@@ -122,7 +122,6 @@ export default class App extends BaseDocument {
          "in": { module: modules.map(module => module.name) }
       });
 
-      console.log("Documents", documents);
       await loopar.updateInstaller({
          doctype: doc,
          documentName: "Document",

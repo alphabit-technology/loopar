@@ -28,12 +28,12 @@ export default class User extends BaseDocument {
       }
 
       /**Test Name */
-      if (await loopar.db.getValue('User', 'id', this.name, this.id)) {
+      if (await loopar.db.getValue('User', 'id', this.name, {distinctToId: this.id})) {
          loopar.throw(`The name <strong>${this.name}</strong> is invalid`);
       }
 
       /**Test Email */
-      if (await loopar.db.getValue('User', 'id', { '=': { email: this.email } }, this.id)) {
+      if (await loopar.db.getValue('User', 'id', { '=': { email: this.email } }, { distinctToId: this.id })) {
          loopar.throw(`The email <strong>${this.email}</strong> is invalid`);
       }
    }
