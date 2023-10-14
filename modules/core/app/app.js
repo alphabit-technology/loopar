@@ -118,7 +118,7 @@ export default class App extends BaseDocument {
       /**
        * Update Doctypes
        */
-      const documents = await loopar.db.getAll('Document', ["id", "name", "module", "type"], {
+      const documents = await loopar.db.getAll('Document', ["id", "name", "module", "type", "include_in_installer"], {
          "in": { module: modules.map(module => module.name) }
       });
 
@@ -148,6 +148,9 @@ export default class App extends BaseDocument {
        * Update Documents of Documents
        */
       for (const document of documents) {
+         if (document.name === "Document") continue;
+         if (![true, "true", 1, "1"].includes(document.include_in_installer)) continue;
+         console.log("Update Document", document)
          const doc = await loopar.getDocument("Document", document.name);
          if(doc.is_single) continue;
 
