@@ -1,14 +1,16 @@
 {
-  "id": 17,
+  "id": 18,
   "name": "GPT",
   "module": "Integrations",
   "default_list_view": "List",
   "type": "Document",
-  "is_single": "1",
+  "is_single": 1,
   "is_static": 0,
-  "include_in_installer": "0",
-  "doc_structure": "[{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"required\":1,\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"input47_el54262823476\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el1235782781905\",\"id\":\"row1_el1235782781905\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el103951524304\",\"id\":\"col1_el103951524304\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Model\",\"name\":\"model\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"input22_el670488588535\"},\"elements\":[],\"is_writable\":true}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el337400563646\",\"id\":\"col2_el337400563646\",\"label\":\"Col2\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"API Key\",\"name\":\"api_key\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"password4_el2345729131\"},\"elements\":[],\"is_writable\":true}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1},\"elements\":[]}]",
-  "search_fields": "undefined",
-  "title_fields": "undefined",
-  "deleted_at": null
+  "include_in_installer": 0,
+  "__document_status__": "Active",
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"required\":1,\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"id\":\"input47_el54262823476\",\"searchable\":1},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el1235782781905\",\"id\":\"row1_el1235782781905\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el103951524304\",\"id\":\"col1_el103951524304\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Model\",\"name\":\"model\",\"multiple\":0,\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el337400563646\",\"id\":\"col2_el337400563646\",\"label\":\"Col2\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"API Key\",\"name\":\"api_key\",\"multiple\":0,\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1},\"elements\":[]}]",
+  "deleted_at": null,
+  "__created_at__": null,
+  "__updated_at__": null,
+  "__deleted_at__": null
 }

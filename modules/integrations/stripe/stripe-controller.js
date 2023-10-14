@@ -5,6 +5,7 @@ import { SingleController } from 'loopar-env';
 import { loopar } from "loopar-env";
 
 export default class StripeController extends SingleController {
+    freeActions = ["clientSecret"];
     constructor(props) {
         super(props);
     }

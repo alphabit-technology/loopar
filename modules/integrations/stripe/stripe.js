@@ -1,4 +1,3 @@
-
 'use strict';
 
 import {BaseDocument} from 'loopar-env';
@@ -7,7 +6,10 @@ import StripeClass from 'stripe';
 export default class Stripe extends BaseDocument {
     constructor(props){
         super(props);
+    }
 
+    async onLoad(){
+        await super.onLoad();
         this.stripe = StripeClass(this.secret_key);
     }
     
@@ -20,9 +22,11 @@ export default class Stripe extends BaseDocument {
 
     async clientSecret() {
         const paymentIntent = await this.stripe.paymentIntents.create({
-            amount: 1000,
-            currency: 'usd',
+            amount: 5,
+            currency: 'usd'
         });
+
+        console.log({paymentIntent});
 
         return paymentIntent.client_secret;
     }
