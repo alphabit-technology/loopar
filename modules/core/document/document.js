@@ -31,13 +31,13 @@ export default class Document extends BaseDocument {
          !loopar.installing && await this.validateLinkedDocument(FORM_TABLE);
       }
 
-      await loopar.db.beginTransaction();
+      if(!loopar.installing) await loopar.db.beginTransaction();
       if (this.type === 'Document' && !this.is_single) {
          await loopar.db.makeTable(this.name, this.doc_structure);
       }
       await super.save(arguments[0] || {});
       await this.save__CORE_FILES__();
-      await loopar.db.endTransaction();
+      if(!loopar.installing) await loopar.db.endTransaction();
 
       if (loopar.installing) return;
 
