@@ -228,7 +228,7 @@
         "name": "Resources",
         "module": "core",
         "type": "Document",
-        "include_in_installer": 0
+        "include_in_installer": 1
       }
     }
   },
@@ -258,6 +258,21 @@
         "description": "Developer",
         "in_sidebar": 1,
         "deleted_at": null
+      }
+    }
+  },
+  "Resources": {
+    "doctypeId": 69,
+    "documents": {
+      "el1390056710106": {
+        "parent_id": "1",
+        "parent_document": "1",
+        "name": "el1390056710106",
+        "__document_status__": "Active",
+        "id": 13,
+        "type": "CSS",
+        "path": "/assets/plugins/loopar/css/designer",
+        "apply_on": "form"
       }
     }
   }
