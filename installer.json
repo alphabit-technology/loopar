@@ -222,6 +222,13 @@
         "module": "core",
         "type": "Page",
         "include_in_installer": 0
+      },
+      "Resources": {
+        "id": 69,
+        "name": "Resources",
+        "module": "core",
+        "type": "Document",
+        "include_in_installer": 0
       }
     }
   },

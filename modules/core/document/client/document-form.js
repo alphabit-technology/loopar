@@ -99,7 +99,6 @@ export default class DocumentForm extends FormContext {
       this.toggleDesign("editor");
       this.gui.toggleSidebar(true);
       this.elementEditor.editElement(element);
-
    }
 
    toggleDesign(sidebarOpt = null) {

@@ -6,11 +6,249 @@
   "type": "Document",
   "is_single": 0,
   "is_static": 0,
-  "inlcude_in_installer": 0,
+  "include_in_installer": 0,
+  "is_child": 0,
   "__document_status__": "Active",
-  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default\":\"Active\",\"hidden\":1},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row11_el498777574602\",\"id\":\"row41_el195697820253\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col24_el534534284690\",\"id\":\"col81_el656977915276\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"id\":\"input248_el98044119546\",\"label\":\"Name\",\"format\":\"data\",\"size\":\"md\",\"type\":\"text\",\"required\":1,\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col25_el283285779786\",\"id\":\"col82_el878655787940\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"email\",\"id\":\"input250_el558325570878\",\"label\":\"Email\",\"format\":\"email\",\"size\":\"md\",\"type\":\"default\",\"required\":1,\"unique\":1,\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row10_el1303535570369\",\"id\":\"row42_el623912489967\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col22_el16942330885\",\"id\":\"col83_el1040805005002\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"Password\",\"name\":\"password\",\"format\":\"data\",\"size\":\"md\",\"type\":\"default\",\"required\":1,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5}},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col23_el365962611058\",\"id\":\"col84_el238940191128\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"Confirm Password\",\"name\":\"confirm_password\",\"format\":\"data\",\"size\":\"md\",\"type\":\"default\",\"required\":1,\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5}},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row9_el5067154423\",\"id\":\"row43_el629160626440\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el697593364850\",\"id\":\"col1_el697593364850\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"switch\",\"data\":{\"name\":\"disabled\",\"id\":\"switch12_el396834264758\",\"label\":\"Disabled\",\"format\":\"data\",\"size\":\"md\",\"type\":\"default\",\"searchable\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el123677008227\",\"id\":\"col2_el123677008227\",\"label\":\"Col2\"},\"elements\":[{\"element\":\"image_input\",\"data\":{\"label\":\"Profile Picture\",\"name\":\"profile_picture\",\"accept\":\"image/*\",\"background_color\":{\"color\":\"#000000\",\"alpha\":0.5},\"background_image\":[],\"color_overlay\":{\"color\":\"#000000\",\"alpha\":0.5}},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time67_el676267071140\"},\"elements\":[]}]",
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"idpgfn0i7\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default\":\"Active\",\"hidden\":1,\"default_value\":\"Active\",\"key\":\"bsns448wb\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"lcbm3qd33\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row11_el498777574602\",\"id\":\"row41_el195697820253\",\"key\":\"ooex7zj89\",\"label\":\"Row2\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col24_el534534284690\",\"id\":\"col81_el656977915276\",\"key\":\"95w4rqksr\",\"label\":\"Col1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"id\":\"input248_el98044119546\",\"label\":\"Name\",\"format\":\"data\",\"size\":\"md\",\"type\":\"text\",\"required\":1,\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"searchable\":1,\"key\":\"m03khmh87\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col25_el283285779786\",\"id\":\"col82_el878655787940\",\"key\":\"2iuuvybea\",\"label\":\"Col2\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"email\",\"id\":\"input250_el558325570878\",\"label\":\"Email\",\"format\":\"email\",\"size\":\"md\",\"type\":\"default\",\"required\":1,\"unique\":1,\"in_list_view\":1,\"searchable\":1,\"key\":\"mns53ov13\"},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row10_el1303535570369\",\"id\":\"row42_el623912489967\",\"key\":\"fw66ilq2w\",\"label\":\"Row3\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col22_el16942330885\",\"id\":\"col83_el1040805005002\",\"key\":\"tmsnicmzo\",\"label\":\"Col3\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"Password\",\"name\":\"password\",\"format\":\"data\",\"type\":\"default\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"id\":\"password135_el457119361402\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"size\":\"md\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"pohqrcgxv\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col23_el365962611058\",\"id\":\"col84_el238940191128\",\"key\":\"ed5d2izjw\",\"label\":\"Col4\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"Confirm Password\",\"name\":\"confirm_password\",\"format\":\"data\",\"type\":\"default\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"id\":\"password116_el735582044555\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"size\":\"md\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"ccr0npjry\"},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row9_el5067154423\",\"id\":\"row43_el629160626440\",\"key\":\"pu7o9hjxt\",\"label\":\"Row4\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el697593364850\",\"id\":\"col1_el697593364850\",\"label\":\"Col1\",\"key\":\"frag92q7u\"},\"elements\":[{\"element\":\"switch\",\"data\":{\"name\":\"disabled\",\"id\":\"switch12_el396834264758\",\"label\":\"Disabled\",\"format\":\"data\",\"size\":\"md\",\"type\":\"default\",\"searchable\":1,\"key\":\"u5r85oaen\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el123677008227\",\"id\":\"col2_el123677008227\",\"label\":\"Col2\",\"key\":\"spnpshlue\"},\"elements\":[{\"element\":\"image_input\",\"data\":{\"label\":\"Profile Picture\",\"name\":\"profile_picture\",\"default_value\":[],\"id\":\"image_input20_el470066566181\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"accept\":\"image/*\",\"multiple\":0,\"key\":\"t0hxlj5ro\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time67_el676267071140\",\"key\":\"ytx0iy5fq\"},\"elements\":[]}]",
   "search_fields": "name,email",
   "title_fields": "email",
+  "resources": {
+    "__DOCTYPE__": {
+      "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"id\":\"select125_el286292828785\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select125_el286292828785\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"id\":\"input134_el57728266819\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"input134_el57728266819\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"id\":\"select405_el86013028163\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select405_el86013028163\"},\"elements\":[]}]}]",
+      "id": 69,
+      "name": "Resources",
+      "module": "core",
+      "default_list_view": "List",
+      "type": "Document",
+      "is_single": 0,
+      "is_static": 0,
+      "include_in_installer": 0,
+      "is_child": 1,
+      "__document_status__": "Active",
+      "search_fields": null,
+      "title_fields": null,
+      "resources": "",
+      "deleted_at": null,
+      "__created_at__": null,
+      "__updated_at__": null,
+      "__deleted_at__": null,
+      "__APP__": "loopar",
+      "STRUCTURE": [
+        {
+          "element": "input",
+          "data": {
+            "name": "parent_id",
+            "label": "Parent ID",
+            "type": "integer",
+            "hidden": 1,
+            "key": "2hqg17jxh"
+          },
+          "elements": []
+        },
+        {
+          "element": "input",
+          "data": {
+            "name": "parent_document",
+            "label": "Parent Document",
+            "type": "integer",
+            "hidden": 1,
+            "key": "j9cqffpa3"
+          },
+          "elements": []
+        },
+        {
+          "element": "row",
+          "data": {
+            "name": "name_and_status_container",
+            "key": "34f5tizy5",
+            "label": "Row1"
+          },
+          "elements": [
+            {
+              "element": "input",
+              "data": {
+                "name": "name",
+                "label": "Name",
+                "required": 1,
+                "type": "text",
+                "in_list_view": 1,
+                "set_only_time": 1,
+                "unique": 1,
+                "searchable": 1,
+                "key": "zf9flejzr"
+              },
+              "elements": []
+            },
+            {
+              "element": "select",
+              "data": {
+                "name": "__document_status__",
+                "label": "Status",
+                "options": "Active\nInactive\nDraft\nPending\nApproved\nRejected\nArchived\nDeleted",
+                "default_value": "Active",
+                "hidden": 1,
+                "key": "6izdtjjaw"
+              },
+              "elements": []
+            },
+            {
+              "element": "id",
+              "data": {
+                "name": "id",
+                "label": "ID",
+                "type": "integer",
+                "required": 1,
+                "in_list_view": 0,
+                "hidden": 1,
+                "key": "lywn9q498"
+              },
+              "elements": []
+            }
+          ]
+        },
+        {
+          "element": "row",
+          "data": {
+            "name": "row2_el283428372152",
+            "id": "row2_el283428372152",
+            "background_color": {
+              "color": "",
+              "alpha": 0.5
+            },
+            "background_image": "[]",
+            "color_overlay": {
+              "color": "",
+              "alpha": 0.5
+            },
+            "class": "p-2",
+            "hidden": 0,
+            "disabled": 0,
+            "collapsed": 0,
+            "key": "row2_el283428372152",
+            "label": "Row7"
+          },
+          "elements": [
+            {
+              "element": "select",
+              "data": {
+                "label": "Type",
+                "name": "type",
+                "not_validate_type": 0,
+                "required": 0,
+                "unique": 0,
+                "set_only_time": 0,
+                "readonly": 0,
+                "in_list_view": 1,
+                "searchable": 1,
+                "options": "JS\nCSS",
+                "id": "select125_el286292828785",
+                "background_color": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "background_image": "[]",
+                "color_overlay": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "hidden": 0,
+                "disabled": 0,
+                "collapsed": 0,
+                "key": "select125_el286292828785"
+              },
+              "elements": []
+            },
+            {
+              "element": "input",
+              "data": {
+                "label": "Path",
+                "name": "path",
+                "not_validate_type": 0,
+                "required": 0,
+                "unique": 0,
+                "set_only_time": 0,
+                "readonly": 0,
+                "in_list_view": 1,
+                "searchable": 1,
+                "id": "input134_el57728266819",
+                "background_color": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "background_image": "[]",
+                "color_overlay": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "hidden": 0,
+                "disabled": 0,
+                "collapsed": 0,
+                "key": "input134_el57728266819"
+              },
+              "elements": []
+            },
+            {
+              "element": "select",
+              "data": {
+                "label": "Apply on",
+                "name": "apply_on",
+                "not_validate_type": 0,
+                "required": 0,
+                "unique": 0,
+                "set_only_time": 0,
+                "readonly": 0,
+                "in_list_view": 1,
+                "searchable": 1,
+                "options": "list\nform\nall",
+                "id": "select405_el86013028163",
+                "background_color": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "background_image": "[]",
+                "color_overlay": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "hidden": 0,
+                "disabled": 0,
+                "collapsed": 0,
+                "key": "select405_el86013028163"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    "__DOCUMENT_NAME__": null,
+    "__DOCUMENT__": {
+      "__document_status__": "Active"
+    },
+    "__IS_NEW__": true,
+    "labels": [
+      "Name",
+      "Type",
+      "Path",
+      "Apply on"
+    ],
+    "fields": [
+      "name",
+      "type",
+      "path",
+      "apply_on"
+    ],
+    "rows": [],
+    "pagination": {
+      "page": 1,
+      "pageSize": 10,
+      "totalPages": 0,
+      "totalRecords": 0,
+      "sortBy": "id",
+      "sortOrder": "asc"
+    },
+    "q": null
+  },
   "deleted_at": null,
   "__created_at__": null,
   "__updated_at__": null,

@@ -212,6 +212,7 @@ export default class Document extends BaseDocument {
          const nullValues = [null, undefined, "", "null", "undefined", 0, "0"];
 
          for (const [key, value] of Object.entries(field.data || {})) {
+            //field.id ??= loopar.Helpers.randomString(12);
             if(key === "name" && nullValues.includes(value)){
                updatedData[key] = Helpers.randomString(12);
             } else {
@@ -226,6 +227,8 @@ export default class Document extends BaseDocument {
                const files = value;
                
                for (const file of files || []) {
+                  if(typeof file === "string") continue;
+               
                   const typeMatches = file.src.match(/^data:(.*);base64,/);
                   const isFile = typeMatches ? typeMatches[1] : null;
 
@@ -243,7 +246,10 @@ export default class Document extends BaseDocument {
                   });
                }
             }
-
+            
+            if((key === "background_color" || key === "color_overlay") && JSON.stringify(value) === '{"color":"#000000","alpha":0.5}'){
+               updatedData[key] = "";
+            }
          }
 
          return updatedData;
@@ -279,6 +285,22 @@ export default class Document extends BaseDocument {
          if (getField(specialFields.namedContainer.data.name).elements.length === 0){
             removeField({ fieldName: specialFields.namedContainer.data.name});
          }
+
+         if(this.is_child){
+            updateOrInsertField({ 
+               field: {
+                  element: INPUT, 
+                  data: { name: "parent_document", label: "Parent Document", type: INTEGER, hidden: 1 }
+               }, position: 'before'
+            });
+
+            updateOrInsertField({
+               field: {
+                  element: INPUT,
+                  data: { name: "parent_id", label: "Parent ID", type: INTEGER, hidden: 1 }
+               }, position: 'before'
+            });
+         }
       }
 
       await fixElements(this.doc_structure);
@@ -303,6 +325,7 @@ export default class Document extends BaseDocument {
    }
 
    validateFieldName(name) {
+      if(!name) return;
       if (name.length < 3 && name !== 'id') {
          loopar.throw('Field name must be at least 3 characters long.');
       }
@@ -347,7 +370,7 @@ export default class Document extends BaseDocument {
          this.validateFieldName(field.data.name);
       }
 
-      const duplicates = fields.map(field => field.data.name).filter((value, index, self) => self.indexOf(value) !== index);
+      const duplicates = fields.map(field => field.data.name).filter((value, index, self) => value && self.indexOf(value) !== index);
 
       if (duplicates.length) {
          loopar.throw(`Duplicate field names:<br/> ${duplicates.join(', ')}`);
