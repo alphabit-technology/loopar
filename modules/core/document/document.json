@@ -22,7 +22,7 @@
       "type": "Document",
       "is_single": 0,
       "is_static": 0,
-      "include_in_installer": 0,
+      "include_in_installer": 1,
       "is_child": 1,
       "__document_status__": "Active",
       "search_fields": null,
@@ -244,13 +244,25 @@
         "type": "CSS",
         "path": "/assets/plugins/loopar/css/designer",
         "apply_on": "form"
+      },
+      {
+        "name": "el1259705225",
+        "type": "CSS",
+        "path": "/assets/plugins/simplemde/css/simplemde.min",
+        "apply_on": "form"
+      },
+      {
+        "name": "el41621558029",
+        "type": "JS",
+        "path": "/assets/plugins/simplemde/js/simplemde.min",
+        "apply_on": "form"
       }
     ],
     "pagination": {
       "page": 1,
       "pageSize": 10,
       "totalPages": 1,
-      "totalRecords": 1,
+      "totalRecords": 3,
       "sortBy": "id",
       "sortOrder": "asc"
     },

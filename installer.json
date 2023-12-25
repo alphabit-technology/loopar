@@ -265,13 +265,30 @@
     "doctypeId": 69,
     "documents": {
       "el1390056710106": {
-        "parent_id": "1",
-        "parent_document": "1",
+        "parent_id": 1,
+        "parent_document": 1,
         "name": "el1390056710106",
         "__document_status__": "Active",
-        "id": 13,
         "type": "CSS",
         "path": "/assets/plugins/loopar/css/designer",
+        "apply_on": "form"
+      },
+      "el1259705225": {
+        "parent_id": 1,
+        "parent_document": 1,
+        "name": "el1259705225",
+        "__document_status__": "Active",
+        "type": "CSS",
+        "path": "/assets/plugins/simplemde/css/simplemde.min",
+        "apply_on": "form"
+      },
+      "el41621558029": {
+        "parent_id": 1,
+        "parent_document": 1,
+        "name": "el41621558029",
+        "__document_status__": "Active",
+        "type": "JS",
+        "path": "/assets/plugins/simplemde/js/simplemde.min",
         "apply_on": "form"
       }
     }

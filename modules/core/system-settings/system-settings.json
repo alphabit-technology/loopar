@@ -7,10 +7,248 @@
   "is_single": 1,
   "is_static": 0,
   "include_in_installer": 0,
+  "is_child": 0,
   "__document_status__": "Active",
-  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"ijlkq0yuv\",\"label\":\"Row5\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default\":\"Active\",\"hidden\":1,\"default_value\":\"Active\",\"key\":\"f1lkr5bfg\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"jq7uumn29\"},\"elements\":[]}]},{\"element\":\"panel\",\"data\":{\"name\":\"panel1_el780108425750\",\"id\":\"panel258_el232986263016\",\"label\":\"Panel1\",\"key\":\"5fbet02p7\"},\"elements\":[{\"element\":\"row\",\"data\":{\"name\":\"row1_el1206011521442\",\"id\":\"row344_el682869263740\",\"label\":\"Row1\",\"key\":\"0tncv362t\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col9_el85331241732\",\"id\":\"col882_el376610168705\",\"label\":\"Col9\",\"key\":\"29fvlieqf\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"country\",\"id\":\"select1644_el351634992060\",\"label\":\"Country\",\"options\":\"USA\\nHonduras\",\"key\":\"ws1ibbiv6\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col1_el90785714540\",\"id\":\"col883_el571773324052\",\"label\":\"Col1\",\"key\":\"146z0hcne\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"time_zone\",\"id\":\"select1646_el375391579444\",\"label\":\"Time Zone\",\"options\":\"America/Tegucigalpa\\nGMT\",\"key\":\"8w3mq1m7v\"},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row183_el541398794314\",\"id\":\"row345_el236241139603\",\"label\":\"Row183\",\"key\":\"cvs5v4rl7\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col538_el1323454781407\",\"id\":\"col884_el540090226303\",\"label\":\"Col538\",\"key\":\"dxfey29ka\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"languaje\",\"id\":\"select1661_el474145341618\",\"label\":\"Language\",\"options\":\"En\\nEs\",\"key\":\"a3aoe695d\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col576_el196713719756\",\"id\":\"col885_el14011936095\",\"label\":\"Col576\",\"key\":\"43hjffwmj\"},\"elements\":[{\"element\":\"image_input\",\"data\":{\"label\":\"Logo\",\"name\":\"logo\",\"accept\":\"png\",\"multiple\":0,\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"default_value\":[],\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"946fgofdx\"},\"elements\":[]}]}]}]},{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"hidden\":1,\"required\":1,\"searchable\":1,\"key\":\"1tnpjy3z0\"},\"elements\":[]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time767_el450181519772\",\"key\":\"cr4o8m3yg\"},\"elements\":[]},{\"element\":\"color_picker\",\"data\":{\"name\":\"color_picker3_el472493285417\",\"id\":\"color_picker3_el472493285417\",\"label\":\"Color_picker3\",\"key\":\"color_picker3_el472493285417\"},\"designer\":true,\"hasTitle\":true}]",
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"ijlkq0yuv\",\"label\":\"Row5\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default\":\"Active\",\"hidden\":1,\"default_value\":\"Active\",\"key\":\"f1lkr5bfg\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"jq7uumn29\"},\"elements\":[]}]},{\"element\":\"panel\",\"data\":{\"name\":\"panel1_el780108425750\",\"id\":\"panel258_el232986263016\",\"label\":\"Panel1\",\"key\":\"5fbet02p7\"},\"elements\":[{\"element\":\"row\",\"data\":{\"name\":\"row1_el1206011521442\",\"id\":\"row344_el682869263740\",\"label\":\"Row1\",\"key\":\"0tncv362t\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col9_el85331241732\",\"id\":\"col882_el376610168705\",\"label\":\"Col9\",\"key\":\"29fvlieqf\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"country\",\"id\":\"select1644_el351634992060\",\"label\":\"Country\",\"options\":\"USA\\nHonduras\",\"key\":\"ws1ibbiv6\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col1_el90785714540\",\"id\":\"col883_el571773324052\",\"label\":\"Col1\",\"key\":\"146z0hcne\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"time_zone\",\"id\":\"select1646_el375391579444\",\"label\":\"Time Zone\",\"options\":\"America/Tegucigalpa\\nGMT\",\"key\":\"8w3mq1m7v\"},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row183_el541398794314\",\"id\":\"row345_el236241139603\",\"label\":\"Row183\",\"key\":\"cvs5v4rl7\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col538_el1323454781407\",\"id\":\"col884_el540090226303\",\"label\":\"Col538\",\"key\":\"dxfey29ka\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"languaje\",\"id\":\"select1661_el474145341618\",\"label\":\"Language\",\"options\":\"En\\nEs\",\"key\":\"a3aoe695d\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Active Web App\",\"name\":\"active_web_app\",\"description\":\"Settings such as footer, copyright, menu and menu styles will be obtained from this app.\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"options\":\"App\",\"id\":\"select224_el72816284491\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select224_el72816284491\"}}]},{\"element\":\"col\",\"data\":{\"name\":\"col576_el196713719756\",\"id\":\"col885_el14011936095\",\"label\":\"Col576\",\"key\":\"43hjffwmj\"},\"elements\":[{\"element\":\"image_input\",\"data\":{\"label\":\"Logo\",\"name\":\"logo\",\"accept\":\"png\",\"multiple\":0,\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"default_value\":[],\"background_image\":\"[]\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"946fgofdx\"},\"elements\":[]}]}]}]},{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"background_image\":\"[]\",\"hidden\":1,\"required\":1,\"searchable\":1,\"key\":\"1tnpjy3z0\"},\"elements\":[]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time767_el450181519772\",\"key\":\"cr4o8m3yg\"},\"elements\":[]}]",
   "search_fields": "",
   "title_fields": "",
+  "resources": {
+    "__DOCTYPE__": {
+      "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"id\":\"select125_el286292828785\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select125_el286292828785\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"id\":\"input134_el57728266819\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"input134_el57728266819\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"id\":\"select405_el86013028163\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select405_el86013028163\"},\"elements\":[]}]}]",
+      "id": 69,
+      "name": "Resources",
+      "module": "core",
+      "default_list_view": "List",
+      "type": "Document",
+      "is_single": 0,
+      "is_static": 0,
+      "include_in_installer": 1,
+      "is_child": 1,
+      "__document_status__": "Active",
+      "search_fields": null,
+      "title_fields": null,
+      "resources": "",
+      "deleted_at": null,
+      "__created_at__": null,
+      "__updated_at__": null,
+      "__deleted_at__": null,
+      "__APP__": "loopar",
+      "STRUCTURE": [
+        {
+          "element": "input",
+          "data": {
+            "name": "parent_id",
+            "label": "Parent ID",
+            "type": "integer",
+            "hidden": 1,
+            "key": "2hqg17jxh"
+          },
+          "elements": []
+        },
+        {
+          "element": "input",
+          "data": {
+            "name": "parent_document",
+            "label": "Parent Document",
+            "type": "integer",
+            "hidden": 1,
+            "key": "j9cqffpa3"
+          },
+          "elements": []
+        },
+        {
+          "element": "row",
+          "data": {
+            "name": "name_and_status_container",
+            "key": "34f5tizy5",
+            "label": "Row1"
+          },
+          "elements": [
+            {
+              "element": "input",
+              "data": {
+                "name": "name",
+                "label": "Name",
+                "required": 1,
+                "type": "text",
+                "in_list_view": 1,
+                "set_only_time": 1,
+                "unique": 1,
+                "searchable": 1,
+                "key": "zf9flejzr"
+              },
+              "elements": []
+            },
+            {
+              "element": "select",
+              "data": {
+                "name": "__document_status__",
+                "label": "Status",
+                "options": "Active\nInactive\nDraft\nPending\nApproved\nRejected\nArchived\nDeleted",
+                "default_value": "Active",
+                "hidden": 1,
+                "key": "6izdtjjaw"
+              },
+              "elements": []
+            },
+            {
+              "element": "id",
+              "data": {
+                "name": "id",
+                "label": "ID",
+                "type": "integer",
+                "required": 1,
+                "in_list_view": 0,
+                "hidden": 1,
+                "key": "lywn9q498"
+              },
+              "elements": []
+            }
+          ]
+        },
+        {
+          "element": "row",
+          "data": {
+            "name": "row2_el283428372152",
+            "id": "row2_el283428372152",
+            "background_color": {
+              "color": "",
+              "alpha": 0.5
+            },
+            "background_image": "[]",
+            "color_overlay": {
+              "color": "",
+              "alpha": 0.5
+            },
+            "class": "p-2",
+            "hidden": 0,
+            "disabled": 0,
+            "collapsed": 0,
+            "key": "row2_el283428372152",
+            "label": "Row7"
+          },
+          "elements": [
+            {
+              "element": "select",
+              "data": {
+                "label": "Type",
+                "name": "type",
+                "not_validate_type": 0,
+                "required": 0,
+                "unique": 0,
+                "set_only_time": 0,
+                "readonly": 0,
+                "in_list_view": 1,
+                "searchable": 1,
+                "options": "JS\nCSS",
+                "id": "select125_el286292828785",
+                "background_color": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "background_image": "[]",
+                "color_overlay": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "hidden": 0,
+                "disabled": 0,
+                "collapsed": 0,
+                "key": "select125_el286292828785"
+              },
+              "elements": []
+            },
+            {
+              "element": "input",
+              "data": {
+                "label": "Path",
+                "name": "path",
+                "not_validate_type": 0,
+                "required": 0,
+                "unique": 0,
+                "set_only_time": 0,
+                "readonly": 0,
+                "in_list_view": 1,
+                "searchable": 1,
+                "id": "input134_el57728266819",
+                "background_color": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "background_image": "[]",
+                "color_overlay": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "hidden": 0,
+                "disabled": 0,
+                "collapsed": 0,
+                "key": "input134_el57728266819"
+              },
+              "elements": []
+            },
+            {
+              "element": "select",
+              "data": {
+                "label": "Apply on",
+                "name": "apply_on",
+                "not_validate_type": 0,
+                "required": 0,
+                "unique": 0,
+                "set_only_time": 0,
+                "readonly": 0,
+                "in_list_view": 1,
+                "searchable": 1,
+                "options": "list\nform\nall",
+                "id": "select405_el86013028163",
+                "background_color": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "background_image": "[]",
+                "color_overlay": {
+                  "color": "",
+                  "alpha": 0.5
+                },
+                "hidden": 0,
+                "disabled": 0,
+                "collapsed": 0,
+                "key": "select405_el86013028163"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    "__DOCUMENT_NAME__": null,
+    "__DOCUMENT__": {
+      "__document_status__": "Active"
+    },
+    "__IS_NEW__": true,
+    "labels": [
+      "Name",
+      "Type",
+      "Path",
+      "Apply on"
+    ],
+    "fields": [
+      "name",
+      "type",
+      "path",
+      "apply_on"
+    ],
+    "rows": [],
+    "pagination": {
+      "page": 1,
+      "pageSize": 10,
+      "totalPages": 0,
+      "totalRecords": 0,
+      "sortBy": "id",
+      "sortOrder": "asc"
+    },
+    "q": null
+  },
   "deleted_at": null,
   "__created_at__": null,
   "__updated_at__": null,
