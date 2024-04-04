@@ -1,6 +1,6 @@
 'use strict'
 
-import { BaseDocument, loopar } from "loopar-env";
+import { BaseDocument, loopar } from "loopar";
 
 export default class User extends BaseDocument {
    constructor(props) {
@@ -28,7 +28,7 @@ export default class User extends BaseDocument {
       }
 
       /**Test Name */
-      if (await loopar.db.getValue('User', 'id', this.name, {distinctToId: this.id})) {
+      if (await loopar.db.getValue('User', 'id', this.name, { distinctToId: this.id })) {
          loopar.throw(`The name <strong>${this.name}</strong> is invalid`);
       }
 

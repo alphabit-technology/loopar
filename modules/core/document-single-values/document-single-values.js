@@ -1,4 +1,4 @@
-import {BaseDocument} from 'loopar-env';
+import { BaseDocument } from 'loopar';
 
 export default class DocumentSingleValues extends BaseDocument {
    constructor(props) {

@@ -1,12 +1,12 @@
 
 'use strict';
 
-import {BaseController} from 'loopar-env';
+import { BaseController } from 'loopar';
 
 export default class NotFoundController extends BaseController {
     context = this.workspace;
     free_access = true;
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 }

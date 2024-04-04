@@ -1,6 +1,6 @@
 'use strict';
 
-import {BaseDocument, loopar} from 'loopar-env';
+import { BaseDocument, loopar } from 'loopar';
 import path from "path";
 
 export default class ModuleGroup extends BaseDocument {
@@ -22,8 +22,8 @@ export default class ModuleGroup extends BaseDocument {
          document: this.__DOCTYPE__.name,
          documentName: this.name,
          appName: "loopar",
-         documentParent: this.__DOCTYPE__.name, 
-         deleteRecord: delete_module_group, 
+         documentParent: this.__DOCTYPE__.name,
+         deleteRecord: delete_module_group,
          data: values
       });
       //await loopar.update_installer(this.app_path(), this.__DOCTYPE__.name, this.name, values, delete_module_group);

@@ -1,18 +1,18 @@
 'use strict';
 
-import {BaseDocument} from 'loopar-env';
+import { BaseDocument } from 'loopar';
 import StripeClass from 'stripe';
 
 export default class Stripe extends BaseDocument {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    async onLoad(){
+    async onLoad() {
         await super.onLoad();
         this.stripe = StripeClass(this.secret_key);
     }
-    
+
     async authorize() {
         return {
             client_secret: await this.clientSecret(),
@@ -26,7 +26,7 @@ export default class Stripe extends BaseDocument {
             currency: 'usd'
         });
 
-        console.log({paymentIntent});
+        console.log({ paymentIntent });
 
         return paymentIntent.client_secret;
     }

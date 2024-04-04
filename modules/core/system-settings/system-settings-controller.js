@@ -1,10 +1,10 @@
 
 'use strict';
 
-import {SingleController} from 'loopar-env';
+import { SingleController } from 'loopar';
 
 export default class SystemSettingsController extends SingleController {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 }

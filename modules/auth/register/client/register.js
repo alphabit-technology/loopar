@@ -1,10 +1,6 @@
-import FormContext from '/gui/document/form-context.js';
+import FormContext from '$context/list-context';
 
 export default class Form extends FormContext {
-   constructor(props) {
-      super(props);
-   }
-
    register() {
       super.send('register');
    }

@@ -1,27 +1,27 @@
 
 'use strict';
 
-import {BaseDocument, loopar} from 'loopar-env';
+import { BaseDocument, loopar } from 'loopar';
 
 export default class DocumentHistory extends BaseDocument {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    async delete(){
+    async delete() {
         loopar.throw("You can't delete History Document");
     }
 
-    get docRef(){
-        return {"=": {id: this.document_id}};
+    get docRef() {
+        return { "=": { id: this.document_id } };
     }
 
-    async restore(){
+    async restore() {
         if (await loopar.db.getValue(this.document, "__document_status__", this.docRef, { includeDeleted: true }) !== "Deleted") {
             return loopar.throw({ code: 400, message: `${this.document}.${this.document_name} is not deleted.` });
         }
-        
-        if(await loopar.db.getValue(this.document, "name", this.docRef, {ifNotFound: false})){
+
+        if (await loopar.db.getValue(this.document, "name", this.docRef, { ifNotFound: false })) {
             return loopar.throw({ code: 400, message: `A new version of this registry has been created, it cannot be restored.` });
         }
 

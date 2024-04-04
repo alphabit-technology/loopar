@@ -1,6 +1,6 @@
 'use strict';
 
-import {BaseController} from 'loopar-env';
+import { BaseController } from 'loopar';
 
 export default class ModuleGroupController extends BaseController {
    constructor(props) {

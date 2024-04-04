@@ -1,7 +1,7 @@
 
 'use strict';
 
-import {BaseDocument, loopar, fileManage} from 'loopar-env';
+import { BaseDocument, loopar, fileManage } from 'loopar';
 import mime from "mime-types";
 import fs from "fs";
 import sharp from "sharp";
@@ -10,7 +10,7 @@ import path from 'path';
 export default class FileManager extends BaseDocument {
     #reqUploadFile = null;
     #route = null;
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -24,7 +24,7 @@ export default class FileManager extends BaseDocument {
         this.extention = file.originalname.split('.').pop();
         this.route = file.originalname || '';
 
-        if(this.__IS_NEW__){
+        if (this.__IS_NEW__) {
             this.name = file.originalname;
             this.created_at = new Date();
         }
@@ -41,19 +41,19 @@ export default class FileManager extends BaseDocument {
     }
 
     get pathBase() {
-        if(this.app && this.app.length > 0){
+        if (this.app && this.app.length > 0) {
             return loopar.makePath(loopar.pathRoot, 'apps', this.app, 'public', 'uploads');
-        }else{
+        } else {
             return loopar.makePath(loopar.pathRoot, 'public', 'uploads');
         }
     }
 
-    getFile(){
+    getFile() {
         const pathBase = this.pathBase;
         const filePath = path.join(pathBase, this.name);
-        try{
+        try {
             return fs.readFileSync(filePath);
-        }catch(e){
+        } catch (e) {
             return null;
         }
         /*const mimeType = mime.lookup(this.extention);
@@ -66,7 +66,7 @@ export default class FileManager extends BaseDocument {
         };*/
     }
 
-    metaFile(){
+    metaFile() {
         return loopar.utils.isJSON(this.file_ref) ? JSON.parse(this.file_ref)[0] : {};
     }
 
@@ -78,11 +78,11 @@ export default class FileManager extends BaseDocument {
         return loopar.makePath(this.pathBase, this.name);
     }
 
-    get route(){
+    get route() {
         return this.metaFile().src;
     }
 
-    set route(route){
+    set route(route) {
         this.#route = route;
     }
 
@@ -94,7 +94,7 @@ export default class FileManager extends BaseDocument {
         return !this.isLocal;
     }
 
-    async save(){
+    async save() {
         const file = this.reqUploadFile;
 
         if (!file || !this.__IS_NEW__) {
@@ -107,7 +107,7 @@ export default class FileManager extends BaseDocument {
         fs.mkdirSync(thumbnailPath, { recursive: true });
 
         const filePath = path.join(loopar.makePath(pathBase), file.originalname);
-        const currentRefSaved = await loopar.db.getValue('File Manager', "name", file.originalname, {includeDeleted: true});
+        const currentRefSaved = await loopar.db.getValue('File Manager', "name", file.originalname, { includeDeleted: true });
         const newName = `${file.originalname.split('.').shift()}_${Date.now()}.${file.originalname.split('.').pop()}`;
 
         const JSONFIle = [{
@@ -122,19 +122,19 @@ export default class FileManager extends BaseDocument {
         /**
          * When trying to save a file and a reference already exists in the database with the same name
          */
-        if(currentRefSaved){
-            await loopar.db.setValue('File Manager', "__document_status__",  currentRefSaved, currentRefSaved);
+        if (currentRefSaved) {
+            await loopar.db.setValue('File Manager', "__document_status__", currentRefSaved, currentRefSaved);
             const refSaved = await loopar.getDocument('File Manager', currentRefSaved);
             refSaved.__document_status__ = 'active';
 
-            if(refSaved.app !== this.app){
+            if (refSaved.app !== this.app) {
                 /**
                  * If the file is in another application, it is saved with a new name for the current application
                  */
                 this.__DOCUMENT_NAME__ = newName;
                 this.name = newName;
                 this.#reqUploadFile.name = newName;
-                
+
                 //return await this.save();
             }
         }
@@ -149,7 +149,7 @@ export default class FileManager extends BaseDocument {
              * The file is saved with a new name
              * */
 
-            if(loopar.utils.hash(savedFile) !== loopar.utils.hash(file.buffer)){
+            if (loopar.utils.hash(savedFile) !== loopar.utils.hash(file.buffer)) {
                 this.name = newName;
                 this.#reqUploadFile.name = newName;
 
@@ -163,7 +163,7 @@ export default class FileManager extends BaseDocument {
         /**
          * If the file does not exist in the database, it is saved
          */
-        if(!currentRefSaved){
+        if (!currentRefSaved) {
             await super.save();
         }
 
@@ -174,7 +174,7 @@ export default class FileManager extends BaseDocument {
                     return;
                 }
 
-                if(this.getFileType() === 'image'){
+                if (this.getFileType() === 'image') {
                     const thumbnailFile = path.join(thumbnailPath, file.originalname);
                     const thumbnail = await fileManage.existFile(thumbnailFile);
 

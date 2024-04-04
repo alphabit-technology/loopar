@@ -1,10 +1,10 @@
 
 'use strict';
 
-import {BaseController, loopar} from 'loopar-env';
+import { BaseController, loopar } from 'loopar';
 
 export default class DocumentHistoryController extends BaseController {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -25,7 +25,7 @@ export default class DocumentHistoryController extends BaseController {
         return this.render(list);
     }
 
-    async actionRestore(){
+    async actionRestore() {
         const ref = await loopar.getDocument(this.document, this.documentName);
 
         return this.success(await ref.restore());

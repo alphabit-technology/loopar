@@ -1,10 +1,10 @@
 
 'use strict';
 
-import {BaseDocument} from 'loopar-env';
+import { BaseDocument } from 'loopar';
 
 export default class Error extends BaseDocument {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 }

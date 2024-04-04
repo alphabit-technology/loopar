@@ -1,8 +1,8 @@
 
 'use strict';
 
-import { SingleController } from 'loopar-env';
-import { loopar } from "loopar-env";
+import { SingleController } from 'loopar';
+import { loopar } from "loopar";
 
 export default class StripeController extends SingleController {
     freeActions = ["clientSecret"];

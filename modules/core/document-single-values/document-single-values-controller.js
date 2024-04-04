@@ -1,4 +1,4 @@
-import {BaseController} from 'loopar-env';
+import { BaseController } from 'loopar';
 
 export default class DocumentSingleValuesController extends BaseController {
    constructor(props) {

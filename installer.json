@@ -91,28 +91,28 @@
         "include_in_installer": 0
       },
       "Resources": {
-        "id": 2,
+        "id": 69,
         "name": "Resources",
         "module": "core",
         "type": "Document",
         "include_in_installer": 1
       },
       "Document History": {
-        "id": 3,
+        "id": 2,
         "name": "Document History",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Module": {
-        "id": 4,
+        "id": 3,
         "name": "Module",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "App": {
-        "id": 5,
+        "id": 4,
         "name": "App",
         "module": "core",
         "type": "Document",
@@ -126,56 +126,56 @@
         "include_in_installer": 0
       },
       "Document Single Values": {
-        "id": 7,
+        "id": 6,
         "name": "Document Single Values",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "User": {
-        "id": 8,
+        "id": 7,
         "name": "User",
         "module": "auth",
         "type": "Document",
         "include_in_installer": 0
       },
       "Login": {
-        "id": 9,
+        "id": 8,
         "name": "Login",
         "module": "auth",
         "type": "Form",
         "include_in_installer": 0
       },
       "Desk": {
-        "id": 10,
+        "id": 9,
         "name": "Desk",
         "module": "core",
         "type": "Page",
         "include_in_installer": 0
       },
       "App Manager": {
-        "id": 11,
+        "id": 10,
         "name": "App Manager",
         "module": "developer",
         "type": "Page",
         "include_in_installer": 0
       },
       "Reset Password": {
-        "id": 12,
+        "id": 11,
         "name": "Reset Password",
         "module": "auth",
         "type": "Form",
         "include_in_installer": 0
       },
       "System Settings": {
-        "id": 13,
+        "id": 12,
         "name": "System Settings",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "File Manager": {
-        "id": 14,
+        "id": 13,
         "name": "File Manager",
         "module": "core",
         "type": "Document",
@@ -262,11 +262,11 @@
     }
   },
   "Resources": {
-    "doctypeId": 69,
+    "doctypeId": 21,
     "documents": {
       "el1390056710106": {
-        "parent_id": 1,
-        "parent_document": 1,
+        "parent_id": "1",
+        "parent_document": "1",
         "name": "el1390056710106",
         "__document_status__": "Active",
         "type": "CSS",
@@ -290,6 +290,20 @@
         "type": "JS",
         "path": "/assets/plugins/simplemde/js/simplemde.min",
         "apply_on": "form"
+      },
+      "el1244393542167": {
+        "parent_id": "7",
+        "parent_document": "1",
+        "name": "el1244393542167",
+        "__document_status__": "Active",
+        "path": "test",
+        "apply_on": "all"
+      },
+      "el73818724466": {
+        "parent_id": "7",
+        "parent_document": "1",
+        "name": "el73818724466",
+        "__document_status__": "Active"
       }
     }
   }

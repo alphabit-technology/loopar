@@ -1,7 +1,7 @@
 
 'use strict';
 
-import { SingleController, loopar } from 'loopar-env';
+import { SingleController, loopar } from 'loopar';
 
 export default class GPTController extends SingleController {
     constructor(props) {

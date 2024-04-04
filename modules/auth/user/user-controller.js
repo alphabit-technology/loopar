@@ -1,6 +1,6 @@
 'use strict'
 
-import { BaseController, loopar } from "loopar-env";
+import { BaseController, loopar } from "loopar";
 
 export default class UserController extends BaseController {
    constructor(props) {

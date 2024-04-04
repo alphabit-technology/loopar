@@ -1,7 +1,7 @@
 
 'use strict';
 
-import { BaseDocument, loopar } from 'loopar-env';
+import { BaseDocument, loopar } from 'loopar';
 
 export default class AppManager extends BaseDocument {
     constructor(props) {
@@ -58,7 +58,6 @@ export default class AppManager extends BaseDocument {
                         record: await loopar.db.getAll("Document", ["id", "name"])
                     });
                 } else {
-                    console.log(document.__DOCTYPE__)
                     /*const records = await loopar.db.getAll(document.name, this.writableFieldsList().map(field => field.data.name));
 
                     loopar.updateInstaller({

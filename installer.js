@@ -1,4 +1,4 @@
-import {loopar, CoreInstaller, fileManage } from "loopar-env";
+import { loopar, CoreInstaller, fileManage } from "loopar";
 import sha1 from "sha1";
 
 export default class Installer extends CoreInstaller {
@@ -18,15 +18,15 @@ export default class Installer extends CoreInstaller {
   }
 
   async setDbConfig() {
-      const db_config = fileManage.getConfigFile('db.config');
-      db_config.database = 'db_' + sha1(this.company);
+    const db_config = fileManage.getConfigFile('db.config');
+    db_config.database = 'db_' + sha1(this.company);
 
-      env.dbConfig = db_config;
-      return await fileManage.setConfigFile('db.config', db_config);
+    env.dbConfig = db_config;
+    return await fileManage.setConfigFile('db.config', db_config);
   }
 
   async #makeCoreTable() {
     const coreData = await this.getDocumentData("loopar", "core", "Document");
-      await this.insertRecord("Document", coreData, "loopar", "core");
+    await this.insertRecord("Document", coreData, "loopar", "core");
   }
 }

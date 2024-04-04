@@ -1,13 +1,13 @@
 'use strict'
 
-import {BaseDocument, fileManage, loopar} from "loopar-env";
+import { BaseDocument, fileManage, loopar } from "loopar";
 
 export default class Module extends BaseDocument {
    constructor(props) {
       super(props);
    }
 
-   async save(){
+   async save() {
       await super.save(arguments[0] || {});
       await this.makeModuleRoute();
       await loopar.makeConfig();
@@ -23,5 +23,16 @@ export default class Module extends BaseDocument {
 
    async makeModuleRoute() {
       await fileManage.makeFolder(this.modulePath(), this.name.replaceAll(/\s+/g, '-').toLowerCase());
+   }
+
+   async getDocumentList(data){
+      const documentList = await loopar.getList("Document", data);
+   /*return Object.assign((rowsOnly ? {} : await this.__data__()), {
+      labels: this.getFieldListLabels(),
+      fields: listFields,
+      rows: rows,
+      pagination: selfPagination,
+      q
+   });*/
    }
 }
