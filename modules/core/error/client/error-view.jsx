@@ -16,8 +16,8 @@ export default class ErrorView extends ViewContext {
       <div className="grid grid-cols-1 place-items-center w-full pt-10">
         <img width={500} src={`/assets/images/illustration/${data.code || '500'}.svg`} alt="" />
 
-        <h1 className="text-4xl p-4 text-red-400">Error: {data.code || "Oops! Something went wrong"}</h1>
-        <p className="">{data.description || "We are sorry, but it seems that an error has occurred. Please try again later."}</p>
+        <h1 className="text-4xl p-4 text-red-400">{(data.code || "")} {data.title || "Oops! Something went wrong"}</h1>
+        <p className="">{data.description || data.message || "We are sorry, but it seems that an error has occurred. Please try again later."}</p>
       </div>
     );
   }
