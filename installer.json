@@ -1,13 +1,12 @@
 {
   "App": {
-    "doctypeId": 4,
+    "doctypeId": "4",
     "documents": {
       "loopar": {
         "__document_status__": "Active",
         "id": 1,
-        "deleted_at": null,
+        "deleted_at": "2024-04-12 21:46:16",
         "type": "Desk App",
-        "menu": "\"\"",
         "logo": "",
         "logo_width": "",
         "default_app": 0,
@@ -25,7 +24,7 @@
         "github_pass": "",
         "name": "loopar",
         "description": "Loopar",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "autor": "Administrator",
         "info": "Loopar Javascript Drag and Drop Framework"
       }
@@ -91,7 +90,7 @@
         "include_in_installer": 0
       },
       "Resources": {
-        "id": 69,
+        "id": 21,
         "name": "Resources",
         "module": "core",
         "type": "Document",
@@ -182,49 +181,49 @@
         "include_in_installer": 0
       },
       "Not Found": {
-        "id": 15,
+        "id": 14,
         "name": "Not Found",
         "module": "core",
         "type": "Page",
         "include_in_installer": 0
       },
       "Menu": {
-        "id": 16,
+        "id": 15,
         "name": "Menu",
         "module": "developer",
         "type": "Document",
         "include_in_installer": 0
       },
       "Menu Item": {
-        "id": 17,
+        "id": 16,
         "name": "Menu Item",
         "module": "developer",
         "type": "Document",
         "include_in_installer": 0
       },
       "GPT": {
-        "id": 18,
+        "id": 17,
         "name": "GPT",
         "module": "Integrations",
         "type": "Document",
         "include_in_installer": 0
       },
       "Stripe": {
-        "id": 19,
+        "id": 18,
         "name": "Stripe",
         "module": "Integrations",
         "type": "Document",
         "include_in_installer": 0
       },
       "Connected Document": {
-        "id": 20,
+        "id": 19,
         "name": "Connected Document",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Error": {
-        "id": 21,
+        "id": 20,
         "name": "Error",
         "module": "core",
         "type": "Page",
@@ -269,24 +268,27 @@
         "parent_document": "1",
         "name": "el1390056710106",
         "__document_status__": "Active",
+        "id": 1,
         "type": "CSS",
         "path": "/assets/plugins/loopar/css/designer",
         "apply_on": "form"
       },
       "el1259705225": {
-        "parent_id": 1,
-        "parent_document": 1,
+        "parent_id": "1",
+        "parent_document": "1",
         "name": "el1259705225",
         "__document_status__": "Active",
+        "id": 2,
         "type": "CSS",
         "path": "/assets/plugins/simplemde/css/simplemde.min",
         "apply_on": "form"
       },
       "el41621558029": {
-        "parent_id": 1,
-        "parent_document": 1,
+        "parent_id": "1",
+        "parent_document": "1",
         "name": "el41621558029",
         "__document_status__": "Active",
+        "id": 3,
         "type": "JS",
         "path": "/assets/plugins/simplemde/js/simplemde.min",
         "apply_on": "form"
@@ -296,6 +298,8 @@
         "parent_document": "1",
         "name": "el1244393542167",
         "__document_status__": "Active",
+        "id": 4,
+        "type": null,
         "path": "test",
         "apply_on": "all"
       },
@@ -304,7 +308,10 @@
         "parent_document": "1",
         "name": "el73818724466",
         "__document_status__": "Active",
-        "id": 5
+        "id": 5,
+        "type": null,
+        "path": null,
+        "apply_on": null
       }
     }
   }
