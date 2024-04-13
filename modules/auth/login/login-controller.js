@@ -28,7 +28,7 @@ export default class LoginController extends BaseController {
         this.redirect('/desk');
       });
     } else {
-      await this.#makeAction('Login');
+      return await this.#makeAction('Login');
     }
   }
 
@@ -47,21 +47,21 @@ export default class LoginController extends BaseController {
   }
 
   async actionRegister() {
-    await this.#makeAction('Register');
+    return await this.#makeAction('Register');
   }
 
   async actionRecoveryUser() {
-    await this.#makeAction('Recovery User');
+    return await this.#makeAction('Recovery User');
   }
 
   async actionRecoveryPassword() {
-    await this.#makeAction('Recovery Password');
+    return await this.#makeAction('Recovery Password');
   }
 
   async #makeAction(form) {
     this.documentName = form;
     const _form = await loopar.newDocument(form);
 
-    await this.render(await _form.__data__());
+    return await this.render(await _form.__data__());
   }
 }
