@@ -89,7 +89,7 @@
         "include_in_installer": 0
       },
       "Resources": {
-        "id": 21,
+        "id": 2,
         "name": "Resources",
         "module": "core",
         "type": "Document",
@@ -274,7 +274,7 @@
     }
   },
   "Resources": {
-    "doctypeId": 21,
+    "doctypeId": 2,
     "documents": {
       "el1390056710106": {
         "parent_id": "1",

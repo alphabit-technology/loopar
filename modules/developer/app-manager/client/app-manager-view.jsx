@@ -271,7 +271,7 @@ export default class AppManagerView extends ListContext {
       title: "Confirm",
       message: `Are you sure you want to ${action} ${appName}?${deleteMessage}`,
       ok: () => {
-        loopar.http.send({
+        loopar.send({
           action: `${action}`,
           params: { app_name: appName, installing: true },
           body: { app_name: appName },
