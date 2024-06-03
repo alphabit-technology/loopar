@@ -12,6 +12,6 @@ export default class SystemSettings extends BaseDocument {
   async save() {
     await super.save();
 
-    loopar.activeWepApp = this.name;
+    await loopar.makeConfig();
   }
 }

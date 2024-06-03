@@ -1,21 +1,13 @@
 
 'use strict';
 
-import FormContext from '$context/list-context';
-import { div, span, button, i, a, h5, label } from "/components/elements.js";
-import { loopar } from '/loopar.js';
+import FormContext from '$context/form-context';
+import { loopar } from '$loopar';
 
 export default class DocumentHistoryForm extends FormContext {
   readOnly = true;
   canUpdate = false;
   hasHistory = false;
-  /*constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return super.render();
-  }*/
 
   componentDidMount() {
     super.componentDidMount();
@@ -25,7 +17,7 @@ export default class DocumentHistoryForm extends FormContext {
   setCustomActions() {
     super.setCustomActions();
 
-    if (this.getValue("action") !== 'Deleted') return;
+    /*if (this.getValue("action") !== 'Deleted') return;
 
     this.setCustomAction('restore', button({
       className: "btn btn-primary",
@@ -41,20 +33,19 @@ export default class DocumentHistoryForm extends FormContext {
         });
       }
     }, [
-      i({ className: "fa fa-fw fa-plus" }),
-      " Restore"
-    ]));
+      <i className="fa fa-fw fa-plus">Restore</i>
+    ]));*/
   }
 
   restore() {
-    if (this.getValue("action") !== 'Deleted') {
+    /*if (this.getValue("action") !== 'Deleted') {
       loopar.notify("This version is not deleted.", "warning");
       return;
     }
 
     loopar.method('Document History', 'restore', { documentName: this.props.meta.__DOCUMENT_NAME__ }).then(() => {
       loopar.rootApp.refresh();
-    });
+    });*/
   }
 
   save() {

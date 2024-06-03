@@ -60,10 +60,10 @@ export default class DocumentList extends ListContext {
               <Avatar className={`rounded-3 h-14 w-14`} style={{ backgroundColor: color }}>
                 <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{loopar.utils.avatar(row.name)}</AvatarFallback>
               </Avatar>
-              <p>
+              <div>
                 <h4>{row.name}</h4>
                 <h6 className='font-bold text-slate-500 dark:text-slate-400'>{row.module}</h6>
-              </p>
+              </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">

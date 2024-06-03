@@ -4,35 +4,35 @@
 import { BaseDocument, loopar } from 'loopar';
 
 export default class DocumentHistory extends BaseDocument {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+  }
+
+  async delete() {
+    loopar.throw("You can't delete History Document");
+  }
+
+  get docRef() {
+    return { "=": { id: this.document_id } };
+  }
+
+  async restore() {
+    if (await loopar.db.getValue(this.document, "__document_status__", this.docRef, { includeDeleted: true }) !== "Deleted") {
+      return loopar.throw({ code: 400, message: `${this.document}.${this.document_name} is not deleted.` });
     }
 
-    async delete() {
-        loopar.throw("You can't delete History Document");
+    if (await loopar.db.getValue(this.document, "name", this.docRef, { ifNotFound: false })) {
+      return loopar.throw({ code: 400, message: `A new version of this registry has been created, it cannot be restored.` });
     }
 
-    get docRef() {
-        return { "=": { id: this.document_id } };
-    }
+    await loopar.db.setValue(this.document, "__document_status__", "Active", this.docRef);
+    await loopar.db.setValue(this.document, "name", this.document_name, this.docRef);
 
-    async restore() {
-        if (await loopar.db.getValue(this.document, "__document_status__", this.docRef, { includeDeleted: true }) !== "Deleted") {
-            return loopar.throw({ code: 400, message: `${this.document}.${this.document_name} is not deleted.` });
-        }
+    const h = await loopar.newDocument("Document History", await this.values());
+    h.name = loopar.utils.randomString();
+    h.action = "Restored";
+    await h.save();
 
-        if (await loopar.db.getValue(this.document, "name", this.docRef, { ifNotFound: false })) {
-            return loopar.throw({ code: 400, message: `A new version of this registry has been created, it cannot be restored.` });
-        }
-
-        await loopar.db.setValue(this.document, "__document_status__", "Active", this.docRef);
-        await loopar.db.setValue(this.document, "name", this.document_name, this.docRef);
-
-        const h = await loopar.newDocument("Document History", await this.values());
-        h.name = loopar.utils.randomString();
-        h.action = "Restored";
-        await h.save();
-
-        return "Document restored successfully."
-    }
+    return "Document restored successfully."
+  }
 }

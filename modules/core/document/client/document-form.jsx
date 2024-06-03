@@ -9,6 +9,7 @@ import { useState,  } from 'react';
 import { DocumentContext } from "@custom-hooks"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import {useCookies} from "@services/cookie";
 
 const Sidebar = ({data}) => {
   const document = useDocument();
@@ -27,6 +28,17 @@ const Sidebar = ({data}) => {
         >
           {sidebarOption === "designer" ? <EyeIcon className="mr-2" /> : <BrushIcon className="mr-2" />}
           <span>{sidebarOption === "designer" ? "Preview" : "Design"}</span>
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            document.handleSave()
+          }}
+        >
+          <SaveIcon className="mr-2" />
+          <span>Save</span>
         </Button>
       </div>
       <Separator/>
@@ -48,8 +60,8 @@ const Sidebar = ({data}) => {
   );
 }
 
-const DocumentFormContext = ({children}) => {
-  const [mode, setMode] = useState(loopar.utils.cookie.get("document-mode") || "preview");
+const DocumentFormContext = ({docRef, children, ...props}) => {
+  const [mode, setMode] = useCookies("document-mode")// useState(loopar.utils.cookie.get("document-mode") || "preview");
   const [editElement, setEditElement] = useState(null);
 
   const handleChangeMode = (opt=null) => {
@@ -61,7 +73,7 @@ const DocumentFormContext = ({children}) => {
   }
 
   const handleSetMode = (newMode) => {
-    loopar.utils.cookie.set("document-mode", newMode)
+    //loopar.utils.cookie.set("document-mode", newMode)
     setMode(newMode);
   }
 
@@ -70,8 +82,12 @@ const DocumentFormContext = ({children}) => {
     setEditElement(element);
   }
 
+  const handleSave = () => {
+    docRef.save();
+  }
+
   return (
-    <DocumentContext.Provider value={{mode, handleChangeMode, editElement, handleSetEditElement}}>
+    <DocumentContext.Provider value={{mode, handleChangeMode, editElement, handleSetEditElement, handleSave}}>
       {children}
     </DocumentContext.Provider>
   )
@@ -82,7 +98,7 @@ export default class DocumentForm extends FormContext {
 
   render() {
     return (
-      <DocumentFormContext>
+      <DocumentFormContext docRef={this}>
         {super.render()}
       </DocumentFormContext>
     )

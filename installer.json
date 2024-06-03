@@ -5,11 +5,10 @@
       "loopar": {
         "__document_status__": "Active",
         "id": 1,
-        "deleted_at": "2024-04-12 21:46:16",
+        "deleted_at": "2024-06-02 22:15:58",
         "type": "Desk App",
         "logo": "",
         "logo_width": "",
-        "default_app": 0,
         "has_footer": 0,
         "has_copyright": 0,
         "footer": "\"\"",
@@ -24,7 +23,7 @@
         "github_pass": "",
         "name": "loopar",
         "description": "Loopar",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "autor": "Administrator",
         "info": "Loopar Javascript Drag and Drop Framework"
       }
@@ -227,6 +226,20 @@
         "name": "Error",
         "module": "core",
         "type": "Page",
+        "include_in_installer": 0
+      },
+      "Side Menu": {
+        "id": 62,
+        "name": "Side Menu",
+        "module": "developer",
+        "type": "Document",
+        "include_in_installer": 0
+      },
+      "Side Menu Item": {
+        "id": 63,
+        "name": "Side Menu Item",
+        "module": "developer",
+        "type": "Document",
         "include_in_installer": 0
       }
     }

@@ -1,4 +1,4 @@
-import { BaseDocument, documentManage, fileManage, loopar } from "loopar";
+import { BaseDocument, documentManage, fileManage, loopar, MetaComponents } from "loopar";
 import { Helpers } from "loopar";
 import decamelize from "decamelize";
 import { fileTypeFromBuffer } from 'file-type';
@@ -326,20 +326,21 @@ export default class Document extends BaseDocument {
 
   validateFieldName(name) {
     if (!name) return;
+    const errMessage = `Field name <strong>"${name}"</strong> is not valid. <br/>`;
     if (name.length < 3 && name !== 'id') {
-      loopar.throw('Field name must be at least 3 characters long.');
+      loopar.throw(`${errMessage}Field name must be at least 3 characters long.`);
     }
 
     if (name.length > 64) {
-      loopar.throw('Field name must be at most 64 characters long.');
+      loopar.throw(`${errMessage}Field name must be at most 64 characters long.`);
     }
 
     if (!/^[a-zA-Z0-9_]+$/.test(name)) {
-      loopar.throw('Field name must contain only letters, numbers and underscores.');
+      loopar.throw(`${errMessage}Field name must contain only letters, numbers and underscores.`);
     }
 
     if (/^[0-9_]+$/.test(name)) {
-      loopar.throw('Field name must not start with a number.');
+      loopar.throw(`${errMessage}Field name must not start with a number.`);
     }
 
     const reservedKeywords = [
@@ -385,8 +386,21 @@ export default class Document extends BaseDocument {
         const options = (field.data.options || "").split("\n");
 
         if (options.length === 1 && options[0] !== "") {
-          if (await loopar.db._count("Document", options[0]) === 0) {
-            errors.push(`Document ${options[0]} is not a valid Document for ${field.data.name}, please check the options.`);
+          const DocumentName = options[0].split(":")[0];
+
+          if (await loopar.db._count("Document", DocumentName) === 0) {
+            errors.push(`Document ${DocumentName} is not a valid Document for ${field.data.name}, please check the options.`);
+          }else if(type === FORM_TABLE){
+            const isSingle = await loopar.db.getValue("Document", "is_single", DocumentName);
+            if (isSingle) {
+              errors.push(`Document ${DocumentName} is a single Document, please use a Document with multiple records.`);
+            }
+
+            const isChild = await loopar.db.getValue("Document", "is_child", DocumentName);
+
+            if (isChild !== 1) {
+              errors.push(`Document ${DocumentName} is not a child Document, please use a child Document.`);
+            }
           }
         }
       }
@@ -491,10 +505,37 @@ export default class Document extends BaseDocument {
 
     const makeView = async (view, context = view) => {
       const importContext = `${Helpers.Capitalize(context)}Context`;
+      const viewName = this.name + Helpers.Capitalize(view);
+      /*const rc = MetaComponents({
+        meta: {
+          __DOCTYPE__: {
+            doc_structure: JSON.stringify(this.doc_structure)
+          }
+        },
+        action: view,
+        context: context,
+      });
+      
+      console.log([view, rc])
 
-      await fileManage.makeClass(clientPath, this.name + Helpers.Capitalize(view), {
+      const importerComponents = `
+import { Components } from "$components-loader";
+${rc.map((element) => {
+  return `import ${loopar.utils.Capitalize(element.replaceAll("-", ""))} from "@${element.replaceAll("_", "-")}";`;
+}).join("\n")}
+
+${rc.map((element) => {
+  return `Components["${element}"] = {default: ${loopar.utils.Capitalize(element.replaceAll("-", "")) }}`;
+}).join("\n")}
+
+export default Components;
+`
+
+      await fileManage.makeFile(clientPath, viewName + "Importer", importerComponents, 'jsx', true);*/
+      await fileManage.makeClass(clientPath, viewName, {
         IMPORTS: {
           [importContext]: `@context/${context}-context`,
+          [`${viewName}Importer`]: `./${viewName}Importer.jsx`,
         },
         EXTENDS: importContext
       }, 'default', "jsx");

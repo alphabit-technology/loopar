@@ -1,7 +1,6 @@
 'use strict';
 
 import ListContext from '@context/list-context'
-import noData from "@no-data";
 import loopar from "loopar";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter} from '@card';
@@ -18,6 +17,8 @@ import { PlusIcon, DownloadIcon, MenuIcon, RefreshCcwDotIcon, FolderDownIcon, Tr
 
 export default class AppManagerView extends ListContext {
   onlyGrid = true;
+  hasSearchForm = false;
+
   constructor(props) {
     super(props);
   }
@@ -99,10 +100,10 @@ export default class AppManagerView extends ListContext {
               <Avatar className={`rounded-3 h-14 w-14`} style={{ backgroundColor: color }}>
                 <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{loopar.utils.avatar(app.name)}</AvatarFallback>
               </Avatar>
-              <p>
+              <div>
                 <h4>Autor: {app.autor}</h4>
                 <h6 className='font-bold text-slate-500 dark:text-slate-400'>Version: {app.version}</h6>
-              </p>
+              </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
