@@ -5,7 +5,7 @@
       "loopar": {
         "__document_status__": "Active",
         "id": 1,
-        "deleted_at": "2024-06-02 22:15:58",
+        "deleted_at": "2024-06-04 10:25:41",
         "type": "Desk App",
         "logo": "",
         "logo_width": "",
@@ -23,14 +23,14 @@
         "github_pass": "",
         "name": "loopar",
         "description": "Loopar",
-        "version": "0.2.1",
+        "version": "0.2.2",
         "autor": "Administrator",
         "info": "Loopar Javascript Drag and Drop Framework"
       }
     }
   },
   "Module": {
-    "doctypeId": 3,
+    "doctypeId": 4,
     "documents": {
       "core": {
         "__document_status__": "Active",
@@ -39,7 +39,7 @@
         "description": "Core",
         "app_name": "loopar",
         "module_group": "administration",
-        "icon": "fa fa-cog",
+        "icon": "Settings",
         "in_sidebar": 1,
         "deleted_at": null
       },
@@ -50,7 +50,7 @@
         "description": "Developer",
         "app_name": "loopar",
         "module_group": "developer",
-        "icon": "oi oi-fork",
+        "icon": "LucideCode",
         "in_sidebar": 1,
         "deleted_at": null
       },
@@ -61,7 +61,7 @@
         "description": "Auth",
         "app_name": "loopar",
         "module_group": "administration",
-        "icon": "fa fa-user",
+        "icon": "LucideUserCheck2",
         "in_sidebar": 1,
         "deleted_at": null
       },
@@ -72,7 +72,7 @@
         "description": "Integrations",
         "app_name": "loopar",
         "module_group": "administration",
-        "icon": "fa fa-tools",
+        "icon": "ComponentIcon",
         "in_sidebar": 1,
         "deleted_at": null
       }
@@ -96,147 +96,147 @@
         "include_in_installer": 1
       },
       "Document History": {
-        "id": 2,
+        "id": 3,
         "name": "Document History",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Module": {
-        "id": 3,
+        "id": 4,
         "name": "Module",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "App": {
-        "id": 4,
+        "id": 5,
         "name": "App",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Module Group": {
-        "id": 5,
+        "id": 6,
         "name": "Module Group",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Document Single Values": {
-        "id": 6,
+        "id": 7,
         "name": "Document Single Values",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "User": {
-        "id": 7,
+        "id": 8,
         "name": "User",
         "module": "auth",
         "type": "Document",
         "include_in_installer": 0
       },
       "Login": {
-        "id": 8,
+        "id": 9,
         "name": "Login",
         "module": "auth",
         "type": "Form",
         "include_in_installer": 0
       },
       "Desk": {
-        "id": 9,
+        "id": 10,
         "name": "Desk",
         "module": "core",
         "type": "Page",
         "include_in_installer": 0
       },
       "App Manager": {
-        "id": 10,
+        "id": 11,
         "name": "App Manager",
         "module": "developer",
         "type": "Page",
         "include_in_installer": 0
       },
       "Reset Password": {
-        "id": 11,
+        "id": 12,
         "name": "Reset Password",
         "module": "auth",
         "type": "Form",
         "include_in_installer": 0
       },
       "System Settings": {
-        "id": 12,
+        "id": 13,
         "name": "System Settings",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "File Manager": {
-        "id": 13,
+        "id": 14,
         "name": "File Manager",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Not Found": {
-        "id": 14,
+        "id": 15,
         "name": "Not Found",
         "module": "core",
         "type": "Page",
         "include_in_installer": 0
       },
       "Menu": {
-        "id": 15,
+        "id": 16,
         "name": "Menu",
         "module": "developer",
         "type": "Document",
         "include_in_installer": 0
       },
       "Menu Item": {
-        "id": 16,
+        "id": 17,
         "name": "Menu Item",
         "module": "developer",
         "type": "Document",
         "include_in_installer": 0
       },
       "GPT": {
-        "id": 17,
+        "id": 18,
         "name": "GPT",
         "module": "Integrations",
         "type": "Document",
         "include_in_installer": 0
       },
       "Stripe": {
-        "id": 18,
+        "id": 19,
         "name": "Stripe",
         "module": "Integrations",
         "type": "Document",
         "include_in_installer": 0
       },
       "Connected Document": {
-        "id": 19,
+        "id": 20,
         "name": "Connected Document",
         "module": "core",
         "type": "Document",
         "include_in_installer": 0
       },
       "Error": {
-        "id": 20,
+        "id": 21,
         "name": "Error",
         "module": "core",
         "type": "Page",
         "include_in_installer": 0
       },
       "Side Menu": {
-        "id": 62,
+        "id": 22,
         "name": "Side Menu",
         "module": "developer",
         "type": "Document",
         "include_in_installer": 0
       },
       "Side Menu Item": {
-        "id": 63,
+        "id": 23,
         "name": "Side Menu Item",
         "module": "developer",
         "type": "Document",
@@ -245,7 +245,7 @@
     }
   },
   "Module Group": {
-    "doctypeId": 5,
+    "doctypeId": 6,
     "documents": {
       "administration": {
         "__document_status__": "Active",
@@ -253,7 +253,7 @@
         "name": "administration",
         "description": "Administration",
         "in_sidebar": 1,
-        "deleted_at": null
+        "deleted_at": "2024-06-03T03:18:21.000Z"
       },
       "modules": {
         "__document_status__": "Active",
@@ -261,7 +261,7 @@
         "name": "modules",
         "description": "Modules",
         "in_sidebar": 1,
-        "deleted_at": null
+        "deleted_at": "2024-06-03T03:18:21.000Z"
       },
       "developer": {
         "__document_status__": "Active",
@@ -269,7 +269,7 @@
         "name": "developer",
         "description": "Developer",
         "in_sidebar": 1,
-        "deleted_at": null
+        "deleted_at": "2024-06-03T03:18:21.000Z"
       }
     }
   },
