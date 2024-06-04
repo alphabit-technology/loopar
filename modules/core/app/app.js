@@ -100,8 +100,6 @@ export default class App extends BaseDocument {
       "=": { app_name: this.name }
     });
 
-    console.log(["Sync Files Installer  Modules", modules]);
-
     await loopar.updateInstaller({
       doctype: moduleDoctype,
       documentName: "Module",
@@ -115,8 +113,6 @@ export default class App extends BaseDocument {
     const documents = await loopar.db.getAll('Document', ["id", "name", "module", "type", "include_in_installer"], {
       "in": { module: modules.map(module => module.name) }
     });
-
-    console.log(["Sync Files Installer Documents", documents]);
 
     await loopar.updateInstaller({
       doctype: doc,
