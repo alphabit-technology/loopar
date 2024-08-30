@@ -1,0 +1,7 @@
+{
+  "__document_status__": "Deleted",
+  "name": "Test Page2",
+  "module": "Test Module",
+  "doc_structure": "[{\"element\":\"banner_image\",\"data\":{\"label\":\"Banner_image1\",\"key\":\"banner_image1_el226076562726\"},\"style\":{},\"elements\":[{\"element\":\"row\",\"elements\":[{\"element\":\"col\",\"elements\":[{\"element\":\"image\",\"data\":{\"class\":\"img-fluid mb-5 mb-md-0\",\"src\":\"https://picsum.photos/800/600\",\"alt\":\"\",\"key\":\":r19:3\",\"label\":\"Image1\"}}],\"data\":{\"key\":\":r19:2\",\"label\":\"Col1\"}},{\"element\":\"col\",\"elements\":[{\"element\":\"div\",\"data\":{\"class\":\"ml-auto text-center text-sm-left\",\"key\":\":r19:5\",\"label\":\"Div1\"},\"elements\":[{\"element\":\"title\",\"data\":{\"class\":\"display-4 mb-4\",\"text\":\"Jumbo heading\",\"key\":\":r19:6\",\"label\":\"Title1\"}},{\"element\":\"subtitle\",\"data\":{\"class\":\"lead mb-5\",\"text\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.\",\"key\":\":r19:7\",\"label\":\"Subtitle1\"}},{\"element\":\"button\",\"data\":{\"class\":\"d-block sm:inline-block sm:mr-2 my-3\",\"label\":\"Let's Try \",\"key\":\":r19:8\"}},{\"element\":\"button\",\"data\":{\"class\":\"d-block sm:inline-block my-3\",\"target\":\"_blank\",\"label\":\"Documentation\",\"key\":\":r19:9\"}}]}],\"data\":{\"key\":\":r19:4\",\"label\":\"Col2\"}}],\"data\":{\"key\":\":r19:1\",\"label\":\"Row1\"}}]}]",
+  "__ENTITY__": "Page Builder"
+}

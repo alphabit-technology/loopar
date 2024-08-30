@@ -1,0 +1,7 @@
+{
+  "__document_status__": "Active",
+  "name": "Test Page",
+  "module": "loopar-web",
+  "doc_structure": "[{\"element\":\"carrusel\",\"data\":{\"label\":\"Carrusel2\",\"key\":\"carrusel2_el128260065912\"},\"style\":{},\"elements\":[{\"element\":\"banner\",\"data\":{\"text\":\"Slide 1\",\"color_overlay\":\"rgba(0,0,0,0.3)\",\"background_image\":\"https://fastly.picsum.photos/id/174/800/600.jpg?hmac=cfaSWlI7126OpICaFPhVjWRVaaGrLtpZ7Ly9SksvbTM\",\"key\":\":r1e:1\",\"label\":\"Banner1\"},\"elements\":[{\"element\":\"title\",\"data\":{\"text\":\"Banner1\",\"size\":\"3xl\",\"text_align\":\"center\",\"key\":\":r1f:1\",\"label\":\"Title2\"}},{\"element\":\"subtitle\",\"data\":{\"text\":\"Slide 1\",\"text_align\":\"center\",\"key\":\":r1f:2\",\"label\":\"Subtitle2\"}}]},{\"element\":\"banner\",\"data\":{\"text\":\"Slide 2\",\"color_overlay\":\"rgba(0,0,0,0.3)\",\"background_image\":\"https://img.freepik.com/free-photo/digital-painting-mountain-with-colorful-tree-foreground_1340-25699.jpg\",\"key\":\":r1e:2\",\"label\":\"Banner2\"},\"elements\":[]}]}]",
+  "__ENTITY__": "Page Builder"
+}

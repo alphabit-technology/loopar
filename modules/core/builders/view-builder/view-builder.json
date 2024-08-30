@@ -1,0 +1,9 @@
+{
+  "__document_status__": "Active",
+  "id": "1",
+  "name": "View Builder",
+  "build": "View",
+  "module": "core",
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"j0u0h4ss4\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"771w1s7uy\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"g7cy8kqe\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"label\":\"Row1\",\"key\":\"i6ot0ni65\"},\"elements\":[{\"element\":\"col\",\"data\":{\"label\":\"Col3\",\"key\":\"bth434bs0\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"key\":\"5ezhe3hkx\",\"name\":\"name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"label\":\"Col1\",\"key\":\"v59f34u6t\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Entity\",\"key\":\"h3m1use6o\",\"name\":\"entity\",\"options\":\"Entity\"},\"elements\":[]}]}]},{\"element\":\"designer\",\"data\":{\"label\":\"View Designer\",\"key\":\"1gbtw9vbj\",\"name\":\"doc_structure\"},\"elements\":[]}]",
+  "__ENTITY__": "Builder"
+}

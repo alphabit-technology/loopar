@@ -1,0 +1,68 @@
+{
+  "id": "20",
+  "name": "Connected Document",
+  "module": "core",
+  "default_list_view": "List",
+  "type": "Document",
+  "is_single": 0,
+  "is_static": 0,
+  "include_in_installer": 0,
+  "is_child": 0,
+  "__document_status__": "Active",
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"50w22rfk7\",\"label\":\"Row2\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"bn9fvk34v\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Status\",\"name\":\"__document_status__\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"hidden\":1,\"key\":\"43c3nu7u6\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"label\":\"ID\",\"name\":\"id\",\"type\":\"integer\",\"required\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"hidden\":1,\"in_list_view\":0,\"key\":\"hdgzhkknh\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el219619539050\",\"id\":\"row1_el219619539050\",\"label\":\"Row1\",\"key\":\"hqcnsfbq0\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el122573439489\",\"id\":\"col1_el122573439489\",\"label\":\"Col1\",\"key\":\"w42jtbusc\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"From\",\"name\":\"from_document\",\"options\":\"Document\",\"in_list_view\":1,\"searchable\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"key\":\"phmy3x19t\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el309562694934\",\"id\":\"col2_el309562694934\",\"label\":\"Col2\",\"key\":\"0w3n51z8z\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"From ID\",\"name\":\"from_id\",\"in_list_view\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"key\":\"o1k94oyiw\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"From Name\",\"name\":\"from_name\",\"in_list_view\":1,\"searchable\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"id\":\"input3_el1163577952410\",\"key\":\"cybb73un1\"},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el406126584835\",\"id\":\"row2_el406126584835\",\"label\":\"Row2\",\"key\":\"ogfyle3w0\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col3_el54233028243\",\"id\":\"col3_el54233028243\",\"label\":\"Col3\",\"key\":\"swjczbceu\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"To\",\"name\":\"to_document\",\"options\":\"Document\",\"in_list_view\":1,\"searchable\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"key\":\"e01yui28s\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col4_el899373541555\",\"id\":\"col4_el899373541555\",\"label\":\"Col4\",\"key\":\"oxgxbtwh6\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"To ID\",\"name\":\"to_id\",\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"key\":\"812jcmfe8\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"To Name\",\"name\":\"to_name\",\"in_list_view\":1,\"searchable\":1,\"background_color\":\"\",\"background_image\":[],\"color_overlay\":\"\",\"id\":\"input4_el1386078280798\",\"key\":\"4be29myc7\"},\"elements\":[]}]}]}]",
+  "resources": {
+    "__ENTITY__": {
+      "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"id\":\"select125_el286292828785\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select125_el286292828785\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"id\":\"input134_el57728266819\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"input134_el57728266819\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"id\":\"select405_el86013028163\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"select405_el86013028163\"},\"elements\":[]}]}]",
+      "id": 69,
+      "name": "Resources",
+      "module": "core",
+      "default_list_view": "List",
+      "type": "Document",
+      "is_single": 0,
+      "is_static": 0,
+      "include_in_installer": 1,
+      "is_child": 1,
+      "__document_status__": "Active",
+      "search_fields": null,
+      "title_fields": null,
+      "resources": "",
+      "deleted_at": null,
+      "__created_at__": null,
+      "__updated_at__": null,
+      "__deleted_at__": null,
+      "__APP__": "loopar"
+    },
+    "__DOCUMENT_NAME__": null,
+    "__DOCUMENT__": {
+      "__document_status__": "Active"
+    },
+    "__IS_NEW__": true,
+    "labels": [
+      "Name",
+      "Type",
+      "Path",
+      "Apply on"
+    ],
+    "fields": [
+      "name",
+      "type",
+      "path",
+      "apply_on"
+    ],
+    "rows": [],
+    "pagination": {
+      "page": 1,
+      "pageSize": 10,
+      "totalPages": 0,
+      "totalRecords": 0,
+      "sortBy": "id",
+      "sortOrder": "asc",
+      "__ENTITY__": "Resources"
+    },
+    "q": null
+  },
+  "deleted_at": null,
+  "__created_at__": null,
+  "__updated_at__": null,
+  "__deleted_at__": null
+}

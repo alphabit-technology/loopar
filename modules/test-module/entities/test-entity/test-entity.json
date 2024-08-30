@@ -1,0 +1,11 @@
+{
+  "__document_status__": "Active",
+  "id": "1",
+  "name": "Test Entity",
+  "is_single": 1,
+  "is_child": 0,
+  "module": "Test Module",
+  "include_in_installer": 0,
+  "doc_structure": "[{\"data\":{\"name\":\"name_and_status_container\",\"key\":\"8a7uo9954\",\"label\":\"Row1\"},\"element\":\"row\",\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"e5mhy35r9\"},\"style\":{}},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"yzspqa2fb\"},\"style\":{}}],\"style\":{}},{\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"38ug3b0lv\"},\"element\":\"input\",\"elements\":[],\"style\":{}}]",
+  "__ENTITY__": "Entity Builder"
+}
