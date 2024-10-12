@@ -1,331 +1,886 @@
 {
   "App": {
-    "doctypeId": "5",
-    "documents": {
-      "loopar": {
-        "__document_status__": "Active",
-        "id": 1,
-        "deleted_at": "2024-06-04 10:25:41",
-        "type": "Desk App",
-        "logo": "",
-        "logo_width": "",
-        "has_footer": 0,
-        "has_copyright": 0,
-        "footer": "\"\"",
-        "copyright": "\"\"",
-        "fixed": 0,
-        "login_button": 0,
-        "opacity": "",
-        "menu_items": [],
-        "git_repo": "",
-        "repository": "",
-        "github_user": "",
-        "github_pass": "",
-        "name": "loopar",
-        "description": "Loopar",
-        "version": "0.2.2",
-        "autor": "Administrator",
-        "info": "Loopar Javascript Drag and Drop Framework"
-      }
-    }
+    "name": "loopar",
+    "version": "0.2.3"
   },
-  "Module": {
-    "doctypeId": 4,
-    "documents": {
-      "core": {
-        "__document_status__": "Active",
-        "id": 1,
-        "name": "core",
-        "description": "Core",
-        "app_name": "loopar",
-        "module_group": "administration",
-        "icon": "Settings",
-        "in_sidebar": 1,
-        "deleted_at": null
-      },
-      "developer": {
-        "__document_status__": "Active",
-        "id": 2,
-        "name": "developer",
-        "description": "Developer",
-        "app_name": "loopar",
-        "module_group": "developer",
-        "icon": "LucideCode",
-        "in_sidebar": 1,
-        "deleted_at": null
-      },
-      "auth": {
-        "__document_status__": "Active",
-        "id": 3,
-        "name": "auth",
-        "description": "Auth",
-        "app_name": "loopar",
-        "module_group": "administration",
-        "icon": "LucideUserCheck2",
-        "in_sidebar": 1,
-        "deleted_at": null
-      },
-      "Integrations": {
-        "__document_status__": "Active",
-        "id": 4,
-        "name": "Integrations",
-        "description": "Integrations",
-        "app_name": "loopar",
-        "module_group": "administration",
-        "icon": "ComponentIcon",
-        "in_sidebar": 1,
-        "deleted_at": null
-      }
+  "documents": [
+    {
+      "id": 1,
+      "entity": "Entity",
+      "path": "/apps/loopar/modules/core/entities/entity",
+      "name": "Entity",
+      "documents": [
+        {
+          "id": 1,
+          "name": "Entity",
+          "path": "/apps/loopar/modules/core/entities/entity"
+        },
+        {
+          "id": 2,
+          "name": "Document History",
+          "path": "/apps/loopar/modules/core/entities/document-history"
+        },
+        {
+          "id": 4,
+          "name": "Module",
+          "path": "/apps/loopar/modules/core/entities/module"
+        },
+        {
+          "id": 5,
+          "name": "App",
+          "path": "/apps/loopar/modules/core/entities/app"
+        },
+        {
+          "id": 6,
+          "name": "Document Single Values",
+          "path": "/apps/loopar/modules/core/entities/document-single-values"
+        },
+        {
+          "id": 8,
+          "name": "Login",
+          "path": "/apps/loopar/modules/auth/entities/login"
+        },
+        {
+          "id": 10,
+          "name": "Desk",
+          "path": "/apps/loopar/modules/core/entities/desk"
+        },
+        {
+          "id": 11,
+          "name": "Reset Password",
+          "path": "/apps/loopar/modules/auth/entities/reset-password"
+        },
+        {
+          "id": 13,
+          "name": "File Manager",
+          "path": "/apps/loopar/modules/core/entities/file-manager"
+        },
+        {
+          "id": 17,
+          "name": "Menu Item",
+          "path": "/apps/loopar/modules/developer/entities/menu-item"
+        },
+        {
+          "id": 18,
+          "name": "GPT",
+          "path": "/apps/loopar/modules/integrations/entities/gpt"
+        },
+        {
+          "id": 19,
+          "name": "Stripe",
+          "path": "/apps/loopar/modules/integrations/entities/stripe"
+        },
+        {
+          "id": 20,
+          "name": "Connected Document",
+          "path": "/apps/loopar/modules/core/entities/connected-document"
+        },
+        {
+          "id": 38,
+          "name": "Builder",
+          "path": "/apps/loopar/modules/core/entities/builder"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 15,
+          "name": "Menu",
+          "path": "/apps/loopar/modules/developer/entities/menu"
+        },
+        {
+          "id": 21,
+          "name": "Resources",
+          "path": "/apps/loopar/modules/core/entities/resources"
+        },
+        {
+          "id": 62,
+          "name": "Side Menu",
+          "path": "/apps/loopar/modules/developer/entities/side-menu"
+        },
+        {
+          "id": 63,
+          "name": "Side Menu Item",
+          "path": "/apps/loopar/modules/developer/entities/side-menu-item"
+        },
+        {
+          "id": 87,
+          "name": "Not Found",
+          "path": "/apps/loopar/modules/core/entities/not-found"
+        },
+        {
+          "id": 1,
+          "name": "Entity",
+          "path": "/apps/loopar/modules/core/entities/entity",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 2,
+          "name": "Document History",
+          "path": "/apps/loopar/modules/core/entities/document-history",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 4,
+          "name": "Module",
+          "path": "/apps/loopar/modules/core/entities/module",
+          "documents": [
+            {
+              "id": 1,
+              "name": "core",
+              "data": {
+                "__document_status__": "Active",
+                "id": 1,
+                "name": "core",
+                "description": "Core",
+                "app_name": "loopar",
+                "module_group": "administration",
+                "icon": "Settings",
+                "in_sidebar": 1,
+                "deleted_at": "2024-10-11 22:59:19"
+              },
+              "requires": [
+                {
+                  "entity": "App",
+                  "name": "loopar",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "deleted_at": "2024-10-11 22:59:19",
+                      "type": "Desk App",
+                      "logo": "",
+                      "logo_width": "",
+                      "has_footer": 0,
+                      "has_copyright": 0,
+                      "footer": "\"\"",
+                      "copyright": "\"\"",
+                      "fixed": 0,
+                      "login_button": 0,
+                      "opacity": "",
+                      "menu_items": [],
+                      "git_repo": "",
+                      "repository": "",
+                      "github_user": "",
+                      "github_pass": "",
+                      "name": "loopar",
+                      "description": "Loopar",
+                      "version": "0.2.3",
+                      "autor": "Administrator",
+                      "info": "Loopar Javascript Drag and Drop Framework"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Module Group",
+                  "name": "administration",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "name": "administration",
+                      "description": "Administration",
+                      "in_sidebar": 1,
+                      "deleted_at": "2024-06-02 23:18:21"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "developer",
+              "data": {
+                "__document_status__": "Active",
+                "id": 2,
+                "name": "developer",
+                "description": "Developer",
+                "app_name": "loopar",
+                "module_group": "developer",
+                "icon": "LucideCode",
+                "in_sidebar": 1,
+                "deleted_at": "2024-10-11 22:59:19"
+              },
+              "requires": [
+                {
+                  "entity": "App",
+                  "name": "loopar",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "deleted_at": "2024-10-11 22:59:19",
+                      "type": "Desk App",
+                      "logo": "",
+                      "logo_width": "",
+                      "has_footer": 0,
+                      "has_copyright": 0,
+                      "footer": "\"\"",
+                      "copyright": "\"\"",
+                      "fixed": 0,
+                      "login_button": 0,
+                      "opacity": "",
+                      "menu_items": [],
+                      "git_repo": "",
+                      "repository": "",
+                      "github_user": "",
+                      "github_pass": "",
+                      "name": "loopar",
+                      "description": "Loopar",
+                      "version": "0.2.3",
+                      "autor": "Administrator",
+                      "info": "Loopar Javascript Drag and Drop Framework"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Module Group",
+                  "name": "developer",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 3,
+                      "name": "developer",
+                      "description": "Developer",
+                      "in_sidebar": 1,
+                      "deleted_at": "2024-10-11 22:59:19"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "auth",
+              "data": {
+                "__document_status__": "Active",
+                "id": 3,
+                "name": "auth",
+                "description": "Auth",
+                "app_name": "loopar",
+                "module_group": "administration",
+                "icon": "LucideUserCheck2",
+                "in_sidebar": 1,
+                "deleted_at": "2024-10-11 22:59:19"
+              },
+              "requires": [
+                {
+                  "entity": "App",
+                  "name": "loopar",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "deleted_at": "2024-10-11 22:59:19",
+                      "type": "Desk App",
+                      "logo": "",
+                      "logo_width": "",
+                      "has_footer": 0,
+                      "has_copyright": 0,
+                      "footer": "\"\"",
+                      "copyright": "\"\"",
+                      "fixed": 0,
+                      "login_button": 0,
+                      "opacity": "",
+                      "menu_items": [],
+                      "git_repo": "",
+                      "repository": "",
+                      "github_user": "",
+                      "github_pass": "",
+                      "name": "loopar",
+                      "description": "Loopar",
+                      "version": "0.2.3",
+                      "autor": "Administrator",
+                      "info": "Loopar Javascript Drag and Drop Framework"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Module Group",
+                  "name": "administration",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "name": "administration",
+                      "description": "Administration",
+                      "in_sidebar": 1,
+                      "deleted_at": "2024-06-02 23:18:21"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "Integrations",
+              "data": {
+                "__document_status__": "Active",
+                "id": 4,
+                "name": "Integrations",
+                "description": "Integrations",
+                "app_name": "loopar",
+                "module_group": "administration",
+                "icon": "ComponentIcon",
+                "in_sidebar": 1,
+                "deleted_at": "2024-10-11 22:59:19"
+              },
+              "requires": [
+                {
+                  "entity": "App",
+                  "name": "loopar",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "deleted_at": "2024-10-11 22:59:19",
+                      "type": "Desk App",
+                      "logo": "",
+                      "logo_width": "",
+                      "has_footer": 0,
+                      "has_copyright": 0,
+                      "footer": "\"\"",
+                      "copyright": "\"\"",
+                      "fixed": 0,
+                      "login_button": 0,
+                      "opacity": "",
+                      "menu_items": [],
+                      "git_repo": "",
+                      "repository": "",
+                      "github_user": "",
+                      "github_pass": "",
+                      "name": "loopar",
+                      "description": "Loopar",
+                      "version": "0.2.3",
+                      "autor": "Administrator",
+                      "info": "Loopar Javascript Drag and Drop Framework"
+                    }
+                  ]
+                },
+                {
+                  "entity": "Module Group",
+                  "name": "administration",
+                  "documents": [
+                    {
+                      "__document_status__": "Active",
+                      "id": 1,
+                      "name": "administration",
+                      "description": "Administration",
+                      "in_sidebar": 1,
+                      "deleted_at": "2024-06-02 23:18:21"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 5,
+          "name": "App",
+          "path": "/apps/loopar/modules/core/entities/app",
+          "documents": [
+            {
+              "id": 1,
+              "name": "loopar",
+              "data": {
+                "__document_status__": "Active",
+                "id": 1,
+                "deleted_at": "2024-10-11 22:59:19",
+                "type": "Desk App",
+                "logo": "",
+                "logo_width": "",
+                "has_footer": 0,
+                "has_copyright": 0,
+                "footer": "\"\"",
+                "copyright": "\"\"",
+                "fixed": 0,
+                "login_button": 0,
+                "opacity": "",
+                "menu_items": [],
+                "git_repo": "",
+                "repository": "",
+                "github_user": "",
+                "github_pass": "",
+                "name": "loopar",
+                "description": "Loopar",
+                "version": "0.2.3",
+                "autor": "Administrator",
+                "info": "Loopar Javascript Drag and Drop Framework"
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 6,
+          "name": "Document Single Values",
+          "path": "/apps/loopar/modules/core/entities/document-single-values",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 6,
+          "name": "Module Group",
+          "path": "/apps/loopar/modules/core/entities/module-group",
+          "documents": [
+            {
+              "id": 1,
+              "name": "administration",
+              "data": {
+                "__document_status__": "Active",
+                "id": 1,
+                "name": "administration",
+                "description": "Administration",
+                "in_sidebar": 1,
+                "deleted_at": "2024-06-02 23:18:21"
+              },
+              "requires": []
+            },
+            {
+              "id": 2,
+              "name": "modules",
+              "data": {
+                "__document_status__": "Active",
+                "id": 2,
+                "name": "modules",
+                "description": "Modules",
+                "in_sidebar": 1,
+                "deleted_at": "2024-06-02 23:18:21"
+              },
+              "requires": []
+            },
+            {
+              "id": 3,
+              "name": "developer",
+              "data": {
+                "__document_status__": "Active",
+                "id": 3,
+                "name": "developer",
+                "description": "Developer",
+                "in_sidebar": 1,
+                "deleted_at": "2024-10-11 22:59:19"
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 8,
+          "name": "Login",
+          "path": "/apps/loopar/modules/auth/entities/login",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 8,
+          "name": "User",
+          "path": "/apps/loopar/modules/auth/entities/user",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 10,
+          "name": "Desk",
+          "path": "/apps/loopar/modules/core/entities/desk",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 10,
+          "name": "App Manager",
+          "path": "/apps/loopar/modules/developer/entities/app-manager",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 11,
+          "name": "Reset Password",
+          "path": "/apps/loopar/modules/auth/entities/reset-password",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 13,
+          "name": "File Manager",
+          "path": "/apps/loopar/modules/core/entities/file-manager",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 13,
+          "name": "System Settings",
+          "path": "/apps/loopar/modules/core/entities/system-settings",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 17,
+          "name": "Menu Item",
+          "path": "/apps/loopar/modules/developer/entities/menu-item",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 18,
+          "name": "GPT",
+          "path": "/apps/loopar/modules/integrations/entities/gpt",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 19,
+          "name": "Stripe",
+          "path": "/apps/loopar/modules/integrations/entities/stripe",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 20,
+          "name": "Connected Document",
+          "path": "/apps/loopar/modules/core/entities/connected-document",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 38,
+          "name": "Builder",
+          "path": "/apps/loopar/modules/core/entities/builder",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 15,
+          "name": "Menu",
+          "path": "/apps/loopar/modules/developer/entities/menu",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 21,
+          "name": "Resources",
+          "path": "/apps/loopar/modules/core/entities/resources",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 62,
+          "name": "Side Menu",
+          "path": "/apps/loopar/modules/developer/entities/side-menu",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 63,
+          "name": "Side Menu Item",
+          "path": "/apps/loopar/modules/developer/entities/side-menu-item",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": 87,
+          "name": "Not Found",
+          "path": "/apps/loopar/modules/core/entities/not-found",
+          "documents": []
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        },
+        {
+          "id": null,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "entity": "Controller Builder",
+      "path": "/apps/loopar/modules/core/builders/controller-builder",
+      "name": "Controller Builder",
+      "documents": [
+        {
+          "id": 1,
+          "name": "Auth",
+          "path": "/apps/loopar/modules/auth/controllers/auth"
+        },
+        {
+          "id": 1,
+          "name": "Auth",
+          "path": "/apps/loopar/modules/auth/controllers/auth",
+          "documents": []
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "entity": "Builder",
+      "path": "/apps/loopar/modules/core/entities/builder",
+      "name": "Builder",
+      "documents": [
+        {
+          "id": 1,
+          "name": "View Builder",
+          "path": "/apps/loopar/modules/core/builders/view-builder"
+        },
+        {
+          "id": 4,
+          "name": "Page Builder",
+          "path": "/apps/loopar/modules/developer/builders/page-builder"
+        },
+        {
+          "id": 5,
+          "name": "Form Builder",
+          "path": "/apps/loopar/modules/core/builders/form-builder"
+        },
+        {
+          "id": 12,
+          "name": "Controller Builder",
+          "path": "/apps/loopar/modules/core/builders/controller-builder"
+        },
+        {
+          "id": 1,
+          "name": "View Builder",
+          "path": "/apps/loopar/modules/core/builders/view-builder",
+          "documents": []
+        },
+        {
+          "id": 4,
+          "name": "Page Builder",
+          "path": "/apps/loopar/modules/developer/builders/page-builder",
+          "documents": []
+        },
+        {
+          "id": 5,
+          "name": "Form Builder",
+          "path": "/apps/loopar/modules/core/builders/form-builder",
+          "documents": []
+        },
+        {
+          "id": 12,
+          "name": "Controller Builder",
+          "path": "/apps/loopar/modules/core/builders/controller-builder",
+          "documents": []
+        }
+      ]
     }
-  },
-  "Document": {
-    "doctypeId": 1,
-    "documents": {
-      "Document": {
-        "id": 1,
-        "name": "Document",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Resources": {
-        "id": 2,
-        "name": "Resources",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 1
-      },
-      "Document History": {
-        "id": 3,
-        "name": "Document History",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Module": {
-        "id": 4,
-        "name": "Module",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "App": {
-        "id": 5,
-        "name": "App",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Module Group": {
-        "id": 6,
-        "name": "Module Group",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Document Single Values": {
-        "id": 7,
-        "name": "Document Single Values",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "User": {
-        "id": 8,
-        "name": "User",
-        "module": "auth",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Login": {
-        "id": 9,
-        "name": "Login",
-        "module": "auth",
-        "type": "Form",
-        "include_in_installer": 0
-      },
-      "Desk": {
-        "id": 10,
-        "name": "Desk",
-        "module": "core",
-        "type": "Page",
-        "include_in_installer": 0
-      },
-      "App Manager": {
-        "id": 11,
-        "name": "App Manager",
-        "module": "developer",
-        "type": "Page",
-        "include_in_installer": 0
-      },
-      "Reset Password": {
-        "id": 12,
-        "name": "Reset Password",
-        "module": "auth",
-        "type": "Form",
-        "include_in_installer": 0
-      },
-      "System Settings": {
-        "id": 13,
-        "name": "System Settings",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "File Manager": {
-        "id": 14,
-        "name": "File Manager",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Not Found": {
-        "id": 15,
-        "name": "Not Found",
-        "module": "core",
-        "type": "Page",
-        "include_in_installer": 0
-      },
-      "Menu": {
-        "id": 16,
-        "name": "Menu",
-        "module": "developer",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Menu Item": {
-        "id": 17,
-        "name": "Menu Item",
-        "module": "developer",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "GPT": {
-        "id": 18,
-        "name": "GPT",
-        "module": "Integrations",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Stripe": {
-        "id": 19,
-        "name": "Stripe",
-        "module": "Integrations",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Connected Document": {
-        "id": 20,
-        "name": "Connected Document",
-        "module": "core",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Error": {
-        "id": 21,
-        "name": "Error",
-        "module": "core",
-        "type": "Page",
-        "include_in_installer": 0
-      },
-      "Side Menu": {
-        "id": 22,
-        "name": "Side Menu",
-        "module": "developer",
-        "type": "Document",
-        "include_in_installer": 0
-      },
-      "Side Menu Item": {
-        "id": 23,
-        "name": "Side Menu Item",
-        "module": "developer",
-        "type": "Document",
-        "include_in_installer": 0
-      }
-    }
-  },
-  "Module Group": {
-    "doctypeId": 6,
-    "documents": {
-      "administration": {
-        "__document_status__": "Active",
-        "id": 1,
-        "name": "administration",
-        "description": "Administration",
-        "in_sidebar": 1,
-        "deleted_at": "2024-06-03T03:18:21.000Z"
-      },
-      "modules": {
-        "__document_status__": "Active",
-        "id": 2,
-        "name": "modules",
-        "description": "Modules",
-        "in_sidebar": 1,
-        "deleted_at": "2024-06-03T03:18:21.000Z"
-      },
-      "developer": {
-        "__document_status__": "Active",
-        "id": 3,
-        "name": "developer",
-        "description": "Developer",
-        "in_sidebar": 1,
-        "deleted_at": "2024-06-03T03:18:21.000Z"
-      }
-    }
-  },
-  "Resources": {
-    "doctypeId": 2,
-    "documents": {
-      "el1390056710106": {
-        "parent_id": "1",
-        "parent_document": "1",
-        "name": "el1390056710106",
-        "__document_status__": "Active",
-        "id": 1,
-        "type": "CSS",
-        "path": "/assets/plugins/loopar/css/designer",
-        "apply_on": "form"
-      },
-      "el1259705225": {
-        "parent_id": "1",
-        "parent_document": "1",
-        "name": "el1259705225",
-        "__document_status__": "Active",
-        "id": 2,
-        "type": "CSS",
-        "path": "/assets/plugins/simplemde/css/simplemde.min",
-        "apply_on": "form"
-      },
-      "el41621558029": {
-        "parent_id": "1",
-        "parent_document": "1",
-        "name": "el41621558029",
-        "__document_status__": "Active",
-        "id": 3,
-        "type": "JS",
-        "path": "/assets/plugins/simplemde/js/simplemde.min",
-        "apply_on": "form"
-      },
-      "el1244393542167": {
-        "parent_id": "7",
-        "parent_document": "1",
-        "name": "el1244393542167",
-        "__document_status__": "Active",
-        "id": 4,
-        "type": null,
-        "path": "test",
-        "apply_on": "all"
-      },
-      "el73818724466": {
-        "parent_id": "7",
-        "parent_document": "1",
-        "name": "el73818724466",
-        "__document_status__": "Active",
-        "id": 5,
-        "type": null,
-        "path": null,
-        "apply_on": null
-      }
-    }
-  }
+  ]
 }

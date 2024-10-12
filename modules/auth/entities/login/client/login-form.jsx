@@ -4,6 +4,7 @@ import AuthContext from '@context/auth-context';
 
 export default class LoginForm extends AuthContext {
   async login() {
+    console.log("Login");
     await this.send({
       action: 'login',
       error: () => {
@@ -23,24 +24,17 @@ export default class LoginForm extends AuthContext {
     });
   }
 
-  /*get formValues() {
+  getFormValues() {
     return {
       user_name: this.getValue("user_name"),//) this.formFields.user_name.val(),
       password: this.getValue("password")//.password.val(),
     }
-  }*/
+  }
 
-  componentDidMount() {
+  /*componentDidMount() {
     super.componentDidMount();
     this.makeEvents();
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    super.componentDidUpdate(prevProps, prevState, snapshot);
-    /*if (Object.keys(this.formFields.user_name.attrs).length == 0) {
-      this.makeEvents();
-    }*/
-  }
+  }*/
 
   makeEvents() {
     //super.makeEvents();

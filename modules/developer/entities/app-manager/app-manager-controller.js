@@ -12,18 +12,23 @@ export default class AppManagerController extends InstallerController {
     this.action !== 'view' && this.method === 'GET' && this.redirect('view');
   }
 
+  redirect(route = '/desk/App Manager/view') {
+    return super.redirect(route);
+  }
+
   async actionView() {
     this.client = "view";
     const appsList = [];
     const apps = await loopar.getList('App', { fields: ["*"] });
-
     const dir = await fs.promises.opendir(loopar.makePath(loopar.pathRoot, "apps"));
 
     for await (const dirent of dir) {
       if (fs.lstatSync(path.resolve(loopar.makePath(loopar.pathRoot, "apps", dirent.name))).isDirectory()) {
-        const appData = fileManage.getConfigFile('installer', loopar.makePath("apps", dirent.name), null);
+        const installerData = fileManage.getConfigFile('installer', loopar.makePath("apps", dirent.name), []);
 
-        for (const app of Object.values(appData?.App?.documents ?? {})) {
+        const app = installerData.App;
+
+        if(app){
           const installedApp = await loopar.getApp(app.name);
 
           app.installed = !!installedApp;
@@ -56,11 +61,7 @@ export default class AppManagerController extends InstallerController {
     apps.__ENTITY__.name = "App Manager";
 
 
-    return this.render(apps);
-
-    /*this.response.apps = appsList;
-    //return await this.render(this.response);
-    await super.actionUpdate();*/
+    return await this.render(apps);
   }
 
   async actionPull() {

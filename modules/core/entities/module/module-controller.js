@@ -6,7 +6,7 @@ import { pluralize } from 'inflection';
 const getTypes = () => Object.values(loopar.getTypes()).reduce((acc, type) => {
   acc.push({
     name: type.__ENTITY__,
-    label: pluralize(type.__BUILD__)
+    label: pluralize(type.__ENTITY__)
   });
   return acc;
 }, []);
@@ -16,14 +16,19 @@ export default class ModuleController extends BaseController {
     const type = this.type || "Entity";
     const eType = `${type}DocumentQ`;
     const eModule = `${eType}Module`;
+    const data = this.data || {};
 
-    if (!this.data?.q) await loopar.session.set(eModule, this.name);
+    if (!data?.q) await loopar.session.set(eModule, this.name);
 
     const queryData = {
-      ...(this.data?.q || await loopar.session.get(eType) || {}),
+      ...(data?.q || await loopar.session.get(eType) || {}),
       module: await loopar.session.get(eModule)
     };
 
+    /*Test if module exists*/
+    if (queryData?.module) await loopar.getDocument("Module", queryData.module);
+    /*Test if module exists*/
+    
     await loopar.session.set(eType, queryData);
     await loopar.session.set(`${type}_page`, this.data.page || 1);
 

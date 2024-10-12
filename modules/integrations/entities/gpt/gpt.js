@@ -99,9 +99,7 @@ export default class GPT extends BaseDocument {
   }
 
   validateSettings() {
-    if (!this.api_key) {
-      loopar.throw(`Please set the API key in the settings of the GPT model<br/><br/><a href="/desk/Integrations/GPT/update">Chat GPT Api Settings</a>`);
-    }
+    !this.api_key && loopar.throw(`Please set the API key in the settings of the GPT model<br/><br/><a href="/desk/Integrations/GPT/update">Chat GPT Api Settings</a>`);
   }
 
   async prompt(data) {
@@ -124,7 +122,20 @@ export default class GPT extends BaseDocument {
       apiKey: this.api_key,
     });
 
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
+      model: this.model,
+      messages: [
+        { "role": "system", "content": "¡Welcome!" },
+        { "role": "user", "content": message }
+      ],
+      temperature: 0.9,
+      //max_tokens: 256,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0.6,
+    });
+
+    /*const response = await openai.createChatCompletion({
       model: this.model,
       messages: [
         { role: 'system', content: '¡Welcome!' },
@@ -138,8 +149,18 @@ export default class GPT extends BaseDocument {
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0.6,
-    });
+    });*/
 
-    return response.data.choices[0].message.content;
+    const evaluateResponse = (message, start, end = start) => {
+      if (message.includes(start)) {
+        const startIndex = message.indexOf(start);
+        const endIndex = message.lastIndexOf(end);
+        return message.substring(startIndex, endIndex + end.length);
+      }
+
+      return message;
+    };
+
+    return evaluateResponse(response.choices[0]?.message?.content, "[", "]");
   }
 }

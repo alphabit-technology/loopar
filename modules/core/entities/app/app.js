@@ -1,6 +1,7 @@
 'use strict';
 
 import { BaseDocument, fileManage, loopar } from 'loopar';
+import path from 'path';
 
 export default class App extends BaseDocument {
   constructor(props) {
@@ -13,23 +14,23 @@ export default class App extends BaseDocument {
       loopar.validateGitRepository(this.git_repo);
 
       const app_name = this.git_repo.split('/').pop().replace('.git', '');
-      const app_status = await loopar.appStatus(app_name);
+      const appStatus = await loopar.appStatus(app_name);
 
       if (fileManage.existFileSync(loopar.makePath('apps', app_name))) {
-        if (app_status === 'installer')
-          loopar.throw('App already exists, update or install it in <a href="/developer/App%20Manager/view" element="app-manage">App Manage</a>');
+        if (appStatus === 'installer')
+          loopar.throw('App already exists, update or install it in <a href="/developer/App%20Manager/view">App Manage</a>');
         else
           await super.save(args);
       } else {
         await loopar.git(app_name).clone(this.git_repo).then(async () => {
-          const app_data = fileManage.getAppData(app_name);
+          const appData = fileManage.getAppData(app_name);
 
-          if (!app_data || !app_data.DeskWorkspace || !app_data.DeskWorkspace[app_name]) {
+          if (!appData || !appData.DeskWorkspace || !appData.DeskWorkspace[app_name]) {
             loopar.throw('Invalid App Structure');
             return;
           }
 
-          const data_info = app_data.DeskWorkspace[app_name];
+          const data_info = appData.DeskWorkspace[app_name];
 
           this.name = app_name;
           this.autor = data_info.autor;
@@ -56,7 +57,6 @@ export default class App extends BaseDocument {
   async makeAppStructure() {
     if (loopar.installing) return;
 
-    //await fileManage.makeFolder('apps', this.name);
     await fileManage.makeFolder(loopar.makePath('apps', this.name), 'modules');
 
     if (!fileManage.existFileSync(loopar.makePath('apps', this.name, 'installer.json'))) {
@@ -72,147 +72,167 @@ export default class App extends BaseDocument {
 
   }
 
-  async syncFilesInstaller() {
-    if (loopar.installing) return;
+  async updateEntities() {
+  }
 
-    if (await loopar.appStatus(this.name) !== 'installed') {
-      loopar.throw('App is not installed yet, install it in <a href="/developer/App%20Manager/view" element="app-manage">App Manage</a>');
+  async buildRequires(Entity, doc) {
+    if (Entity.is_builder || Entity.name === "Entity") return [];
+    const requires = [];
+
+    const fieldIsModel = (field) => {
+      if (field.element === SELECT && field.data.options && typeof field.data.options === 'string') {
+        const options = (field.data.options || "").split("\n");
+
+        return !(options.length > 1 || options[0] === "");
+      }
     }
 
-    /**
-     * Update App
-     */
-    const doc = await loopar.getDocument("Entity", "Entity");
-
-    await loopar.updateInstaller({
-      entity: this.__ENTITY__,
-      name: this.__ENTITY__.name,
-      appName: this.name,
-      record: await this.rawValues()
-    });
-
-    /**
-     * Update Modules
-     */
-    const moduleEntity = await loopar.getDocument("Entity", "Module");
-
-    const modules = await loopar.db.getAll('Module', moduleEntity.writableFieldsList().map(field => field.data.name), {
-      "=": { app_name: this.name }
-    });
-
-    await loopar.updateInstaller({
-      entity: moduleEntity,
-      name: "Module",
-      appName: this.name,
-      record: modules
-    });
-
-    /**
-     * Update entities
-     */
-    const documents = await loopar.db.getAll('Entity', ["id", "name", "module", "type", "include_in_installer"], {
-      "in": { module: modules.map(module => module.name) }
-    });
-
-    await loopar.updateInstaller({
-      entity: doc,
-      name: "Entity",
-      appName: this.name,
-      record: documents
-    });
-
-    /**
-     * Update Module Group
-     */
-    if (this.name === "loopar") {
-      const moduleGroupEntity = await loopar.getDocument("Entity", "Module Group");
-      const moduleGroupList = await loopar.db.getAll('Module Group', moduleGroupEntity.writableFieldsList().map(field => field.data.name));
-
-      await loopar.updateInstaller({
-        entity: moduleGroupEntity,
-        name: "Module Group",
-        appName: this.name,
-        record: moduleGroupList
-      });
+    for (const field of Object.values(Entity.writableFieldsList())) {
+      if (fieldIsModel(field)) {
+        const [type, name] = field.data.options.split(":");
+        const relatedParentEntity = await loopar.getDocument(name ? type: "Entity", name || field.data.options);
+        const relatedEntity = await loopar.getDocument(field.data.options, doc[field.data.name]);
+        if (relatedEntity) {
+          requires.push({
+            entity: relatedParentEntity.name,
+            name: relatedEntity.name,
+            documents: [
+              await relatedEntity.rawValues()
+            ]
+          });
+        }
+      }
     }
 
-    /**
-     * Update Documents of Documents
-     */
-    for (const document of documents) {
-      if (document.name === "Entity") continue;
-      if (![true, "true", 1, "1"].includes(document.include_in_installer)) continue;
-      const doc = await loopar.getDocument("Entity", document.name);
-      if (doc.is_single) continue;
+    return requires;
+  }
 
-      //if (![true, "true", 1, "1"].includes(doc.include_in_installer)) continue;
-      const fields = doc.writableFieldsList().map(field => field.data.name);
+  async syncFilesInstaller(){
+    const allEntities = loopar.getEntities().map(entity => {
+      return {
+        ...entity,
+        id: parseInt(entity.id)
+      }
+    }).sort((a, b) => a.id - b.id);
 
-      const docs = await loopar.db.getAll(
-        document.name,
-        fields,
-        fields.includes("app_name") ? {
-          "=": { app_name: this.name }
-        } : null,
-        [true, "true", 1, "1"].includes(doc.is_single)
+    const entities = allEntities.filter(entity => {
+      return (
+        (loopar.utils.compare(entity.__APP__, this.name) || entity.name === "App") || (entity.doc_structure || "").includes("app_name")
       );
+    });
 
-      await loopar.updateInstaller({
-        entity: doc,
-        name: document.name,
-        appName: this.name,
-        record: docs
-      });
+    const entitiesStructure = {
+      App: {
+        name: this.name,
+        version: this.version,
+      },
+      documents: []
+    };
+
+    const documents = {}
+
+    for (const entity of entities) {
+      const entityName = entity.__ENTITY__ || "Entity";
+
+      if (!documents[entityName]){
+        const relatedEntity = allEntities.find(ent => ent.name === entityName);
+
+        documents[entityName] = {
+          id: relatedEntity.id,
+          entity: entityName,
+          path: relatedEntity.entityRoot,
+          name: entityName,
+          documents: []
+        }
+      }
+
+      for (const e of entities) {
+        if (e.__document_status__ !== "Deleted" && loopar.utils.compare(e.__ENTITY__ || "Entity", entityName)) {
+          if(documents[entityName].documents.find(doc => doc.id === e.id)) continue;
+
+          documents[entityName].documents.push({
+            id: e.id,
+            name: e.name,
+            path: e.entityRoot
+          });
+        }
+      }
+      
+      const ent = {
+        id: entity.id,
+        name: entity.name,
+        path: entity.entityRoot,
+        documents: []
+      }
+
+      if (await loopar.db._count(entityName, entity.name) === 0) continue;
+
+      const Entity = await loopar.getDocument(entityName, entity.name);
+     
+      if (Entity.include_in_installer && !Entity.is_single && !Entity.is_child && !documents[Entity.name]) {
+        const fields = Entity.writableFieldsList().map(field => field.data.name);
+
+        const filters = {
+          "!=": { name: "Entity" },
+          ...(fields.includes("app_name") ? {"and": { "=": { app_name: this.name } }} : {}),
+          ...(Entity.name === "App" ? {"and": { "=": { name: this.name } }} : {})
+        };
+
+        const documents = await loopar.db.getAll(
+          Entity.name,
+          fields,
+          filters,
+          [true, "true", 1, "1"].includes(Entity.is_single)
+        );
+
+        for (const doc of documents.sort((a, b) => a.id - b.id)) {
+          if (!loopar.getRef(doc.name)) {
+            if(ent.documents.find(d => d.id === doc.id)) continue;
+
+            const Doc = await loopar.getDocument(Entity.name, doc.name);
+            
+            ent.documents.push({
+              id: doc.id,
+              name: doc.name,
+              data: await Doc.rawValues(),
+              requires: await this.buildRequires(Entity, doc)
+            });
+          }
+        }
+      }
+
+      ent.documents = ent.documents.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+      documents[entityName].documents.push(ent);
     }
 
-    return true;
+
+    /*** */
+    for (const entity of entities) {
+      const entityName = entity.__ENTITY__ || "Entity";
+
+      for (const e of entities) {
+        if (e.__document_status__ !== "Deleted" && loopar.utils.compare(e.__ENTITY__ || "Entity", entityName)) {
+          if (documents[entityName].documents.find(doc => doc.id === e.id)) continue;
+
+          documents[entityName].documents.push({
+            id: e.id,
+            name: e.name,
+            path: e.entityRoot
+          });
+        }
+      }
+    }
+    /*** */
+
+    entitiesStructure.documents = Object.values(documents).sort((a, b) => a.id - b.id);
+
+    await fileManage.setConfigFile('installer', 
+      entitiesStructure,
+      loopar.makePath('apps', this.name)
+    );
   }
 
   async unInstall() {
     return await loopar.unInstallApp(this.name);
-
-    /*loopar.installing = true;
-
-    if (this.name === "loopar") {
-       loopar.throw("You can't uninstall app Loopar");
-    }
-
-    const modules = await loopar.db.getAll("Module", ["name"], {
-       '=': { app_name: this.name } 
-    });
-
-    //console.log("Uninstalling App", this.name, modules)
-    loopar.db.beginTransaction();
-
-    for (const module of modules) {
-       const documents = await loopar.db.getAll("Entity", ["name"], {
-          '=': { module: module.name } 
-       });
-
-       for (const document of documents) {
-          //setTimeout(async () => {
-             await loopar.deleteDocument("Entity", document.name, {updateInstaller: false, sofDelete: false});
-          //}, 0);
-          //await loopar.delete_document("Entity", document.name, false);
-       }
-
-       //setTimeout(async () => {
-          await loopar.deleteDocument("Module", module.name, {updateInstaller: false});
-       //}, 0);
-    }
-
-    await loopar.build();
-
-    //setTimeout(async () => {
-       await this.delete();
-
-       console.log("App uninstalled", loopar.db.transactions);
-       await loopar.db.endTransaction();
-    //}, 0);
-    //await this.delete();
-
-    //loopar.db.endTransaction();
-
-    return 'App uninstalled successfully';*/
   }
 }

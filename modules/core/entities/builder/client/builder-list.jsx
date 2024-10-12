@@ -1,10 +1,11 @@
 
 'use strict';
 
-import ListContext from '@context/list-context';
+import EntityList from "@app/entity-list";
 
-export default class BuilderList extends ListContext {
+export default EntityList
+/*export default class BuilderList extends EntityList {
     constructor(props){
         super(props);
     }
-}
+}*/

@@ -3,7 +3,7 @@
 
 import ListContext from '@context/list-context';
 
-export default class TestEntityList extends ListContext {
+export default class ControllerBuilderList extends ListContext {
     constructor(props){
         super(props);
     }

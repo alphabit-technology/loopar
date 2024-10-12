@@ -9,7 +9,7 @@ import {
   AvatarFallback
 } from "@/components/ui/avatar"
 
-import { Badge } from "@/components/ui/badge";
+import {Badge} from "@/components/ui/badge";
 import {Link} from "@link"
 import {Button} from "@/components/ui/button";
 
@@ -69,7 +69,7 @@ export default class AppManagerView extends ListContext {
       <PlusIcon className="mr-2"/> Add App
     </Link>);
 
-     this.setCustomAction('addApp', <Button
+     this.setCustomAction('getApp', <Button
       variant="primeblue"
       onClick={(e) => {
         e.preventDefault();
@@ -102,7 +102,7 @@ export default class AppManagerView extends ListContext {
               </Avatar>
               <div>
                 <h4>Autor: {app.autor}</h4>
-                <h6 className='font-bold text-slate-500 dark:text-slate-400'>Version: {app.version}</h6>
+                <h6 className='font-bold text-slate-500 dark:text-slate-400'>Installed Version: {app.version}</h6>
               </div>
             </div>
           </CardContent>
@@ -194,101 +194,16 @@ export default class AppManagerView extends ListContext {
         </Card>
       </div>
     )});
-
-    /*return apps.map(app => {
-      return div({ className: "col-lg-4" }, [
-        div({ className: "card" }, [
-          div({ className: "card-header border-0" }, [
-            div({ className: "d-flex justify-content-between align-items-center" }, [
-              span({ className: "badge bg-muted", title: "Enabled" }, [
-                span({ className: "sr-only" }, app.installed ? "Installed" : "Uninstalled"),
-                i({ className: `fa fa-fw fa-check-circle text-${app.installed ? 'teal' : 'red'}` })
-              ]),
-              div({ className: "dropdown" }, [
-                button({
-                  className: "btn btn-icon btn-light",
-                  type: "button",
-                  "data-toggle": "dropdown",
-                  "aria-expanded": "false"
-                }, [
-                  i({ className: "fa fa-ellipsis-v" })
-                ]),
-                div({ className: "dropdown-menu dropdown-menu-right" }, [
-                  div({ className: "dropdown-arrow" }),
-                  a({
-                    className: `dropdown-item ${app.valid_repo ? '' : 'disabled'}`,
-                    href: "#",
-                    onClick: () => this.sendAppAction(app.name, 'pull'),
-                    disabled: !app.valid_repo
-                  }, "Pull and Update"),
-                  a({
-                    className: `dropdown-item ${app.valid_repo ? '' : 'disabled'}`,
-                    href: "#",
-                    onClick: () => this.sendAppAction(app.name, 'push'),
-                    disabled: !app.valid_repo
-                  }, "Push to Github"),
-                  app.valid_repo ? a({ className: "dropdown-item", href: app.git_repo, _target: "blank" }, "View on Github") : null,
-                ])
-              ])
-            ])
-          ]),
-          div({ className: "card-body text-center" }, [
-            a({ className: `tile tile-lg bg-${app.installed ? 'purple' : 'red'} mb-2` }, loopar.utils.avatar(app.name)),
-            h5({ className: "card-title" }, [
-              a({ className: "card-title", href: "#" }, app.info)
-            ])
-          ]),
-          div({ className: "card-footer" }, [
-            div({ className: "card-footer-item" }, [
-              button({
-                className: "btn btn-reset text-nowrap text-muted",
-                onClick: () => this.sendAppAction(app.name, app.installed ? 'uninstall' : 'install'),
-              }, [
-                i({ className: `fa fa-fw ${app.installed ? 'fa-trash text-danger' : 'oi oi-fork text-warning'} mr-1` }),
-                label(app.installed ? 'Uninstall' : 'Install')
-              ])
-            ]),
-            div({ className: "card-footer-item" }, [
-              button({
-                className: "btn btn-reset text-nowrap text-muted",
-                disabled: !(app.installed && app.installed_version !== app.version),
-                onClick: () => this.sendAppAction(app.name, 'reinstall')
-              }, [
-                i({ className: "oi oi-loop-circular text-warning mr-2" }),
-                label(app.installed && app.installed_version !== app.version ? app.version : "Reinstall")
-              ])
-            ])
-          ])
-        ])
-      ])
-    });*/
   }
 
   sendAppAction(appName, action) {
     const deleteMessage = action === "uninstall" ? `<br/><br/><span class='fa fa-circle text-red pr-2'></span> <strong class='text-red'>All data and Documents related to ${appName} will be deleted.</strong>` : '';
-    loopar.dialog({
-      type: "confirm",
-      title: "Confirm",
-      message: `Are you sure you want to ${action} ${appName}?${deleteMessage}`,
-      ok: () => {
-        loopar.send({
-          action: `${action}`,
-          params: { app_name: appName, installing: true },
-          body: { app_name: appName },
-          success: r => {
-            if (r && r.success) {
-              loopar.rootApp.refresh().then(() => {
-                loopar.navigate('/desk/App%20Manager/view');
-              });
-
-              loopar.notify(r.message, action === 'uninstall' ? 'warning' : 'success');
-            }
-          },
-          error: r => {
-            console.log(r);
-          }
-        });
-      }
+    loopar.confirm(`Are you sure you want to ${action} ${appName}?${deleteMessage}`, () => {
+      loopar.send({
+        action: `${action}`,
+        params: { app_name: appName, installing: true },
+        body: { app_name: appName }
+      });
     });
   }
 }

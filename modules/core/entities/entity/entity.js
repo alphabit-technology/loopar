@@ -33,7 +33,6 @@ export default class Entity extends BaseDocument {
 
     if (!loopar.installing) await loopar.db.beginTransaction();
     if ((this.type === 'Entity' || this.type === 'Builder') && !this.is_single) {
-      //const name = this.type === 'Builder' ? 'Entity' : this;
       await loopar.db.makeTable(this.name, this.doc_structure);
     }
     await super.save(arguments[0] || {});
@@ -298,7 +297,7 @@ export default class Entity extends BaseDocument {
           }, position: 'before'
         });
       }
-    }
+    } 
 
     await fixElements(this.doc_structure);
   }
@@ -306,7 +305,7 @@ export default class Entity extends BaseDocument {
   async delete() {
     const { updateInstaller = true, sofDeletetrue } = arguments[0] || {};
     if (['Entity', 'User', 'Module', 'Module Group', 'App', 'Connected Element', 'Document History'].includes(this.name)) {
-      loopar.throw(`You can not delete ${this.name}`);
+      loopar.throw(`You can not delete Entity:${this.name}`);
       return;
     }
 
@@ -542,6 +541,47 @@ export default class Entity extends BaseDocument {
   async makeJSON() {
     const data = await this.__data__();
     await fileManage.setConfigFile(this.name, { ...data.__DOCUMENT__, ...{ __ENTITY__: data.__ENTITY__.name } }, await this.documentPath());
+  }
+
+  async getList1({ fields = null, filters = {}, q = null, rowsOnly = false } = {}) {
+    const pagination = {
+      page: loopar.session.get(this.__ENTITY__.name + "_page") || 1,
+      pageSize: 10,
+      totalPages: 4,
+      totalRecords: 1,
+      sortBy: "id",
+      sortOrder: "asc",
+      __ENTITY__: this.__ENTITY__.name
+    };
+
+    const listFields = fields || this.getFieldListNames();
+    /*if (this.__ENTITY__.name === 'Document' && currentController.document !== "Document") {
+       listFields.push('is_single');
+    }*/
+
+    const condition = { ...this.buildCondition({ ...q || {}, __builder__: this.name }), ...filters};
+
+    console.log(["Condition", { ...q || {}, __builder__: this.name }]);
+    pagination.totalRecords = await this.records(condition);
+
+    pagination.totalPages = Math.ceil(pagination.totalRecords / pagination.pageSize);
+    const selfPagination = JSON.parse(JSON.stringify(pagination));
+    loopar.db.pagination = pagination;
+
+    const rows = await loopar.db.getList(this.__ENTITY__.name, listFields, condition);
+
+    if (rows.length === 0 && pagination.page > 1) {
+      await loopar.session.set(this.__ENTITY__.name + "_page", 1);
+      return await this.getList({ fields, filters, q, rowsOnly });
+    }
+
+    return Object.assign((rowsOnly ? {} : await this.__data__()), {
+      labels: this.getFieldListLabels(),
+      fields: listFields,
+      rows: rows,
+      pagination: selfPagination,
+      q
+    });
   }
 }
 

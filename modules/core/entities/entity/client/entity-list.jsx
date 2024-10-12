@@ -41,6 +41,8 @@ export default class EntityList extends ListContext {
         </Link>
       )
     }
+
+    const entity = this.props.meta.__TYPE__ || this.props.meta.__ENTITY__.name;
     
     return (
       <div>
@@ -73,7 +75,7 @@ export default class EntityList extends ListContext {
             </div>
             <div className='flex justify-end'>
               <Link 
-                to={`/desk/entity/update?name=${row.name}`}
+                to={`/desk/${entity}/update?name=${row.name}`}
                 variant="outline"
                 className="bg-warning/60"
               >

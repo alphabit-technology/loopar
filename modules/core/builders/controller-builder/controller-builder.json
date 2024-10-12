@@ -1,0 +1,10 @@
+{
+  "__document_status__": "Active",
+  "id": "12",
+  "name": "Controller Builder",
+  "build": "Controller",
+  "module": "core",
+  "include_in_installer": 1,
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"b4d7ioqvc\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"a4cppia30\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"xueiiw6fc\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"8vkyx7tr5\"},\"elements\":[]}]},{\"element\":\"select\",\"data\":{\"label\":\"Module\",\"key\":\"select6_el502226687930\",\"name\":\"module\",\"required\":1,\"in_list_view\":1,\"searchable\":1,\"options\":\"Module\"},\"elements\":[]}]",
+  "__ENTITY__": "Builder"
+}
