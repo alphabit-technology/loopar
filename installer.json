@@ -13,124 +13,296 @@
         {
           "id": 1,
           "name": "Entity",
-          "path": "/apps/loopar/modules/core/entities/entity"
+          "path": "/apps/loopar/modules/core/entities/entity",
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 2,
+                  "name": "Resources",
+                  "module": "core",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 1,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select125_el286292828785\",\"format\":\"data\",\"type\":\"default\",\"id\":\"select29_el1471896952853\",\"required\":1},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"input134_el57728266819\",\"format\":\"data\",\"type\":\"default\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"required\":1,\"id\":\"input19_el1190911040421\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select405_el86013028163\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"id\":\"select9_el1105910237313\",\"format\":\"data\",\"type\":\"default\"},\"elements\":[]}]}]",
+                  "resources": [],
+                  "deleted_at": "2024-06-02 23:18:20",
+                  "__created_at__": "2024-06-02 23:18:20",
+                  "__updated_at__": "2024-06-02 23:18:20",
+                  "__deleted_at__": "2024-06-02 23:18:20"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 2,
+          "name": "Resources",
+          "path": "/apps/loopar/modules/core/entities/resources",
+          "requires": []
+        },
+        {
+          "id": 3,
           "name": "Document History",
-          "path": "/apps/loopar/modules/core/entities/document-history"
+          "path": "/apps/loopar/modules/core/entities/document-history",
+          "requires": []
         },
         {
           "id": 4,
           "name": "Module",
-          "path": "/apps/loopar/modules/core/entities/module"
+          "path": "/apps/loopar/modules/core/entities/module",
+          "requires": []
         },
         {
           "id": 5,
           "name": "App",
-          "path": "/apps/loopar/modules/core/entities/app"
+          "path": "/apps/loopar/modules/core/entities/app",
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 17,
+                  "name": "Menu Item",
+                  "module": "developer",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 0,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"7cktr6vd2\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"cv01nds1p\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"mywywotbx\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Status\",\"name\":\"__document_status__\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"id\":\"select54_el144898968120\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":1,\"disabled\":0,\"collapsed\":0,\"key\":\"hxwjdw98l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"ef8yv23uj\"},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"id\":\"input339_el5561128133\",\"searchable\":1,\"key\":\"xcq0etwee\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el68059727519\",\"id\":\"row20_el74198279416\",\"label\":\"Row1\",\"key\":\"wr32upkv9\",\"layout\":\"[25,25,25,25]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el109499672148\",\"id\":\"col41_el728905163266\",\"label\":\"Col1\",\"key\":\"w8gmgh896\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Page\",\"name\":\"page\",\"required\":1,\"in_list_view\":1,\"options\":\"Entity\",\"id\":\"select146_el292406485166\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"key\":\"zf0m63d4b\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col651_el50020111152\",\"id\":\"col42_el728335875431\",\"label\":\"Col651\",\"key\":\"isow3muwk\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Link\",\"name\":\"link\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":0,\"id\":\"input334_el1621604437\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"mz0qvr80y\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"key\":\"kfu491tkp\",\"label\":\"Col481\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Parent\",\"key\":\"input10_el787303579960\",\"name\":\"parent_menu\",\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row33_el687443337500\",\"id\":\"row21_el146992447937\",\"label\":\"Row33\",\"key\":\"3e2x3828r\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col96_el79149827367\",\"id\":\"col43_el177368948609\",\"label\":\"Col96\",\"key\":\"tzu2rluo9\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent\",\"id\":\"input336_el36531377246\",\"label\":\"Document Parent\",\"hidden\":1,\"key\":\"kampmo65u\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col131_el7446029241\",\"id\":\"col44_el217375041008\",\"label\":\"Col131\",\"key\":\"29936mpq1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent_name\",\"id\":\"input338_el71356327106\",\"label\":\"Dcoument Parent Name\",\"hidden\":1,\"key\":\"4uubzj2fy\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time95_el145559974942\",\"key\":\"zoftjjexj\"},\"elements\":[]}]",
+                  "search_fields": "name",
+                  "title_fields": "name",
+                  "resources": [],
+                  "deleted_at": "2024-10-19 17:35:00",
+                  "__created_at__": "2024-10-19 17:35:00",
+                  "__updated_at__": "2024-10-19 17:35:00",
+                  "__deleted_at__": "2024-10-19 17:35:00"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 6,
+          "name": "Module Group",
+          "path": "/apps/loopar/modules/core/entities/module-group",
+          "requires": []
+        },
+        {
+          "id": 7,
           "name": "Document Single Values",
-          "path": "/apps/loopar/modules/core/entities/document-single-values"
+          "path": "/apps/loopar/modules/core/entities/document-single-values",
+          "requires": []
         },
         {
           "id": 8,
+          "name": "User",
+          "path": "/apps/loopar/modules/auth/entities/user",
+          "requires": []
+        },
+        {
+          "id": 9,
           "name": "Login",
-          "path": "/apps/loopar/modules/auth/entities/login"
+          "path": "/apps/loopar/modules/auth/entities/login",
+          "requires": []
         },
         {
           "id": 10,
           "name": "Desk",
-          "path": "/apps/loopar/modules/core/entities/desk"
+          "path": "/apps/loopar/modules/core/entities/desk",
+          "requires": []
         },
         {
           "id": 11,
+          "name": "App Manager",
+          "path": "/apps/loopar/modules/developer/entities/app-manager",
+          "requires": []
+        },
+        {
+          "id": 12,
           "name": "Reset Password",
-          "path": "/apps/loopar/modules/auth/entities/reset-password"
+          "path": "/apps/loopar/modules/auth/entities/reset-password",
+          "requires": []
         },
         {
           "id": 13,
+          "name": "System Settings",
+          "path": "/apps/loopar/modules/core/entities/system-settings",
+          "requires": []
+        },
+        {
+          "id": 14,
           "name": "File Manager",
-          "path": "/apps/loopar/modules/core/entities/file-manager"
+          "path": "/apps/loopar/modules/core/entities/file-manager",
+          "requires": []
+        },
+        {
+          "id": 15,
+          "name": "Not Found",
+          "path": "/apps/loopar/modules/core/entities/not-found",
+          "requires": []
+        },
+        {
+          "id": 16,
+          "name": "Menu",
+          "path": "/apps/loopar/modules/developer/entities/menu",
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 17,
+                  "name": "Menu Item",
+                  "module": "developer",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 0,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"7cktr6vd2\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"cv01nds1p\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"mywywotbx\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Status\",\"name\":\"__document_status__\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"id\":\"select54_el144898968120\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":1,\"disabled\":0,\"collapsed\":0,\"key\":\"hxwjdw98l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"ef8yv23uj\"},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"id\":\"input339_el5561128133\",\"searchable\":1,\"key\":\"xcq0etwee\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el68059727519\",\"id\":\"row20_el74198279416\",\"label\":\"Row1\",\"key\":\"wr32upkv9\",\"layout\":\"[25,25,25,25]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el109499672148\",\"id\":\"col41_el728905163266\",\"label\":\"Col1\",\"key\":\"w8gmgh896\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Page\",\"name\":\"page\",\"required\":1,\"in_list_view\":1,\"options\":\"Entity\",\"id\":\"select146_el292406485166\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"key\":\"zf0m63d4b\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col651_el50020111152\",\"id\":\"col42_el728335875431\",\"label\":\"Col651\",\"key\":\"isow3muwk\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Link\",\"name\":\"link\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":0,\"id\":\"input334_el1621604437\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"mz0qvr80y\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"key\":\"kfu491tkp\",\"label\":\"Col481\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Parent\",\"key\":\"input10_el787303579960\",\"name\":\"parent_menu\",\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row33_el687443337500\",\"id\":\"row21_el146992447937\",\"label\":\"Row33\",\"key\":\"3e2x3828r\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col96_el79149827367\",\"id\":\"col43_el177368948609\",\"label\":\"Col96\",\"key\":\"tzu2rluo9\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent\",\"id\":\"input336_el36531377246\",\"label\":\"Document Parent\",\"hidden\":1,\"key\":\"kampmo65u\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col131_el7446029241\",\"id\":\"col44_el217375041008\",\"label\":\"Col131\",\"key\":\"29936mpq1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent_name\",\"id\":\"input338_el71356327106\",\"label\":\"Dcoument Parent Name\",\"hidden\":1,\"key\":\"4uubzj2fy\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time95_el145559974942\",\"key\":\"zoftjjexj\"},\"elements\":[]}]",
+                  "search_fields": "name",
+                  "title_fields": "name",
+                  "resources": [],
+                  "deleted_at": "2024-10-19 17:35:00",
+                  "__created_at__": "2024-10-19 17:35:00",
+                  "__updated_at__": "2024-10-19 17:35:00",
+                  "__deleted_at__": "2024-10-19 17:35:00"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 17,
           "name": "Menu Item",
-          "path": "/apps/loopar/modules/developer/entities/menu-item"
+          "path": "/apps/loopar/modules/developer/entities/menu-item",
+          "requires": []
         },
         {
           "id": 18,
           "name": "GPT",
-          "path": "/apps/loopar/modules/integrations/entities/gpt"
+          "path": "/apps/loopar/modules/integrations/entities/gpt",
+          "requires": []
         },
         {
           "id": 19,
           "name": "Stripe",
-          "path": "/apps/loopar/modules/integrations/entities/stripe"
+          "path": "/apps/loopar/modules/integrations/entities/stripe",
+          "requires": []
         },
         {
           "id": 20,
           "name": "Connected Document",
-          "path": "/apps/loopar/modules/core/entities/connected-document"
+          "path": "/apps/loopar/modules/core/entities/connected-document",
+          "requires": []
+        },
+        {
+          "id": 21,
+          "name": "Error",
+          "path": "/apps/loopar/modules/core/entities/error",
+          "requires": []
+        },
+        {
+          "id": 22,
+          "name": "Side Menu",
+          "path": "/apps/loopar/modules/developer/entities/side-menu",
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 23,
+                  "name": "Side Menu Item",
+                  "module": "developer",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 0,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"pfjkzudkv\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"282sc6yxp\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"ibaim0wr2\",\"label\":\"Row3\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"gclg4avyn\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"ggommmk7l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"rcjxaebb7\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"id\":\"row2_el2008755878\",\"name\":\"row2_el2008755878\",\"label\":\"Row2\",\"key\":\"row2_el2008755878\"},\"elements\":[{\"element\":\"col\",\"data\":{\"id\":\"col1_el348989695331\",\"name\":\"col1_el348989695331\",\"label\":\"Col1\",\"key\":\"col1_el348989695331\"},\"elements\":[{\"element\":\"input\",\"data\":{\"id\":\"input18_el268709944464\",\"name\":\"label\",\"label\":\"Label\",\"key\":\"input18_el268709944464\",\"required\":1,\"in_list_view\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"id\":\"col2_el555144629740\",\"name\":\"col2_el555144629740\",\"label\":\"Col2\",\"key\":\"col2_el555144629740\"},\"elements\":[{\"element\":\"input\",\"data\":{\"id\":\"input20_el379680170247\",\"name\":\"link_to\",\"label\":\"To\",\"key\":\"input20_el379680170247\",\"required\":1,\"in_list_view\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"id\":\"col3_el103998182393\",\"name\":\"col3_el103998182393\",\"label\":\"Col3\",\"key\":\"col3_el103998182393\"},\"elements\":[{\"element\":\"input\",\"data\":{\"id\":\"input22_el65905895036\",\"name\":\"parent\",\"label\":\"Parent\",\"key\":\"input22_el65905895036\",\"required\":0,\"in_list_view\":1},\"elements\":[]}]}]}]",
+                  "resources": [],
+                  "deleted_at": "2024-06-02 23:18:21",
+                  "__created_at__": "2024-06-02 23:18:21",
+                  "__updated_at__": "2024-06-02 23:18:21",
+                  "__deleted_at__": "2024-06-02 23:18:21"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "Side Menu Item",
+          "path": "/apps/loopar/modules/developer/entities/side-menu-item",
+          "requires": []
         },
         {
           "id": 38,
           "name": "Builder",
-          "path": "/apps/loopar/modules/core/entities/builder"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 15,
-          "name": "Menu",
-          "path": "/apps/loopar/modules/developer/entities/menu"
-        },
-        {
-          "id": 21,
-          "name": "Resources",
-          "path": "/apps/loopar/modules/core/entities/resources"
-        },
-        {
-          "id": 62,
-          "name": "Side Menu",
-          "path": "/apps/loopar/modules/developer/entities/side-menu"
-        },
-        {
-          "id": 63,
-          "name": "Side Menu Item",
-          "path": "/apps/loopar/modules/developer/entities/side-menu-item"
-        },
-        {
-          "id": 87,
-          "name": "Not Found",
-          "path": "/apps/loopar/modules/core/entities/not-found"
+          "path": "/apps/loopar/modules/core/entities/builder",
+          "requires": []
         },
         {
           "id": 1,
           "name": "Entity",
           "path": "/apps/loopar/modules/core/entities/entity",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 2,
+                  "name": "Resources",
+                  "module": "core",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 1,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select125_el286292828785\",\"format\":\"data\",\"type\":\"default\",\"id\":\"select29_el1471896952853\",\"required\":1},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"input134_el57728266819\",\"format\":\"data\",\"type\":\"default\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"required\":1,\"id\":\"input19_el1190911040421\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select405_el86013028163\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"id\":\"select9_el1105910237313\",\"format\":\"data\",\"type\":\"default\"},\"elements\":[]}]}]",
+                  "resources": [],
+                  "deleted_at": "2024-06-02 23:18:20",
+                  "__created_at__": "2024-06-02 23:18:20",
+                  "__updated_at__": "2024-06-02 23:18:20",
+                  "__deleted_at__": "2024-06-02 23:18:20"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 2,
-          "name": "Document History",
-          "path": "/apps/loopar/modules/core/entities/document-history",
-          "documents": []
+          "name": "Resources",
+          "path": "/apps/loopar/modules/core/entities/resources",
+          "documents": [],
+          "requires": []
         },
         {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "id": 3,
+          "name": "Document History",
+          "path": "/apps/loopar/modules/core/entities/document-history",
+          "documents": [],
+          "requires": []
         },
         {
           "id": 4,
@@ -149,7 +321,7 @@
                 "module_group": "administration",
                 "icon": "Settings",
                 "in_sidebar": 1,
-                "deleted_at": "2024-10-11 22:59:19"
+                "deleted_at": "2024-10-19 17:35:00"
               },
               "requires": [
                 {
@@ -159,7 +331,7 @@
                     {
                       "__document_status__": "Active",
                       "id": 1,
-                      "deleted_at": "2024-10-11 22:59:19",
+                      "deleted_at": "2024-10-19 17:35:00",
                       "type": "Desk App",
                       "logo": "",
                       "logo_width": "",
@@ -211,7 +383,7 @@
                 "module_group": "developer",
                 "icon": "LucideCode",
                 "in_sidebar": 1,
-                "deleted_at": "2024-10-11 22:59:19"
+                "deleted_at": "2024-10-19 17:35:00"
               },
               "requires": [
                 {
@@ -221,7 +393,7 @@
                     {
                       "__document_status__": "Active",
                       "id": 1,
-                      "deleted_at": "2024-10-11 22:59:19",
+                      "deleted_at": "2024-10-19 17:35:00",
                       "type": "Desk App",
                       "logo": "",
                       "logo_width": "",
@@ -255,7 +427,7 @@
                       "name": "developer",
                       "description": "Developer",
                       "in_sidebar": 1,
-                      "deleted_at": "2024-10-11 22:59:19"
+                      "deleted_at": "2024-10-19 17:35:00"
                     }
                   ]
                 }
@@ -273,7 +445,7 @@
                 "module_group": "administration",
                 "icon": "LucideUserCheck2",
                 "in_sidebar": 1,
-                "deleted_at": "2024-10-11 22:59:19"
+                "deleted_at": "2024-10-19 17:35:00"
               },
               "requires": [
                 {
@@ -283,7 +455,7 @@
                     {
                       "__document_status__": "Active",
                       "id": 1,
-                      "deleted_at": "2024-10-11 22:59:19",
+                      "deleted_at": "2024-10-19 17:35:00",
                       "type": "Desk App",
                       "logo": "",
                       "logo_width": "",
@@ -335,7 +507,7 @@
                 "module_group": "administration",
                 "icon": "ComponentIcon",
                 "in_sidebar": 1,
-                "deleted_at": "2024-10-11 22:59:19"
+                "deleted_at": "2024-10-19 17:35:00"
               },
               "requires": [
                 {
@@ -345,7 +517,7 @@
                     {
                       "__document_status__": "Active",
                       "id": 1,
-                      "deleted_at": "2024-10-11 22:59:19",
+                      "deleted_at": "2024-10-19 17:35:00",
                       "type": "Desk App",
                       "logo": "",
                       "logo_width": "",
@@ -385,12 +557,8 @@
                 }
               ]
             }
-          ]
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          ],
+          "requires": []
         },
         {
           "id": 5,
@@ -403,7 +571,7 @@
               "data": {
                 "__document_status__": "Active",
                 "id": 1,
-                "deleted_at": "2024-10-11 22:59:19",
+                "deleted_at": "2024-10-19 17:35:00",
                 "type": "Desk App",
                 "logo": "",
                 "logo_width": "",
@@ -425,25 +593,64 @@
                 "autor": "Administrator",
                 "info": "Loopar Javascript Drag and Drop Framework"
               },
-              "requires": []
+              "requires": [
+                {
+                  "entity": "Entity",
+                  "documents": [
+                    {
+                      "id": 17,
+                      "name": "Menu Item",
+                      "module": "developer",
+                      "default_list_view": "List",
+                      "type": "Document",
+                      "is_single": 0,
+                      "is_static": 0,
+                      "include_in_installer": 0,
+                      "is_child": 1,
+                      "is_builder": 0,
+                      "__document_status__": "Active",
+                      "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"7cktr6vd2\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"cv01nds1p\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"mywywotbx\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Status\",\"name\":\"__document_status__\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"id\":\"select54_el144898968120\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":1,\"disabled\":0,\"collapsed\":0,\"key\":\"hxwjdw98l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"ef8yv23uj\"},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"id\":\"input339_el5561128133\",\"searchable\":1,\"key\":\"xcq0etwee\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el68059727519\",\"id\":\"row20_el74198279416\",\"label\":\"Row1\",\"key\":\"wr32upkv9\",\"layout\":\"[25,25,25,25]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el109499672148\",\"id\":\"col41_el728905163266\",\"label\":\"Col1\",\"key\":\"w8gmgh896\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Page\",\"name\":\"page\",\"required\":1,\"in_list_view\":1,\"options\":\"Entity\",\"id\":\"select146_el292406485166\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"key\":\"zf0m63d4b\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col651_el50020111152\",\"id\":\"col42_el728335875431\",\"label\":\"Col651\",\"key\":\"isow3muwk\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Link\",\"name\":\"link\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":0,\"id\":\"input334_el1621604437\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"mz0qvr80y\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"key\":\"kfu491tkp\",\"label\":\"Col481\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Parent\",\"key\":\"input10_el787303579960\",\"name\":\"parent_menu\",\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row33_el687443337500\",\"id\":\"row21_el146992447937\",\"label\":\"Row33\",\"key\":\"3e2x3828r\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col96_el79149827367\",\"id\":\"col43_el177368948609\",\"label\":\"Col96\",\"key\":\"tzu2rluo9\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent\",\"id\":\"input336_el36531377246\",\"label\":\"Document Parent\",\"hidden\":1,\"key\":\"kampmo65u\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col131_el7446029241\",\"id\":\"col44_el217375041008\",\"label\":\"Col131\",\"key\":\"29936mpq1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent_name\",\"id\":\"input338_el71356327106\",\"label\":\"Dcoument Parent Name\",\"hidden\":1,\"key\":\"4uubzj2fy\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time95_el145559974942\",\"key\":\"zoftjjexj\"},\"elements\":[]}]",
+                      "search_fields": "name",
+                      "title_fields": "name",
+                      "resources": [],
+                      "deleted_at": "2024-10-19 17:35:00",
+                      "__created_at__": "2024-10-19 17:35:00",
+                      "__updated_at__": "2024-10-19 17:35:00",
+                      "__deleted_at__": "2024-10-19 17:35:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 17,
+                  "name": "Menu Item",
+                  "module": "developer",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 0,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"7cktr6vd2\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"cv01nds1p\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"mywywotbx\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Status\",\"name\":\"__document_status__\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"id\":\"select54_el144898968120\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":1,\"disabled\":0,\"collapsed\":0,\"key\":\"hxwjdw98l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"ef8yv23uj\"},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"id\":\"input339_el5561128133\",\"searchable\":1,\"key\":\"xcq0etwee\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el68059727519\",\"id\":\"row20_el74198279416\",\"label\":\"Row1\",\"key\":\"wr32upkv9\",\"layout\":\"[25,25,25,25]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el109499672148\",\"id\":\"col41_el728905163266\",\"label\":\"Col1\",\"key\":\"w8gmgh896\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Page\",\"name\":\"page\",\"required\":1,\"in_list_view\":1,\"options\":\"Entity\",\"id\":\"select146_el292406485166\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"key\":\"zf0m63d4b\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col651_el50020111152\",\"id\":\"col42_el728335875431\",\"label\":\"Col651\",\"key\":\"isow3muwk\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Link\",\"name\":\"link\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":0,\"id\":\"input334_el1621604437\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"mz0qvr80y\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"key\":\"kfu491tkp\",\"label\":\"Col481\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Parent\",\"key\":\"input10_el787303579960\",\"name\":\"parent_menu\",\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row33_el687443337500\",\"id\":\"row21_el146992447937\",\"label\":\"Row33\",\"key\":\"3e2x3828r\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col96_el79149827367\",\"id\":\"col43_el177368948609\",\"label\":\"Col96\",\"key\":\"tzu2rluo9\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent\",\"id\":\"input336_el36531377246\",\"label\":\"Document Parent\",\"hidden\":1,\"key\":\"kampmo65u\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col131_el7446029241\",\"id\":\"col44_el217375041008\",\"label\":\"Col131\",\"key\":\"29936mpq1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent_name\",\"id\":\"input338_el71356327106\",\"label\":\"Dcoument Parent Name\",\"hidden\":1,\"key\":\"4uubzj2fy\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time95_el145559974942\",\"key\":\"zoftjjexj\"},\"elements\":[]}]",
+                  "search_fields": "name",
+                  "title_fields": "name",
+                  "resources": [],
+                  "deleted_at": "2024-10-19 17:35:00",
+                  "__created_at__": "2024-10-19 17:35:00",
+                  "__updated_at__": "2024-10-19 17:35:00",
+                  "__deleted_at__": "2024-10-19 17:35:00"
+                }
+              ]
             }
           ]
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 6,
-          "name": "Document Single Values",
-          "path": "/apps/loopar/modules/core/entities/document-single-values",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
         },
         {
           "id": 6,
@@ -485,331 +692,193 @@
                 "name": "developer",
                 "description": "Developer",
                 "in_sidebar": 1,
-                "deleted_at": "2024-10-11 22:59:19"
+                "deleted_at": "2024-10-19 17:35:01"
               },
               "requires": []
             }
-          ]
+          ],
+          "requires": []
         },
         {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 8,
-          "name": "Login",
-          "path": "/apps/loopar/modules/auth/entities/login",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "id": 7,
+          "name": "Document Single Values",
+          "path": "/apps/loopar/modules/core/entities/document-single-values",
+          "documents": [],
+          "requires": []
         },
         {
           "id": 8,
           "name": "User",
           "path": "/apps/loopar/modules/auth/entities/user",
-          "documents": []
+          "documents": [],
+          "requires": []
         },
         {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "id": 9,
+          "name": "Login",
+          "path": "/apps/loopar/modules/auth/entities/login",
+          "documents": [],
+          "requires": []
         },
         {
           "id": 10,
           "name": "Desk",
           "path": "/apps/loopar/modules/core/entities/desk",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 10,
-          "name": "App Manager",
-          "path": "/apps/loopar/modules/developer/entities/app-manager",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": []
         },
         {
           "id": 11,
+          "name": "App Manager",
+          "path": "/apps/loopar/modules/developer/entities/app-manager",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 12,
           "name": "Reset Password",
           "path": "/apps/loopar/modules/auth/entities/reset-password",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 13,
-          "name": "File Manager",
-          "path": "/apps/loopar/modules/core/entities/file-manager",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": []
         },
         {
           "id": 13,
           "name": "System Settings",
           "path": "/apps/loopar/modules/core/entities/system-settings",
-          "documents": []
+          "documents": [],
+          "requires": []
         },
         {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "id": 14,
+          "name": "File Manager",
+          "path": "/apps/loopar/modules/core/entities/file-manager",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 15,
+          "name": "Not Found",
+          "path": "/apps/loopar/modules/core/entities/not-found",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 16,
+          "name": "Menu",
+          "path": "/apps/loopar/modules/developer/entities/menu",
+          "documents": [],
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 17,
+                  "name": "Menu Item",
+                  "module": "developer",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 0,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"7cktr6vd2\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"cv01nds1p\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"mywywotbx\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Status\",\"name\":\"__document_status__\",\"not_validate_type\":0,\"required\":0,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"id\":\"select54_el144898968120\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":1,\"disabled\":0,\"collapsed\":0,\"key\":\"hxwjdw98l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"in_list_view\":0,\"key\":\"ef8yv23uj\"},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"type\":\"text\",\"required\":1,\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"id\":\"input339_el5561128133\",\"searchable\":1,\"key\":\"xcq0etwee\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el68059727519\",\"id\":\"row20_el74198279416\",\"label\":\"Row1\",\"key\":\"wr32upkv9\",\"layout\":\"[25,25,25,25]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el109499672148\",\"id\":\"col41_el728905163266\",\"label\":\"Col1\",\"key\":\"w8gmgh896\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Page\",\"name\":\"page\",\"required\":1,\"in_list_view\":1,\"options\":\"Entity\",\"id\":\"select146_el292406485166\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"key\":\"zf0m63d4b\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col651_el50020111152\",\"id\":\"col42_el728335875431\",\"label\":\"Col651\",\"key\":\"isow3muwk\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Link\",\"name\":\"link\",\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":1,\"searchable\":0,\"id\":\"input334_el1621604437\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"mz0qvr80y\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"key\":\"kfu491tkp\",\"label\":\"Col481\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Parent\",\"key\":\"input10_el787303579960\",\"name\":\"parent_menu\",\"in_list_view\":1,\"searchable\":1},\"elements\":[]}]}]},{\"element\":\"row\",\"data\":{\"name\":\"row33_el687443337500\",\"id\":\"row21_el146992447937\",\"label\":\"Row33\",\"key\":\"3e2x3828r\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col96_el79149827367\",\"id\":\"col43_el177368948609\",\"label\":\"Col96\",\"key\":\"tzu2rluo9\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent\",\"id\":\"input336_el36531377246\",\"label\":\"Document Parent\",\"hidden\":1,\"key\":\"kampmo65u\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col131_el7446029241\",\"id\":\"col44_el217375041008\",\"label\":\"Col131\",\"key\":\"29936mpq1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"document_parent_name\",\"id\":\"input338_el71356327106\",\"label\":\"Dcoument Parent Name\",\"hidden\":1,\"key\":\"4uubzj2fy\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"id\":\"date_time95_el145559974942\",\"key\":\"zoftjjexj\"},\"elements\":[]}]",
+                  "search_fields": "name",
+                  "title_fields": "name",
+                  "resources": [],
+                  "deleted_at": "2024-10-19 17:35:01",
+                  "__created_at__": "2024-10-19 17:35:01",
+                  "__updated_at__": "2024-10-19 17:35:01",
+                  "__deleted_at__": "2024-10-19 17:35:01"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 17,
           "name": "Menu Item",
           "path": "/apps/loopar/modules/developer/entities/menu-item",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": []
         },
         {
           "id": 18,
           "name": "GPT",
           "path": "/apps/loopar/modules/integrations/entities/gpt",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": []
         },
         {
           "id": 19,
           "name": "Stripe",
           "path": "/apps/loopar/modules/integrations/entities/stripe",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": []
         },
         {
           "id": 20,
           "name": "Connected Document",
           "path": "/apps/loopar/modules/core/entities/connected-document",
-          "documents": []
+          "documents": [],
+          "requires": []
         },
         {
-          "id": null,
+          "id": 21,
           "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "path": "/apps/loopar/modules/core/entities/error",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 22,
+          "name": "Side Menu",
+          "path": "/apps/loopar/modules/developer/entities/side-menu",
+          "documents": [],
+          "requires": [
+            {
+              "entity": "Entity",
+              "documents": [
+                {
+                  "id": 23,
+                  "name": "Side Menu Item",
+                  "module": "developer",
+                  "default_list_view": "List",
+                  "type": "Document",
+                  "is_single": 0,
+                  "is_static": 0,
+                  "include_in_installer": 0,
+                  "is_child": 1,
+                  "is_builder": 0,
+                  "__document_status__": "Active",
+                  "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"pfjkzudkv\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"282sc6yxp\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"ibaim0wr2\",\"label\":\"Row3\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"gclg4avyn\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"ggommmk7l\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"rcjxaebb7\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"id\":\"row2_el2008755878\",\"name\":\"row2_el2008755878\",\"label\":\"Row2\",\"key\":\"row2_el2008755878\"},\"elements\":[{\"element\":\"col\",\"data\":{\"id\":\"col1_el348989695331\",\"name\":\"col1_el348989695331\",\"label\":\"Col1\",\"key\":\"col1_el348989695331\"},\"elements\":[{\"element\":\"input\",\"data\":{\"id\":\"input18_el268709944464\",\"name\":\"label\",\"label\":\"Label\",\"key\":\"input18_el268709944464\",\"required\":1,\"in_list_view\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"id\":\"col2_el555144629740\",\"name\":\"col2_el555144629740\",\"label\":\"Col2\",\"key\":\"col2_el555144629740\"},\"elements\":[{\"element\":\"input\",\"data\":{\"id\":\"input20_el379680170247\",\"name\":\"link_to\",\"label\":\"To\",\"key\":\"input20_el379680170247\",\"required\":1,\"in_list_view\":1},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"id\":\"col3_el103998182393\",\"name\":\"col3_el103998182393\",\"label\":\"Col3\",\"key\":\"col3_el103998182393\"},\"elements\":[{\"element\":\"input\",\"data\":{\"id\":\"input22_el65905895036\",\"name\":\"parent\",\"label\":\"Parent\",\"key\":\"input22_el65905895036\",\"required\":0,\"in_list_view\":1},\"elements\":[]}]}]}]",
+                  "resources": [],
+                  "deleted_at": "2024-06-02 23:18:21",
+                  "__created_at__": "2024-06-02 23:18:21",
+                  "__updated_at__": "2024-06-02 23:18:21",
+                  "__deleted_at__": "2024-06-02 23:18:21"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "Side Menu Item",
+          "path": "/apps/loopar/modules/developer/entities/side-menu-item",
+          "documents": [],
+          "requires": []
         },
         {
           "id": 38,
           "name": "Builder",
           "path": "/apps/loopar/modules/core/entities/builder",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 15,
-          "name": "Menu",
-          "path": "/apps/loopar/modules/developer/entities/menu",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 21,
-          "name": "Resources",
-          "path": "/apps/loopar/modules/core/entities/resources",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 62,
-          "name": "Side Menu",
-          "path": "/apps/loopar/modules/developer/entities/side-menu",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 63,
-          "name": "Side Menu Item",
-          "path": "/apps/loopar/modules/developer/entities/side-menu-item",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": 87,
-          "name": "Not Found",
-          "path": "/apps/loopar/modules/core/entities/not-found",
-          "documents": []
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
-        },
-        {
-          "id": null,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error"
+          "documents": [],
+          "requires": []
         }
-      ]
+      ],
+      "requires": []
     },
     {
       "id": 12,
@@ -820,15 +889,18 @@
         {
           "id": 1,
           "name": "Auth",
-          "path": "/apps/loopar/modules/auth/controllers/auth"
+          "path": "/apps/loopar/modules/auth/controllers/auth",
+          "requires": []
         },
         {
           "id": 1,
           "name": "Auth",
           "path": "/apps/loopar/modules/auth/controllers/auth",
-          "documents": []
+          "documents": [],
+          "requires": []
         }
-      ]
+      ],
+      "requires": []
     },
     {
       "id": 38,
@@ -839,48 +911,57 @@
         {
           "id": 1,
           "name": "View Builder",
-          "path": "/apps/loopar/modules/core/builders/view-builder"
-        },
-        {
-          "id": 4,
-          "name": "Page Builder",
-          "path": "/apps/loopar/modules/developer/builders/page-builder"
-        },
-        {
-          "id": 5,
-          "name": "Form Builder",
-          "path": "/apps/loopar/modules/core/builders/form-builder"
-        },
-        {
-          "id": 12,
-          "name": "Controller Builder",
-          "path": "/apps/loopar/modules/core/builders/controller-builder"
-        },
-        {
-          "id": 1,
-          "name": "View Builder",
           "path": "/apps/loopar/modules/core/builders/view-builder",
-          "documents": []
+          "requires": []
         },
         {
           "id": 4,
           "name": "Page Builder",
           "path": "/apps/loopar/modules/developer/builders/page-builder",
-          "documents": []
+          "requires": []
         },
         {
           "id": 5,
           "name": "Form Builder",
           "path": "/apps/loopar/modules/core/builders/form-builder",
-          "documents": []
+          "requires": []
         },
         {
           "id": 12,
           "name": "Controller Builder",
           "path": "/apps/loopar/modules/core/builders/controller-builder",
-          "documents": []
+          "requires": []
+        },
+        {
+          "id": 1,
+          "name": "View Builder",
+          "path": "/apps/loopar/modules/core/builders/view-builder",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 4,
+          "name": "Page Builder",
+          "path": "/apps/loopar/modules/developer/builders/page-builder",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 5,
+          "name": "Form Builder",
+          "path": "/apps/loopar/modules/core/builders/form-builder",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 12,
+          "name": "Controller Builder",
+          "path": "/apps/loopar/modules/core/builders/controller-builder",
+          "documents": [],
+          "requires": []
         }
-      ]
+      ],
+      "requires": []
     }
   ]
 }

@@ -109,8 +109,7 @@ export default class AppManagerView extends ListContext {
           <CardFooter className="flex justify-between">
             <div>
               <Button
-                variant={app.installed ? "success" : "warning"}
-                //className={`${app.installed ? 'bg-success ' : 'bg-warning text-white'}`}
+                variant={app.installed ? "secondary" : "primary"}
                 disabled={app.installed}
                 onClick={() => this.sendAppAction(app.name, 'install')}
               >
@@ -122,7 +121,7 @@ export default class AppManagerView extends ListContext {
               </Button>
               {app.installed && app.installed_version !== app.version && (
                 <Button
-                  variant="outline"
+                  variant="primary"
                   onClick={() => this.sendAppAction(app.name, 'reinstall')}
                 >
                   <RefreshCcwDotIcon className="mr-2"/> Reinstall
@@ -133,8 +132,7 @@ export default class AppManagerView extends ListContext {
               {
                 app.installed && (
                 <Button
-                  variant="outline"
-                  className="bg-danger text-white"
+                  variant="destructive"
                   onClick={() => this.sendAppAction(app.name, 'uninstall')}
                 >
                   <Trash2Icon/>
@@ -143,7 +141,7 @@ export default class AppManagerView extends ListContext {
               {
                 app.installed && app.installed_version !== app.version && (
                 <Button
-                  variant="outline"
+                  variant="primary"
                   onClick={() => this.sendAppAction(app.name, 'reinstall')}
                 >
                   <RefreshCcwDotIcon/>

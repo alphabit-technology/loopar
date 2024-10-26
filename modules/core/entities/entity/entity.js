@@ -22,26 +22,31 @@ export default class Entity extends BaseDocument {
 
     const args = arguments[0] || {};
     const validate = args.validate !== false;
+
     await this.fixFields(this.doc_structure);
 
     if (validate) {
       this.validateFields();
       this.validateTableName();
-      !loopar.installing && await this.validateLinkedDocument(SELECT);
-      !loopar.installing && await this.validateLinkedDocument(FORM_TABLE);
-    }
 
+      if(!loopar.installing){
+        await this.validateLinkedDocument(SELECT);
+        await this.validateLinkedDocument(FORM_TABLE);
+      }
+    }
     if (!loopar.installing) await loopar.db.beginTransaction();
-    if ((this.type === 'Entity' || this.type === 'Builder') && !this.is_single) {
+
+    if ((["Document", "Entity", "Builder"].includes(this.type) && !this.is_single) || this.build) {
       await loopar.db.makeTable(this.name, this.doc_structure);
     }
-    await super.save(arguments[0] || {});
+
+    args.save != false && await super.save(arguments[0] || {});
     await this.save__CORE_FILES__();
-    if (!loopar.installing) await loopar.db.endTransaction();
 
-    if (loopar.installing) return;
-
-    await this.__build__();
+    if (!loopar.installing) {
+      await loopar.db.endTransaction();
+      await this.__build__();
+    }
   }
 
   async save__CORE_FILES__() {
@@ -63,8 +68,8 @@ export default class Entity extends BaseDocument {
     }, []);*/
   }
 
-  writableFieldsList() {
-    return this.clientFieldsList().filter(field => fieldIsWritable(field));
+  writableFieldsList({ includeFormTable = false } = {}) {
+    return this.clientFieldsList().filter(field => fieldIsWritable(field) && (includeFormTable || field.element !== FORM_TABLE));
   }
 
   getSpecialFieldsMeta() {
@@ -270,7 +275,7 @@ export default class Entity extends BaseDocument {
       this.doc_structure = elements;
     };
 
-    if (this.type === 'Entity' || this.type === 'Builder') {
+    if (this.type === 'Entity' || this.type === 'Builder' || this.build || this.type === 'Document') {
       const specialFields = this.getSpecialFieldsMeta();
 
       updateOrInsertField({ field: specialFields.namedContainer, position: 'before' });
@@ -303,7 +308,7 @@ export default class Entity extends BaseDocument {
   }
 
   async delete() {
-    const { updateInstaller = true, sofDeletetrue } = arguments[0] || {};
+    const { updateInstaller = true, sofDelete = true } = arguments[0] || {};
     if (['Entity', 'User', 'Module', 'Module Group', 'App', 'Connected Element', 'Document History'].includes(this.name)) {
       loopar.throw(`You can not delete Entity:${this.name}`);
       return;
@@ -311,13 +316,11 @@ export default class Entity extends BaseDocument {
 
     await super.delete(...arguments);
 
-    /**Is posible that elimate action is calle from uninstall */
-    if (updateInstaller) {
-      const documentPath = await this.documentPath();
-      const meta = await fileManage.getConfigFile(this.name, documentPath);
-      meta.__document_status__ = "Deleted";
-      await fileManage.setConfigFile(this.name, meta, documentPath);
-    }
+    /**Is posible that elimate action is called from uninstall */
+    const documentPath = await this.documentPath();
+    const meta = await fileManage.getConfigFile(this.name, documentPath);
+    meta.__document_status__ = updateInstaller ? "Uninstalled" : "Deleted";
+    await fileManage.setConfigFile(this.name, meta, documentPath);
   }
 
   validateFieldName(name) {
@@ -384,7 +387,7 @@ export default class Entity extends BaseDocument {
         if (options.length === 1 && options[0] !== "") {
           const name = options[0].split(":")[0];
 
-          if (await loopar.db._count("Entity", name) === 0) {
+          if (await loopar.db.count("Entity", name) === 0) {
             errors.push(`Entity ${name} is not a valid Entity for ${field.data.name}, please check the options.`);
           } else if (type === FORM_TABLE) {
             const isSingle = await loopar.db.getValue("Entity", "is_single", name);
@@ -496,7 +499,7 @@ export default class Entity extends BaseDocument {
     });
     /*Entity Model*/
 
-    const type = this.is_single ? "Single" : this.__ENTITY__.build || this.__ENTITY__.__TYPE__;
+    const type = this.is_single ? "Single" : this.__ENTITY__.build || this.__ENTITY__.__TYPE__ || "Entity";
     const extendController = (["Single", "View", "Page", "Form", "Report"].includes(type) ? type : "Base") + "Controller";
     
     await fileManage.makeClass(documentPath, `${this.name}Controller`, {

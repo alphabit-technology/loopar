@@ -1,5 +1,5 @@
 {
-  "id": "8",
+  "id": 8,
   "name": "User",
   "module": "auth",
   "default_list_view": "List",

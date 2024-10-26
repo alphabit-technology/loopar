@@ -82,7 +82,7 @@ export default class EntityList extends ListContext {
                 <BrushIcon/>
               </Link>
               {
-                (row.type === "Entity" && row.is_single !== 1) && (
+                ((row.type === "Entity" || row.type == "Builder" || row.build) && row.is_single !== 1) && (
                   <Link
                     to={`/desk/${row.name}/create`}
                     variant="outline"

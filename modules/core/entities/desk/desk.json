@@ -1,5 +1,5 @@
 {
-  "id": "10",
+  "id": 10,
   "name": "Desk",
   "module": "core",
   "default_list_view": "List",
