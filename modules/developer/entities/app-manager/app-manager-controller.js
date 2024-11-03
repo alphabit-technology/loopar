@@ -1,11 +1,11 @@
 
 'use strict';
 
-import { InstallerController, loopar, fileManage } from 'loopar';
+import { SystemController, loopar, fileManage } from 'loopar';
 import fs from "fs";
 import path from 'path';
 
-export default class AppManagerController extends InstallerController {
+export default class AppManagerController extends SystemController {
   constructor(props) {
     super(props);
 
@@ -28,7 +28,7 @@ export default class AppManagerController extends InstallerController {
 
         const app = installerData.App;
 
-        if(app){
+        if (app) {
           const installedApp = await loopar.getApp(app.name);
 
           app.installed = !!installedApp;
@@ -64,23 +64,13 @@ export default class AppManagerController extends InstallerController {
     return await this.render(apps);
   }
 
-  async actionPull() {
-    const model = await loopar.newDocument('App Manager');
-
-    Object.assign(model, { app_name: this.data.app_name });
-
-    if (await model.pull()) {
-      return await this.success('App updated successfully');
-    }
-  }
-
   async actionClone() {
     const model = await loopar.newDocument('App Manager');
 
     Object.assign(model, { git_repo: this.data.git_repo });
 
     if (await model.clone()) {
-      return await this.success('App cloned successfully');
+      return this.redirect();
     }
   }
 

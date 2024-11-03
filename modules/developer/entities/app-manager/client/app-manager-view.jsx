@@ -37,19 +37,14 @@ export default class AppManagerView extends ListContext {
       title: "Get App",
       label: "Enter the Github URL of the app you want to install",
       placeholder: "Github URL",
-      ok: (git_repo) => {
-        if (git_repo) {
-          loopar.method('App Manager', 'clone', { git_repo: git_repo }).then(() => {
-            loopar.root_app.refresh();
-          });
-        } else {
-          loopar.dialog({
-            type: "alert",
-            title: "Error",
-            message: "Please enter a valid Github URL",
-          });
-        }
-      }
+      ok: (gitRepo) => {
+        loopar.method('App Manager', 'clone', { git_repo: gitRepo });
+      },
+      validate: (gitRepo) => {
+        console.log(gitRepo);
+        if (!gitRepo || gitRepo.length === 0) return loopar.throw("Please enter a valid Github URL");
+        return true;
+      },
     });
   }
 

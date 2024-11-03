@@ -3,9 +3,7 @@ import sha1 from "sha1";
 
 export default class Installer extends CoreInstaller {
   module = "core";
-  constructor(props) {
-    super(props);
-  }
+  app_name = "loopar";
 
   async install() {
     console.log("Installing Loopar");
@@ -28,8 +26,8 @@ export default class Installer extends CoreInstaller {
     try {
       //await loopar.db.dropSchema(db_config.database);
 
-    } catch (e) {}
-   
+    } catch (e) { }
+
     env.dbConfig = db_config;
     return await fileManage.setConfigFile('db.config', db_config);
   }
@@ -39,6 +37,6 @@ export default class Installer extends CoreInstaller {
     //await this.insertRecord("Entity", coreData, "loopar", "core");
 
     const Entity = await loopar.newDocument("Entity", coreData);
-    await Entity.save({save:false, validate:false});
+    await Entity.save({ save: false, validate: false });
   }
 }
