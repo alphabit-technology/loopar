@@ -317,10 +317,10 @@ export default class Entity extends BaseDocument {
     await super.delete(...arguments);
 
     /**Is posible that elimate action is called from uninstall */
-    const documentPath = await this.documentPath();
+    /*const documentPath = await this.documentPath();
     const meta = await fileManage.getConfigFile(this.name, documentPath);
     meta.__document_status__ = updateInstaller ? "Uninstalled" : "Deleted";
-    await fileManage.setConfigFile(this.name, meta, documentPath);
+    await fileManage.setConfigFile(this.name, meta, documentPath);*/
   }
 
   validateFieldName(name) {

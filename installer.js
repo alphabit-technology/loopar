@@ -3,9 +3,46 @@ import sha1 from "sha1";
 
 export default class Installer extends CoreInstaller {
   module = "core";
+  /**
+   * snake_case because is the same property name in the database
+   */
   app_name = "loopar";
 
+  async validate() {
+    if(this.admin_password !== this.confirm_password){
+      loopar.throw("Passwords do not match");
+    }
+
+    /*if(this.admin_password.length < 8){
+      loopar.throw("Password must be at least 8 characters long");
+    }*/
+
+    if(this.company.length < 3){
+      loopar.throw("Company name must be at least 3 characters long");
+    }
+
+    if(this.email.length < 3){
+      loopar.throw("Email must be at least 3 characters long");
+    }
+
+   /* if(this.admin_password === "admin"){
+      loopar.throw("Password cannot be 'admin'");
+    }
+
+    if(this.email === "admin"){
+      loopar.throw("Email cannot be 'admin'");
+    }*/
+
+    if(this.company === "admin"){
+      loopar.throw("Company name cannot be 'admin'");
+    }
+
+    return await super.validate();
+  }
+
   async install() {
+    await this.validate();
+
     console.log("Installing Loopar");
     loopar.installingApp = "loopar";
     await this.setDbConfig();
@@ -16,18 +53,30 @@ export default class Installer extends CoreInstaller {
     console.log("Schema Altered");
     await this.#makeCoreTable();
     console.log("Core Table Created");
-    return await super.install();
+    await super.install();
+    return await this.insertAdministratorUser();
+  }
+
+  async insertAdministratorUser() {
+    let user = null
+    if (await loopar.db.getValue("User", 'name', "Administrator", { ifNotFound: false })){
+      user = await loopar.getDocument("User", "Administrator");
+    }else{
+      user = await loopar.newDocument("User");
+    }
+
+    user.name = "Administrator";
+    user.email = this.email;
+    user.password = this.admin_password;
+    user.confirm_password = this.confirm_password;
+    user.__document_status__ = "Active";
+    
+    await user.save({validate: false});
   }
 
   async setDbConfig() {
     const db_config = fileManage.getConfigFile('db.config');
     db_config.database = 'db_' + sha1(this.company);
-
-    try {
-      //await loopar.db.dropSchema(db_config.database);
-
-    } catch (e) { }
-
     env.dbConfig = db_config;
     return await fileManage.setConfigFile('db.config', db_config);
   }

@@ -260,6 +260,10 @@ export default class App extends BaseDocument {
   }
 
   async unInstall() {
-    return await loopar.unInstallApp(this.name);
+    await loopar.unInstallApp(this.name);
+    const installedApps = fileManage.getConfigFile('installed-apps');
+    delete installedApps[this.name];
+    fileManage.setConfigFile('installed-apps', installedApps);
+    return await loopar.build();
   }
 }

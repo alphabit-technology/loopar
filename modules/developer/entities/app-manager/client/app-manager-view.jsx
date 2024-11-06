@@ -194,7 +194,7 @@ export default class AppManagerView extends ListContext {
     loopar.confirm(`Are you sure you want to ${action} ${appName}?${deleteMessage}`, () => {
       loopar.send({
         action: `${action}`,
-        params: { app_name: appName, installing: true },
+        params: { app_name: appName },
         body: { app_name: appName }
       });
     });
