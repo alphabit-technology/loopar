@@ -10,7 +10,7 @@ export default class Entity extends BaseDocument {
   }
 
   entityIsSingle() {
-    return ["Page", "Form", "Report", "View", "Controller"].includes(this.getEntityType()) ? 1 : 0;
+    return (["Page", "Form", "Report", "View", "Controller"].includes(this.getEntityType()) || this.is_single) ? 1 : 0;
   }
 
   async save() {
@@ -136,11 +136,11 @@ export default class Entity extends BaseDocument {
   }
 
   getEntityType(){
-    return this.__ENTITY__.build || "Entity";
+    return this.__ENTITY__.build || this.__ENTITY__.name || "Entity";
   }
 
   isDBEntity(){
-    return ["Entity", "Builder"].includes(this.getEntityType());
+    return ["Entity", "Builder"].includes(this.getEntityType()) && !this.entityIsSingle();
   }
 
   async fixFields() {
@@ -278,7 +278,7 @@ export default class Entity extends BaseDocument {
       this.doc_structure = elements;
     };
 
-    if (this.isDBEntity()) {
+    if (this.isDBEntity() && !loopar.installing) {
       const specialFields = this.getSpecialMetaFields();
 
       updateOrInsertField({ field: specialFields.namedContainer, position: 'before' });
@@ -534,7 +534,6 @@ export default class Entity extends BaseDocument {
 
     const condition = { ...this.buildCondition({ ...q || {}, __builder__: this.name }), ...filters};
 
-    console.log(["Condition", { ...q || {}, __builder__: this.name }]);
     pagination.totalRecords = await this.records(condition);
 
     pagination.totalPages = Math.ceil(pagination.totalRecords / pagination.pageSize);

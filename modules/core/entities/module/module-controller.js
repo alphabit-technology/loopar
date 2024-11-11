@@ -31,8 +31,14 @@ export default class ModuleController extends BaseController {
     
     await loopar.session.set(eType, queryData);
     await loopar.session.set(`${type}_page`, this.data.page || 1);
-
     const list = await loopar.getList(type, { q: queryData });
+
+    list.rows = list.rows.map(row => {
+      const ref = loopar.getRef(row.name);
+      row.is_single = ref?.is_single || 0;
+
+      return row;
+    });
 
     list.__ENTITY__.name = "Module"; // Because need that action return to this Controller
     list.__TYPES__ = getTypes(); // List of types of entities

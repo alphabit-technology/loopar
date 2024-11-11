@@ -911,7 +911,7 @@
         {
           "id": 1,
           "name": "View Builder",
-          "path": "/apps/loopar/modules/core/builders/view-builder",
+          "path": "/apps/loopar/modules/developer/builders/view-builder",
           "requires": []
         },
         {
@@ -935,7 +935,7 @@
         {
           "id": 1,
           "name": "View Builder",
-          "path": "/apps/loopar/modules/core/builders/view-builder",
+          "path": "/apps/loopar/modules/developer/builders/view-builder",
           "documents": [],
           "requires": []
         },
