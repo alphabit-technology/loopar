@@ -2,10 +2,10 @@
 'use strict';
 
 import Builder from '../../../../../loopar/modules/core/entities/entity/entity.js';
-import {loopar} from "loopar";
+import { loopar } from "loopar";
 
 export default class ViewBuilder extends Builder {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 

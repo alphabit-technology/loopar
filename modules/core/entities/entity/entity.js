@@ -1,23 +1,20 @@
-import { BaseDocument, documentManage, fileManage, loopar, MetaComponents } from "loopar";
-import { Helpers } from "loopar";
-import decamelize from "decamelize";
+import { BaseDocument, fileManage, loopar, Helpers } from "loopar";
 import { fileTypeFromBuffer } from 'file-type';
 import { pluralize } from "inflection";
 
-
 export default class Entity extends BaseDocument {
   __CORE_FILES__ = [];
+  isBuilder = true;
   constructor(props) {
     super(props);
   }
 
-  async save() {
-    if (['Page', 'Form', 'Report'].includes(this.type)) {
-      this.is_single = 1;
-    } else {
-      ![1, "1"].includes(this.is_single) && (this.is_single = 0);
-    }
+  entityIsSingle() {
+    return ["Page", "Form", "Report", "View", "Controller"].includes(this.getEntityType()) ? 1 : 0;
+  }
 
+  async save() {
+    this.is_single = this.entityIsSingle();
     this.is_static = 0;
 
     const args = arguments[0] || {};
@@ -36,14 +33,14 @@ export default class Entity extends BaseDocument {
     }
     if (!loopar.installing) await loopar.db.beginTransaction();
 
-    if ((["Document", "Entity", "Builder"].includes(this.type) && !this.is_single) || this.build) {
+    if (this.isDBEntity()) {
       await loopar.db.makeTable(this.name, this.doc_structure);
     }
 
     args.save != false && await super.save(arguments[0] || {});
-    await this.save__CORE_FILES__();
-
+    
     if (!loopar.installing) {
+      await this.save__CORE_FILES__();
       await loopar.db.endTransaction();
       await this.__build__();
     }
@@ -63,16 +60,13 @@ export default class Entity extends BaseDocument {
 
   clientFieldsList(fields = this.doc_structure) {
     return loopar.utils.fieldList(fields);
-    /*return (fields || []).reduce((acc, field) => {
-       return acc.concat(field, this.clientFieldsList(field.elements || []));
-    }, []);*/
   }
 
   writableFieldsList({ includeFormTable = false } = {}) {
     return this.clientFieldsList().filter(field => fieldIsWritable(field) && (includeFormTable || field.element !== FORM_TABLE));
   }
 
-  getSpecialFieldsMeta() {
+  getSpecialMetaFields() {
     return {
       namedContainer: {
         element: ROW,
@@ -139,6 +133,14 @@ export default class Entity extends BaseDocument {
     }
 
     insertField(fields, field, targetField, position);
+  }
+
+  getEntityType(){
+    return this.__ENTITY__.build || "Entity";
+  }
+
+  isDBEntity(){
+    return ["Entity", "Builder"].includes(this.getEntityType());
   }
 
   async fixFields() {
@@ -225,6 +227,7 @@ export default class Entity extends BaseDocument {
         }
 
         if (key === "background_image" && value) {
+          console.log(["background_image", value]);
           const files = value;
 
           for (const file of files || []) {
@@ -275,8 +278,8 @@ export default class Entity extends BaseDocument {
       this.doc_structure = elements;
     };
 
-    if (this.type === 'Entity' || this.type === 'Builder' || this.build || this.type === 'Document') {
-      const specialFields = this.getSpecialFieldsMeta();
+    if (this.isDBEntity()) {
+      const specialFields = this.getSpecialMetaFields();
 
       updateOrInsertField({ field: specialFields.namedContainer, position: 'before' });
       specialFields.elementsNamed.map(field => {
@@ -308,19 +311,13 @@ export default class Entity extends BaseDocument {
   }
 
   async delete() {
-    const { updateInstaller = true, sofDelete = true } = arguments[0] || {};
-    if (['Entity', 'User', 'Module', 'Module Group', 'App', 'Connected Element', 'Document History'].includes(this.name)) {
-      loopar.throw(`You can not delete Entity:${this.name}`);
+    const ref = loopar.getRef(this.name);
+    if (ref.__APP__ === 'loopar') {
+      loopar.throw(`You can not delete Entity:${this.name}, it is a core Entity.`);
       return;
     }
 
     await super.delete(...arguments);
-
-    /**Is posible that elimate action is called from uninstall */
-    /*const documentPath = await this.documentPath();
-    const meta = await fileManage.getConfigFile(this.name, documentPath);
-    meta.__document_status__ = updateInstaller ? "Uninstalled" : "Deleted";
-    await fileManage.setConfigFile(this.name, meta, documentPath);*/
   }
 
   validateFieldName(name) {
@@ -430,37 +427,13 @@ export default class Entity extends BaseDocument {
     }
   }
 
-  /*async setApp(app) {
-     if (this.__DOCUMENT__.name === "Entity") {
-        this.__APP__ === "loopar";
-     } else {
-        this.__APP__ = this.__APP__ || await loopar.db.getValue("Module", "app_name", this.module);
-     }
-  }*/
-
-  toDir(value) {
-    return decamelize(value, { separator: '-' });
-  }
-
-  nameToFile() {
-    return this.toDir(this.name);
-  }
-
-  moduleToFile() {
-    return this.toDir(this.module);
-  }
-
-  get destinityApp() {
-    return
-  }
-
-  async appNameToDir() {
-    return this.toDir(this.__APP__);
+  async targetApp() {
+    return await loopar.db.getValue("Module", "app_name", this.module);
   }
 
   async modulePath() {
-    const types = this.build || "Entity";
-    return loopar.makePath("apps", this.__APP__, "modules", this.module, pluralize(types));
+    const type = this.getEntityType();
+    return loopar.makePath("apps", await this.targetApp(), "modules", this.module, pluralize(type));
   }
 
   async documentPath() {
@@ -469,10 +442,6 @@ export default class Entity extends BaseDocument {
 
   async clientPath() {
     return loopar.makePath(await this.documentPath(), 'client');
-  }
-
-  async __appType__() {
-    return await loopar.db.getValue("App", "type", this.__APP__);
   }
 
   async __build__() {
@@ -499,7 +468,8 @@ export default class Entity extends BaseDocument {
     });
     /*Entity Model*/
 
-    const type = this.is_single ? "Single" : this.__ENTITY__.build || this.__ENTITY__.__TYPE__ || "Entity";
+    const type = this.getEntityType();
+    //const type = this.is_single ? "Single" : this.__ENTITY__.build || this.__ENTITY__.__TYPE__ || "Entity";
     const extendController = (["Single", "View", "Page", "Form", "Report"].includes(type) ? type : "Base") + "Controller";
     
     await fileManage.makeClass(documentPath, `${this.name}Controller`, {

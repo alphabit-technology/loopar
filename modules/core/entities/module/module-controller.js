@@ -5,8 +5,8 @@ import { pluralize } from 'inflection';
 
 const getTypes = () => Object.values(loopar.getTypes()).reduce((acc, type) => {
   acc.push({
-    name: type.__ENTITY__,
-    label: pluralize(type.__ENTITY__)
+    name: type.__NAME__,
+    label: pluralize(type.__BUILD__ || type.__ENTITY__),
   });
   return acc;
 }, []);
