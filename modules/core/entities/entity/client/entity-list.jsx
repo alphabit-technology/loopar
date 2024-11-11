@@ -22,9 +22,7 @@ export default class EntityList extends ListContext {
     super.onShow();
   }
 
-  onLoad() {
-
-  }
+  onLoad() {}
 
   gridTemplate(row, action){
     const color = loopar.bgColor(row.name);
