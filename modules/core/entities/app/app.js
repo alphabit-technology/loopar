@@ -75,7 +75,7 @@ export default class App extends BaseDocument {
   }
 
   async buildRequires(Entity, doc) {
-    
+    if(!Entity) return [];
     const requires = [];
 
     const fieldIsModel = (field) => {
@@ -86,16 +86,12 @@ export default class App extends BaseDocument {
       }
     }
 
-    if(Entity.name === "Entity"){
-      //console.log(["Entity", Object.values(Entity.writableFieldsList({ includeFormTable: true }))]);
-    }
-
     for (const field of Object.values(Entity.writableFieldsList({ includeFormTable: true}))) {
       if (fieldIsModel(field)) {
         const [type, name] = field.data.options.split(":");
 
-        if (field.element == SELECT && doc && !(Entity.is_builder || Entity.name === "Entity")) {
-          const relatedParentEntity = await loopar.getDocument(name ? type: "Entity", name || field.data.options);
+        if (field.element == SELECT && doc && !(Entity.isBuilder)) {
+          const relatedParentEntity = await loopar.getDocument(name ? type : "Entity", name || field.data.options);
           const relatedEntity = await loopar.getDocument(field.data.options, doc[field.data.name]);
           
           if (relatedEntity) {
@@ -107,7 +103,9 @@ export default class App extends BaseDocument {
               ]
             });
           }
-        }else if(field.element == FORM_TABLE){
+        }
+        
+        if(field.element == FORM_TABLE){
           const ref = loopar.getRef(field.data.options);
           const entity = await loopar.getDocument(ref.__ENTITY__, field.data.options);
 
@@ -126,19 +124,21 @@ export default class App extends BaseDocument {
   }
 
   async syncFilesInstaller(){
-    const allEntities = loopar.getEntities().map(entity => {
-      console.log(["Entity." + entity.name, parseInt(entity.id)])
-      return {
-        ...entity,
-        id: parseInt(entity.id)
-      }
-    }).sort((a, b) => a.id - b.id);
+    /**
+     * List of all entities
+     */
+    const allEntities = loopar.getEntities().map(entity => ({
+      ...entity,
+      id: parseInt(entity.id)
+    })).sort((a, b) => a.id - b.id);
 
-    const entities = allEntities.filter(entity => {
-      return (
-        (loopar.utils.compare(entity.__APP__, this.name) || entity.name === "App") || (entity.doc_structure || "").includes("app_name")
-      );
-    });
+    /**
+     * Filter entities when the entity is related to an app
+     */
+    const entities = allEntities.filter(entity => (
+      (loopar.utils.compare(entity.__APP__, this.name) || entity.name === "App") || 
+      (entity.doc_structure || "").includes("app_name")
+    ));
 
     const entitiesStructure = {
       App: {
@@ -148,36 +148,20 @@ export default class App extends BaseDocument {
       documents: []
     };
 
-    const documents = {}
+    const entitiesApp = {}
 
-    for (const entity of entities) {
-      if(entity.__APP__ == "Core") continue;
+    for (const entity of entities.filter(e => e.__APP__ != "Core")) {
+      const baseEntity = entity.__ENTITY__ || "Entity";
 
-      const entityName = entity.__ENTITY__ || "Entity";
+      if (!entitiesApp[baseEntity]){
+        const relatedEntity = allEntities.find(ent => ent.name === baseEntity);
 
-      if (!documents[entityName]){
-        const relatedEntity = allEntities.find(ent => ent.name === entityName);
-
-        documents[entityName] = {
+        entitiesApp[baseEntity] = {
           id: relatedEntity.id,
-          entity: entityName,
+          entity: baseEntity,
           path: relatedEntity.entityRoot,
-          name: entityName,
+          name: baseEntity,
           documents: []
-        }
-      }
-
-      for (const e of entities) {
-        if (e.__document_status__ !== "Deleted" && loopar.utils.compare(e.__ENTITY__ || "Entity", entityName)) {
-          if(documents[entityName].documents.find(doc => doc.id === e.id) || e.__APP__ == "Core") continue;
-
-          //console.log(["Entity.app", entity.__APP__, e])
-          documents[entityName].documents.push({
-            id: e.id,
-            name: e.name, 
-            path: e.entityRoot,
-            requires: await this.buildRequires(await loopar.getDocument(entityName, e.name))
-          });
         }
       }
       
@@ -188,70 +172,61 @@ export default class App extends BaseDocument {
         documents: []
       }
 
-      if (await loopar.db.count(entityName, entity.name) === 0) continue;
+      if (await loopar.db.count(baseEntity, entity.name)){
+        const Entity = await loopar.getDocument(baseEntity, entity.name);
+        entitiesApp[baseEntity].requires = await this.buildRequires(Entity);
+      
+        if (Entity.include_in_installer && !Entity.entityIsSingle() && !Entity.is_child && !entitiesApp[Entity.name]) {
+          const fields = Entity.writableFieldsList().map(field => field.data.name);
 
-      const Entity = await loopar.getDocument(entityName, entity.name);
+          const filters = {
+            "!=": { name: "Entity" },
+            ...(fields.includes("app_name") ? {"and": { "=": { app_name: this.name } }} : {}),
+            ...(Entity.name === "App" ? {"and": { "=": { name: this.name } }} : {})
+          };
 
-      documents[entityName].requires = await this.buildRequires(Entity);
-      //ent.requires = await this.buildRequires(Entity);
-     
-      if (Entity.include_in_installer && !Entity.is_single && !Entity.is_child && !documents[Entity.name]) {
-        const fields = Entity.writableFieldsList().map(field => field.data.name);
+          const entityDocuments = await loopar.db.getAll(
+            Entity.name,
+            fields,
+            filters,
+            {isSingle: Entity.entityIsSingle()}
+          );
 
-        const filters = {
-          "!=": { name: "Entity" },
-          ...(fields.includes("app_name") ? {"and": { "=": { app_name: this.name } }} : {}),
-          ...(Entity.name === "App" ? {"and": { "=": { name: this.name } }} : {})
-        };
-
-        const documents = await loopar.db.getAll(
-          Entity.name,
-          fields,
-          filters,
-          [true, "true", 1, "1"].includes(Entity.is_single)
-        );
-
-        for (const doc of documents.sort((a, b) => a.id - b.id)) {
-          if (!loopar.getRef(doc.name)) {
-            if(ent.documents.find(d => d.id === doc.id)) continue;
-
-            const Doc = await loopar.getDocument(Entity.name, doc.name);
-            
-            ent.documents.push({
-              id: doc.id,
-              name: doc.name,
-              data: await Doc.rawValues(),
-              requires: await this.buildRequires(Entity, doc)
-            });
+          for (const doc of entityDocuments.sort((a, b) => a.id - b.id)) {
+            if (!loopar.getRef(doc.name) && !ent.documents.find(d => d.id == doc.id)){
+              const Doc = await loopar.getDocument(Entity.name, doc.name);
+              
+              ent.documents.push({
+                id: doc.id,
+                name: doc.name,
+                data: await Doc.rawValues(),
+                requires: await this.buildRequires(Entity, doc)
+              });
+            }
           }
         }
-      }
 
-      ent.documents = ent.documents.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-      ent.requires = await this.buildRequires(Entity);
-      documents[entityName].documents.push(ent);
+        ent.documents = ent.documents.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        ent.requires = await this.buildRequires(Entity);
+        entitiesApp[baseEntity].documents.push(ent);
+      }
     }
 
-
-    /*** */
-    for (const entity of entities) {
-      const entityName = entity.__ENTITY__ || "Entity";
-
-      for (const e of entities) {
-        if (e.__document_status__ !== "Deleted" && loopar.utils.compare(e.__ENTITY__ || "Entity", entityName)) {
-          if (documents[entityName].documents.find(doc => doc.id === e.id)) continue;
-
-          documents[entityName].documents.push({
+    for (const e of entities.filter(e => e.__APP__ != "Core")) {
+      const baseEntity = e.__ENTITY__ || "Entity";
+      if (e.__document_status__ !== "Deleted" && loopar.utils.compare(e.__ENTITY__ || "Entity", baseEntity) && entitiesApp[baseEntity]) {
+        if (!entitiesApp[baseEntity].documents.find(doc => doc.id == e.id)) {
+          entitiesApp[baseEntity].documents.push({
             id: e.id,
             name: e.name,
-            path: e.entityRoot
+            path: e.entityRoot,
+            requires: await this.buildRequires(await loopar.getDocument(baseEntity, e.name, null, false)),
           });
         }
       }
     }
-    /*** */
 
-    entitiesStructure.documents = Object.values(documents).sort((a, b) => a.id - b.id);
+    entitiesStructure.documents = Object.values(entitiesApp).sort((a, b) => a.id - b.id);
 
     await fileManage.setConfigFile('installer', 
       entitiesStructure,

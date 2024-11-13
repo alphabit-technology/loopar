@@ -36,6 +36,7 @@ export default class ModuleController extends BaseController {
     list.rows = list.rows.map(row => {
       const ref = loopar.getRef(row.name);
       row.is_single = ref?.is_single || 0;
+      row.type = ref?.__TYPE__ || "Entity";
 
       return row;
     });
