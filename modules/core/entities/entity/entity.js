@@ -318,9 +318,11 @@ export default class Entity extends BaseDocument {
     }
 
     await super.delete(...arguments);
-    this.__document_status__ = "Deleted";
-    
-    await this.makeJSON();
+
+    if(!loopar.installing){
+      this.__document_status__ = "Deleted";
+      await this.makeJSON();
+    }
   }
 
   validateFieldName(name) {
