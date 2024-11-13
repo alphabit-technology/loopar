@@ -1,7 +1,7 @@
 {
   "App": {
     "name": "loopar",
-    "version": "0.2.3"
+    "version": "0.2.4"
   },
   "documents": [
     {
@@ -73,7 +73,7 @@
                 "module_group": "administration",
                 "icon": "Settings",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             },
@@ -89,7 +89,7 @@
                 "module_group": "developer",
                 "icon": "LucideCode",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             },
@@ -105,7 +105,7 @@
                 "module_group": "administration",
                 "icon": "LucideUserCheck2",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             },
@@ -121,7 +121,7 @@
                 "module_group": "administration",
                 "icon": "ComponentIcon",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             }
@@ -139,7 +139,7 @@
               "data": {
                 "__document_status__": "Active",
                 "id": 1,
-                "deleted_at": "2024-11-12 19:15:57",
+                "deleted_at": "2024-11-12 20:31:47",
                 "type": "Desk App",
                 "logo": "",
                 "logo_width": "",
@@ -157,7 +157,7 @@
                 "github_pass": "",
                 "name": "loopar",
                 "description": "Loopar",
-                "version": "0.2.3",
+                "version": "0.2.4",
                 "autor": "Administrator",
                 "info": "Loopar Javascript Drag and Drop Framework"
               },
@@ -181,10 +181,10 @@
                       "search_fields": "name",
                       "title_fields": "name",
                       "resources": [],
-                      "deleted_at": "2024-11-12 19:15:57",
-                      "__created_at__": "2024-11-12 19:15:57",
-                      "__updated_at__": "2024-11-12 19:15:57",
-                      "__deleted_at__": "2024-11-12 19:15:57"
+                      "deleted_at": "2024-11-12 20:31:47",
+                      "__created_at__": "2024-11-12 20:31:47",
+                      "__updated_at__": "2024-11-12 20:31:47",
+                      "__deleted_at__": "2024-11-12 20:31:47"
                     }
                   ]
                 }
@@ -211,10 +211,10 @@
                   "search_fields": "name",
                   "title_fields": "name",
                   "resources": [],
-                  "deleted_at": "2024-11-12 19:15:57",
-                  "__created_at__": "2024-11-12 19:15:57",
-                  "__updated_at__": "2024-11-12 19:15:57",
-                  "__deleted_at__": "2024-11-12 19:15:57"
+                  "deleted_at": "2024-11-12 20:31:47",
+                  "__created_at__": "2024-11-12 20:31:47",
+                  "__updated_at__": "2024-11-12 20:31:47",
+                  "__deleted_at__": "2024-11-12 20:31:47"
                 }
               ]
             }
@@ -234,7 +234,7 @@
                 "name": "administration",
                 "description": "Administration",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             },
@@ -247,7 +247,7 @@
                 "name": "modules",
                 "description": "Modules",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             },
@@ -260,7 +260,7 @@
                 "name": "developer",
                 "description": "Developer",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 19:15:57"
+                "deleted_at": "2024-11-12 20:31:47"
               },
               "requires": []
             }
@@ -317,6 +317,13 @@
           "requires": []
         },
         {
+          "id": 15,
+          "name": "Not Found",
+          "path": "/apps/loopar/modules/core/entities/not-found",
+          "documents": [],
+          "requires": []
+        },
+        {
           "id": 16,
           "name": "Menu",
           "path": "/apps/loopar/modules/developer/entities/menu",
@@ -341,10 +348,10 @@
                   "search_fields": "name",
                   "title_fields": "name",
                   "resources": [],
-                  "deleted_at": "2024-11-12 19:15:57",
-                  "__created_at__": "2024-11-12 19:15:57",
-                  "__updated_at__": "2024-11-12 19:15:57",
-                  "__deleted_at__": "2024-11-12 19:15:57"
+                  "deleted_at": "2024-11-12 20:31:47",
+                  "__created_at__": "2024-11-12 20:31:47",
+                  "__updated_at__": "2024-11-12 20:31:47",
+                  "__deleted_at__": "2024-11-12 20:31:47"
                 }
               ]
             }
@@ -372,6 +379,13 @@
           "requires": []
         },
         {
+          "id": 20,
+          "name": "Connected Document",
+          "path": "/apps/loopar/modules/core/entities/connected-document",
+          "documents": [],
+          "requires": []
+        },
+        {
           "id": 21,
           "name": "Error",
           "path": "/apps/loopar/modules/core/entities/error",
@@ -383,30 +397,6 @@
           "name": "Builder",
           "path": "/apps/loopar/modules/core/entities/builder",
           "documents": [],
-          "requires": []
-        },
-        {
-          "id": 15,
-          "name": "Not Found",
-          "path": "/apps/loopar/modules/core/entities/not-found",
-          "requires": []
-        },
-        {
-          "id": 20,
-          "name": "Connected Document",
-          "path": "/apps/loopar/modules/core/entities/connected-document",
-          "requires": []
-        },
-        {
-          "id": 22,
-          "name": "Side Menu",
-          "path": "/apps/loopar/modules/developer/entities/side-menu",
-          "requires": []
-        },
-        {
-          "id": 23,
-          "name": "Side Menu Item",
-          "path": "/apps/loopar/modules/developer/entities/side-menu-item",
           "requires": []
         }
       ],

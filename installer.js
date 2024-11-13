@@ -83,8 +83,7 @@ export default class Installer extends CoreInstaller {
 
   async #makeCoreTable() {
     const coreData = await this.getDocumentData("Entity");
-    //await this.insertRecord("Entity", coreData, "loopar", "core");
-
+    
     const Entity = await loopar.newDocument("Entity", coreData);
     await Entity.save({ save: false, validate: false });
   }
