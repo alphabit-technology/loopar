@@ -388,19 +388,20 @@ export default class Entity extends BaseDocument {
 
         if (options.length === 1 && options[0] !== "") {
           const name = options[0].split(":")[0];
+          const ref = loopar.getRef(name);
 
-          if (await loopar.db.count("Entity", name) === 0) {
-            errors.push(`Entity ${name} is not a valid Entity for ${field.data.name}, please check the options.`);
+          if (await loopar.db.count(ref.__ENTITY__, name) === 0) {
+            errors.push(`${ref.__ENTITY__} ${name} is not a valid Entity for ${field.data.name}, please check the options.`);
           } else if (type === FORM_TABLE) {
-            const isSingle = await loopar.db.getValue("Entity", "is_single", name);
+            const isSingle = await loopar.db.getValue(ref.__ENTITY__, "is_single", name);
             if (isSingle) {
               errors.push(`Entity ${name} is a single Entity, please use a Entity with multiple records.`);
             }
 
-            const isChild = await loopar.db.getValue("Entity", "is_child", name);
+            const isChild = await loopar.db.getValue(ref.__ENTITY__, "is_child", name);
 
             if (isChild !== 1) {
-              errors.push(`Entity ${name} is not a child Entity, please use a child Entity.`);
+              errors.push(`${ref.__ENTITY__} ${name} is not a child Entity, please use a child Entity.`);
             }
           }
         }
