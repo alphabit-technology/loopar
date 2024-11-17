@@ -9,13 +9,13 @@ const usePathname = () => {
   return useLocation();
 };
 
-const ButtonType = ({action, label}) => {
+const ButtonType = ({action, label, actions}) => {
   const pathname = usePathname();
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     const type = pathname.search.split("=")[1];
-    setActive(decodeURIComponent(type || "Entity"));
+    setActive(decodeURIComponent(type || actions[0].name));
   } , [pathname]);
 
   return (
@@ -38,7 +38,15 @@ export default class ModuleView extends EntityList {
     const actions = this.props.meta?.__TYPES__ || [];
 
     actions.forEach((action, index) => {
-      this.setCustomAction(action.name, <ButtonType key={index} action={action.name} label={action.label} />);
+      this.setCustomAction(
+        action.name,
+        <ButtonType 
+          key={index} 
+          action={action.name} 
+          label={action.label}
+          actions={actions}
+        />
+      );
     });
   }
 }

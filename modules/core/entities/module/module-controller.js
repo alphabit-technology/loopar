@@ -13,38 +13,42 @@ const getTypes = () => Object.values(loopar.getTypes()).reduce((acc, type) => {
 
 export default class ModuleController extends BaseController {
   async actionView() {
-    const type = this.type || "Entity";
+    const types = (await Promise.all(
+      getTypes().map(async t => await loopar.db.count(t.name, { "=": { module: this.name } }) > 0 ? t : null)
+    )).filter(Boolean);
+
+    const type = (!types.some(t => t.name == this.type)) ? types[0]?.name : this.type;
     const eType = `${type}DocumentQ`;
     const eModule = `${eType}Module`;
     const data = this.data || {};
 
-    if (!data?.q) await loopar.session.set(eModule, this.name);
+    if (!data.q) await loopar.session.set(eModule, this.name);
 
     const queryData = {
-      ...(data?.q || await loopar.session.get(eType) || {}),
-      module: await loopar.session.get(eModule)
+      ...(data.q || await loopar.session.get(eType) || {}),
+      module: await loopar.session.get(eModule),
     };
 
-    /*Test if module exists*/
-    if (queryData?.module) await loopar.getDocument("Module", queryData.module);
-    /*Test if module exists*/
-    
+    if (queryData.module) {await loopar.getDocument("Module", queryData.module);
+
     await loopar.session.set(eType, queryData);
     await loopar.session.set(`${type}_page`, this.data.page || 1);
+
     const list = await loopar.getList(type, { q: queryData });
 
     list.rows = list.rows.map(row => {
       const ref = loopar.getRef(row.name);
-      row.is_single = ref?.is_single || 0;
-      row.type = ref?.__TYPE__ || "Entity";
-
-      return row;
+      return {
+        ...row,
+        is_single: ref?.is_single || 0,
+        type: ref?.__TYPE__ || "Entity",
+      };
     });
 
-    list.__ENTITY__.name = "Module"; // Because need that action return to this Controller
-    list.__TYPES__ = getTypes(); // List of types of entities
-    list.__TYPE__ = type; // Current type of entity
+    list.__ENTITY__.name = "Module";
+    list.__TYPES__ = types;
 
     return this.render(list);
   }
+
 }
