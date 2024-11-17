@@ -29,7 +29,7 @@ export default class ModuleController extends BaseController {
       module: await loopar.session.get(eModule),
     };
 
-    if (queryData.module) {await loopar.getDocument("Module", queryData.module);
+    if (queryData.module) await loopar.getDocument("Module", queryData.module);
 
     await loopar.session.set(eType, queryData);
     await loopar.session.set(`${type}_page`, this.data.page || 1);
@@ -50,5 +50,4 @@ export default class ModuleController extends BaseController {
 
     return this.render(list);
   }
-
 }
