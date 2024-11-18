@@ -1,7 +1,7 @@
 {
   "App": {
     "name": "loopar",
-    "version": "0.2.4"
+    "version": "0.2.5"
   },
   "documents": [
     {
@@ -24,7 +24,6 @@
                   "name": "Resources",
                   "module": "core",
                   "default_list_view": "List",
-                  "type": "Document",
                   "is_single": 0,
                   "is_static": 0,
                   "include_in_installer": 1,
@@ -73,7 +72,7 @@
                 "module_group": "administration",
                 "icon": "Settings",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             },
@@ -89,7 +88,7 @@
                 "module_group": "developer",
                 "icon": "LucideCode",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             },
@@ -105,7 +104,7 @@
                 "module_group": "administration",
                 "icon": "LucideUserCheck2",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             },
@@ -121,7 +120,7 @@
                 "module_group": "administration",
                 "icon": "ComponentIcon",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             }
@@ -139,7 +138,7 @@
               "data": {
                 "__document_status__": "Active",
                 "id": 1,
-                "deleted_at": "2024-11-12 23:23:12",
+                "deleted_at": "2024-11-17 19:41:20",
                 "type": "Desk App",
                 "logo": "",
                 "logo_width": "",
@@ -157,7 +156,7 @@
                 "github_pass": "",
                 "name": "loopar",
                 "description": "Loopar",
-                "version": "0.2.4",
+                "version": "0.2.5",
                 "autor": "Administrator",
                 "info": "Loopar Javascript Drag and Drop Framework"
               },
@@ -170,7 +169,6 @@
                       "name": "Menu Item",
                       "module": "developer",
                       "default_list_view": "List",
-                      "type": "Document",
                       "is_single": 0,
                       "is_static": 0,
                       "include_in_installer": 0,
@@ -181,10 +179,10 @@
                       "search_fields": "name",
                       "title_fields": "name",
                       "resources": [],
-                      "deleted_at": "2024-11-12 23:23:12",
-                      "__created_at__": "2024-11-12 23:23:12",
-                      "__updated_at__": "2024-11-12 23:23:12",
-                      "__deleted_at__": "2024-11-12 23:23:12"
+                      "deleted_at": "2024-11-17 19:41:20",
+                      "__created_at__": "2024-11-17 19:41:20",
+                      "__updated_at__": "2024-11-17 19:41:20",
+                      "__deleted_at__": "2024-11-17 19:41:20"
                     }
                   ]
                 }
@@ -200,7 +198,6 @@
                   "name": "Menu Item",
                   "module": "developer",
                   "default_list_view": "List",
-                  "type": "Document",
                   "is_single": 0,
                   "is_static": 0,
                   "include_in_installer": 0,
@@ -211,10 +208,10 @@
                   "search_fields": "name",
                   "title_fields": "name",
                   "resources": [],
-                  "deleted_at": "2024-11-12 23:23:12",
-                  "__created_at__": "2024-11-12 23:23:12",
-                  "__updated_at__": "2024-11-12 23:23:12",
-                  "__deleted_at__": "2024-11-12 23:23:12"
+                  "deleted_at": "2024-11-17 19:41:20",
+                  "__created_at__": "2024-11-17 19:41:20",
+                  "__updated_at__": "2024-11-17 19:41:20",
+                  "__deleted_at__": "2024-11-17 19:41:20"
                 }
               ]
             }
@@ -234,7 +231,7 @@
                 "name": "administration",
                 "description": "Administration",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             },
@@ -247,7 +244,7 @@
                 "name": "modules",
                 "description": "Modules",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             },
@@ -260,7 +257,7 @@
                 "name": "developer",
                 "description": "Developer",
                 "in_sidebar": 1,
-                "deleted_at": "2024-11-12 23:23:12"
+                "deleted_at": "2024-11-17 19:41:20"
               },
               "requires": []
             }
@@ -282,23 +279,9 @@
           "requires": []
         },
         {
-          "id": 9,
-          "name": "Login",
-          "path": "/apps/loopar/modules/auth/entities/login",
-          "documents": [],
-          "requires": []
-        },
-        {
-          "id": 10,
-          "name": "Desk",
-          "path": "/apps/loopar/modules/core/entities/desk",
-          "documents": [],
-          "requires": []
-        },
-        {
-          "id": 12,
-          "name": "Reset Password",
-          "path": "/apps/loopar/modules/auth/entities/reset-password",
+          "id": 19,
+          "name": "Stripe",
+          "path": "/apps/loopar/modules/integrations/entities/stripe",
           "documents": [],
           "requires": []
         },
@@ -317,13 +300,6 @@
           "requires": []
         },
         {
-          "id": 15,
-          "name": "Not Found",
-          "path": "/apps/loopar/modules/core/entities/not-found",
-          "documents": [],
-          "requires": []
-        },
-        {
           "id": 16,
           "name": "Menu",
           "path": "/apps/loopar/modules/developer/entities/menu",
@@ -337,7 +313,6 @@
                   "name": "Menu Item",
                   "module": "developer",
                   "default_list_view": "List",
-                  "type": "Document",
                   "is_single": 0,
                   "is_static": 0,
                   "include_in_installer": 0,
@@ -348,10 +323,10 @@
                   "search_fields": "name",
                   "title_fields": "name",
                   "resources": [],
-                  "deleted_at": "2024-11-12 23:23:12",
-                  "__created_at__": "2024-11-12 23:23:12",
-                  "__updated_at__": "2024-11-12 23:23:12",
-                  "__deleted_at__": "2024-11-12 23:23:12"
+                  "deleted_at": "2024-11-17 19:41:20",
+                  "__created_at__": "2024-11-17 19:41:20",
+                  "__updated_at__": "2024-11-17 19:41:20",
+                  "__deleted_at__": "2024-11-17 19:41:20"
                 }
               ]
             }
@@ -372,23 +347,9 @@
           "requires": []
         },
         {
-          "id": 19,
-          "name": "Stripe",
-          "path": "/apps/loopar/modules/integrations/entities/stripe",
-          "documents": [],
-          "requires": []
-        },
-        {
           "id": 20,
           "name": "Connected Document",
           "path": "/apps/loopar/modules/core/entities/connected-document",
-          "documents": [],
-          "requires": []
-        },
-        {
-          "id": 21,
-          "name": "Error",
-          "path": "/apps/loopar/modules/core/entities/error",
           "documents": [],
           "requires": []
         },
@@ -413,6 +374,54 @@
           "name": "App Manager",
           "path": "/apps/loopar/modules/developer/pages/app-manager",
           "documents": [],
+          "requires": []
+        },
+        {
+          "id": null,
+          "name": "Desk",
+          "path": "/apps/loopar/modules/core/pages/desk",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": null,
+          "name": "Desk",
+          "path": "/apps/loopar/modules/core/pages/desk",
+          "requires": []
+        }
+      ],
+      "requires": []
+    },
+    {
+      "id": 5,
+      "entity": "Form Builder",
+      "path": "/apps/loopar/modules/developer/builders/form-builder",
+      "name": "Form Builder",
+      "documents": [
+        {
+          "id": null,
+          "name": "Login",
+          "path": "/apps/loopar/modules/auth/forms/login",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": null,
+          "name": "Reset Password",
+          "path": "/apps/loopar/modules/auth/forms/reset-password",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": null,
+          "name": "Login",
+          "path": "/apps/loopar/modules/auth/forms/login",
+          "requires": []
+        },
+        {
+          "id": null,
+          "name": "Reset Password",
+          "path": "/apps/loopar/modules/auth/forms/reset-password",
           "requires": []
         }
       ],
@@ -457,7 +466,7 @@
         {
           "id": 5,
           "name": "Form Builder",
-          "path": "/apps/loopar/modules/core/builders/form-builder",
+          "path": "/apps/loopar/modules/developer/builders/form-builder",
           "documents": [],
           "requires": []
         },
@@ -465,6 +474,13 @@
           "id": 12,
           "name": "Controller Builder",
           "path": "/apps/loopar/modules/core/builders/controller-builder",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 12,
+          "name": "Controller Builder",
+          "path": "/apps/loopar/modules/developer/builders/controller-builder",
           "documents": [],
           "requires": []
         }

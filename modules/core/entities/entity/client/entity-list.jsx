@@ -40,7 +40,7 @@ export default class EntityList extends ListContext {
       )
     }
 
-    const entity = this.props.meta.__TYPE__ || this.props.meta.__ENTITY__.name;
+    const entity = row.type || this.props.meta.__ENTITY__.name;
     
     return (
       <div>
