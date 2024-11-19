@@ -26,7 +26,6 @@ export default class EntityList extends ListContext {
 
   gridTemplate(row, action){
     const color = loopar.bgColor(row.name);
-    const Icon = action === "list" ? MenuIcon : action === "update" ? BrushIcon : EyeIcon;
 
     const getAction = (to, Icon, text, variant) => {
       return (
@@ -68,8 +67,9 @@ export default class EntityList extends ListContext {
           </CardContent>
           <CardFooter className="flex justify-between">
             <div>
-              {action === "list" && getAction(`/desk/${row.name}/${action}`, Icon, loopar.utils.Capitalize(action), "primeblue")}
-              {action === "view" && getAction(`/desk/${row.name}/${action}?name=${row.name}`, Icon, loopar.utils.Capitalize(action), "primeblue")}
+              {action === "update" && getAction(`/desk/${row.name}/${action}`, PencilIcon, loopar.utils.Capitalize(action), "primeblue")}
+              {action === "list" && getAction(`/desk/${row.name}/${action}`, MenuIcon, loopar.utils.Capitalize(action), "primeblue")}
+              {action === "view" && getAction(`/desk/${row.name}/${action}?name=${row.name}`, EyeIcon, loopar.utils.Capitalize(action), "primeblue")}
             </div>
             <div className='flex justify-end'>
               <Link 
