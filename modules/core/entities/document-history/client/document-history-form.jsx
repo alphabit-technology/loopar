@@ -1,8 +1,8 @@
 
 'use strict';
 
-import FormContext from '$context/form-context';
-import { loopar } from '$loopar';
+import FormContext from '@context/form-context';
+import { loopar } from 'loopar';
 
 export default class DocumentHistoryForm extends FormContext {
   readOnly = true;

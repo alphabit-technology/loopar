@@ -1,13 +1,13 @@
 'use strict';
 
 import ListContext from '@context/list-context';
-import loopar from '$loopar';
+import {loopar} from 'loopar';
 import fileManager from "@tools/file-manager";
 import FilePreview from "@file-preview";
 import FileUploader from "@file-uploader";
 import {Button} from "@/components/ui/button";
 import { UploadIcon } from 'lucide-react';
-import {Link} from '$link';
+import {Link} from '@link';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 

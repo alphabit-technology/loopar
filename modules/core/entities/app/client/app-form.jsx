@@ -2,7 +2,7 @@
 
 import FormContext from '@context/form-context';
 //import { button, div, i, label } from '/components/elements.js';
-import loopar from '$loopar';
+import {loopar} from 'loopar';
 import { Button } from '@/components/ui/button';
 import { FolderSyncIcon } from 'lucide-react';
 

@@ -1,11 +1,6 @@
 
 'use strict';
 
-import EntityList from "@app/entity-list";
+import EntityList from "../../entity/client/entity-list";
 
 export default EntityList
-/*export default class BuilderList extends EntityList {
-    constructor(props){
-        super(props);
-    }
-}*/

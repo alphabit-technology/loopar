@@ -1,5 +1,5 @@
-import ListContext from '$context/list-context';
-import loopar from "$loopar";
+import ListContext from '@context/list-context';
+import loopar from "loopar";
 
 import { Card, CardHeader, CardDescription, CardContent, CardFooter} from '@card';
 import {

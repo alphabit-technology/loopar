@@ -1,6 +1,6 @@
 'use strict';
 
-import ViewContext from '$context/view-context'
+import ViewContext from '@context/view-context'
 
 export default class AppView extends ViewContext {
    constructor(props) {
