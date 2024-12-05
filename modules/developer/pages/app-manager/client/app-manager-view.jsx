@@ -98,7 +98,7 @@ export default class AppManagerView extends ListContext {
               <Button
                 variant={app.installed && app.installed_version === app.version ? "secondary" : "primary"}
                 disabled={app.installed && app.installed_version === app.version}
-                onClick={() => this.sendAppAction(app.name, !app.installed ? 'install' : 'update')}
+                onClick={() => this.sendAppAction(app.name, !app.installed ? 'install' : 'reinstall')}
               >
                 {!app.installed ? (
                   <><FolderDownIcon className="mr-2"/> Install</>

@@ -227,7 +227,7 @@ export default class Entity extends BaseDocument {
         }
 
         if (key === "background_image" && value) {
-          console.log(["background_image", value]);
+          //console.log(["background_image", value]);
           const files = value;
 
           for (const file of files || []) {
