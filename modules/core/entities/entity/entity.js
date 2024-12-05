@@ -475,7 +475,6 @@ export default class Entity extends BaseDocument {
     /*Entity Model*/
 
     const type = this.getEntityType();
-    //const type = this.is_single ? "Single" : this.__ENTITY__.build || this.__ENTITY__.__TYPE__ || "Entity";
     const extendController = (["Single", "View", "Page", "Form", "Report"].includes(type) ? type : "Base") + "Controller";
     
     await fileManage.makeClass(documentPath, `${this.name}Controller`, {
@@ -499,13 +498,7 @@ export default class Entity extends BaseDocument {
     }
     //const type = this.__ENTITY__.build || this.__ENTITY__.__TYPE__
 
-    if (["Page", "View"].includes(type)) {
-      await makeView("view");
-    } else if (type === "Form") {
-      await makeView("form");
-    } else if (type === "Report") {
-      await makeView("report");
-    } else if (type === "Entity") {
+    if (type === "Entity") {
       for (const context of ["list", "form", "view", "report"]) {
         await makeView(context);
       }
@@ -513,6 +506,8 @@ export default class Entity extends BaseDocument {
       for (const context of ["list", "form"]) {
         await makeView(context);
       }
+    }else{
+      await makeView(type.toLowerCase(), type == "Page" ? "view" : type.toLowerCase());
     }
   }
 

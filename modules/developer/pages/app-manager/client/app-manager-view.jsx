@@ -13,7 +13,7 @@ import {Badge} from "@/components/ui/badge";
 import {Link} from "@link"
 import {Button} from "@/components/ui/button";
 
-import { PlusIcon, DownloadIcon, MenuIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon } from 'lucide-react';
+import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon } from 'lucide-react';
 
 export default class AppManagerView extends ListContext {
   onlyGrid = true;
@@ -22,15 +22,6 @@ export default class AppManagerView extends ListContext {
   constructor(props) {
     super(props);
   }
-
-  /*render() {
-    const apps = this.makeApps();
-    return super.render(
-      <div className='flex flex-row'>
-        {apps.length > 0 ? apps : <noData/>}
-      </div>
-    );
-  }*/
 
   clone() {
     loopar.prompt({
@@ -97,31 +88,25 @@ export default class AppManagerView extends ListContext {
               </Avatar>
               <div>
                 <h4>Autor: {app.autor}</h4>
-                <h6 className='font-bold text-slate-500 dark:text-slate-400'>Installed Version: {app.version}</h6>
+                <h6 className='font-bold text-slate-500 dark:text-slate-400'>App Version: {app.version}</h6>
+                <h6 className='font-bold text-slate-500 dark:text-slate-400'>Installed Version: {app.installed_version}</h6>
               </div>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
             <div>
               <Button
-                variant={app.installed ? "secondary" : "primary"}
-                disabled={app.installed}
-                onClick={() => this.sendAppAction(app.name, 'install')}
+                variant={app.installed && app.installed_version === app.version ? "secondary" : "primary"}
+                disabled={app.installed && app.installed_version === app.version}
+                onClick={() => this.sendAppAction(app.name, !app.installed ? 'install' : 'update')}
               >
-                {app.installed ? (
-                  <><CheckCircle2Icon className="mr-2"/> Installed</>
-                ) : (
+                {!app.installed ? (
                   <><FolderDownIcon className="mr-2"/> Install</>
+                ) : (
+                  app.installed_version !== app.version ? <><RefreshCcwDotIcon className="mr-2"/> Update</> :
+                  <><CheckCircle2Icon className="mr-2"/> Installed</>
                 )}
               </Button>
-              {app.installed && app.installed_version !== app.version && (
-                <Button
-                  variant="primary"
-                  onClick={() => this.sendAppAction(app.name, 'reinstall')}
-                >
-                  <RefreshCcwDotIcon className="mr-2"/> Reinstall
-                </Button>
-              )}
             </div>
             <div className='flex justify-end'>
               {
@@ -131,15 +116,6 @@ export default class AppManagerView extends ListContext {
                   onClick={() => this.sendAppAction(app.name, 'uninstall')}
                 >
                   <Trash2Icon/>
-                </Button>)
-              }
-              {
-                app.installed && app.installed_version !== app.version && (
-                <Button
-                  variant="primary"
-                  onClick={() => this.sendAppAction(app.name, 'reinstall')}
-                >
-                  <RefreshCcwDotIcon/>
                 </Button>)
               }
             </div>

@@ -123,10 +123,38 @@ export default class App extends BaseDocument {
     return requires;
   }
 
+  async incrementPatch() {
+    await this.syncFilesInstaller();
+
+    const version = this.version.split('.');
+    version[2] = parseInt(version[2]) + 1;
+    this.version = version.join('.');
+    await this.save();
+  }
+
+  async incrementMinor() {
+    await this.syncFilesInstaller();
+
+    const version = this.version.split('.');
+    version[1] = parseInt(version[1]) + 1;
+    this.version = version.join('.');
+    await this.save();
+  }
+
+  async incrementMajor() {
+    await this.syncFilesInstaller();
+
+    const version = this.version.split('.');
+    version[0] = parseInt(version[0]) + 1;
+    this.version = version.join('.');
+    await this.save();
+  }
+
   async syncFilesInstaller(){
     /**
      * List of all entities
      */
+
     const allEntities = loopar.getEntities().map(entity => ({
       ...entity,
       id: parseInt(entity.id)

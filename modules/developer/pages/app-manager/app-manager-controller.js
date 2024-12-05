@@ -73,12 +73,4 @@ export default class AppManagerController extends SystemController {
       return this.redirect();
     }
   }
-
-  async actionSyncInstaller() {
-    const model = await loopar.getDocument("App", this.data.name)
-
-    if (await model.syncFilesInstaller()) {
-      return await this.success('Installer updated successfully');
-    }
-  }
 }

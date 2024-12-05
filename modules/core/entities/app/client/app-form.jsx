@@ -1,10 +1,9 @@
 'use strict';
 
 import FormContext from '@context/form-context';
-//import { button, div, i, label } from '/components/elements.js';
 import {loopar} from 'loopar';
 import { Button } from '@/components/ui/button';
-import { FolderSyncIcon } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 
 export default class AppForm extends FormContext {
   /**
@@ -28,18 +27,26 @@ export default class AppForm extends FormContext {
   setCustomActions() {
     super.setCustomActions();
 
-    this.setCustomAction('syncInstaller', (
-      <Button
-        variant="warning"
-        onClick={(e) => {
-          e.preventDefault();
-          loopar.method("App Manager", "syncInstaller", this.getValue('name'));
-        }}
-      >
-        <FolderSyncIcon className="mr-2" />
-        Sync Installer
-      </Button>
-    ));
+    const setIncrementVersion = (type) => {
+      this.setCustomAction(`increment${type}`, (
+        <Button
+          variant="link"
+          onClick={(e) => {
+            e.preventDefault();
+            loopar.confirm(`Are you sure you want to increment the ${type} version of the app ${this.getValue("name")}?`, async () => {
+              await loopar.method("App", `increment${type}`, this.getValue('name'));
+            });
+          }}
+        >
+          <PlusIcon className="mr-2" />
+          {type}
+        </Button>
+      ))
+    }
+
+    setIncrementVersion('Patch');
+    setIncrementVersion('Minor');
+    setIncrementVersion('Major'); 
   }
 
   componentDidMount() {
