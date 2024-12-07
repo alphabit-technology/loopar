@@ -9,13 +9,13 @@ const usePathname = () => {
   return useLocation();
 };
 
-const ButtonType = ({action, label, actions}) => {
+const ButtonType = ({action, label, actions, current}) => {
   const pathname = usePathname();
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     const type = pathname.search.split("=")[1];
-    setActive(decodeURIComponent(type || actions[0].name));
+    setActive(decodeURIComponent(type || current));
   } , [pathname]);
 
   return (
@@ -45,6 +45,7 @@ export default class ModuleView extends EntityList {
           action={action.name} 
           label={action.label}
           actions={actions}
+          current={this.props.meta.__TYPE__}
         />
       );
     });

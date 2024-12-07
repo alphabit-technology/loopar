@@ -13,7 +13,6 @@ const getTypes = () => Object.values(loopar.getTypes()).reduce((acc, type) => {
 
 export default class ModuleController extends BaseController {
   async actionView() {
-
     const data = this.data || {};
     const q = data.q || data;
 
@@ -21,7 +20,7 @@ export default class ModuleController extends BaseController {
       getTypes().map(async t => await loopar.db.count(t.name, { "=": { module: this.name || q.module } }) > 0 ? t : null)
     )).filter(Boolean);
 
-    const type = (!types.some(t => t.name == this.type)) ? (types.find(t => t.name == "entities") || types[0])?.name : this.type;
+    const type = (!types.some(t => t.name == this.type)) ? (types.find(t => t.name == "Entity") || types[0])?.name : this.type;
     const eType = `${type}DocumentQ`;
     const eModule = `${eType}Module`;
 
@@ -50,6 +49,7 @@ export default class ModuleController extends BaseController {
 
     list.__ENTITY__.name = "Module";
     list.__TYPES__ = types;
+    list.__TYPE__ = type;
 
     return this.render(list);
   }

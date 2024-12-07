@@ -124,30 +124,30 @@ export default class App extends BaseDocument {
   }
 
   async incrementPatch() {
-    await this.syncFilesInstaller();
-
     const version = this.version.split('.');
     version[2] = parseInt(version[2]) + 1;
     this.version = version.join('.');
     await this.save();
+
+    await this.syncFilesInstaller();
   }
 
   async incrementMinor() {
-    await this.syncFilesInstaller();
-
     const version = this.version.split('.');
     version[1] = parseInt(version[1]) + 1;
     this.version = version.join('.');
     await this.save();
+
+    await this.syncFilesInstaller();
   }
 
   async incrementMajor() {
-    await this.syncFilesInstaller();
-
     const version = this.version.split('.');
     version[0] = parseInt(version[0]) + 1;
     this.version = version.join('.');
     await this.save();
+
+    await this.syncFilesInstaller();
   }
 
   async syncFilesInstaller(){
