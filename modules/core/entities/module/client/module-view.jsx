@@ -2,7 +2,7 @@
 'use strict';
 import React, {useEffect, useState} from "react";
 import EntityList from "../../entity/client/entity-list";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import {Link} from "@link"
 
 const usePathname = () => {

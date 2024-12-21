@@ -135,6 +135,7 @@ export default class App extends BaseDocument {
   async incrementMinor() {
     const version = this.version.split('.');
     version[1] = parseInt(version[1]) + 1;
+    version[2] = 0;
     this.version = version.join('.');
     await this.save();
 
@@ -144,6 +145,9 @@ export default class App extends BaseDocument {
   async incrementMajor() {
     const version = this.version.split('.');
     version[0] = parseInt(version[0]) + 1;
+    version[1] = 0;
+    version[2] = 0;
+
     this.version = version.join('.');
     await this.save();
 
