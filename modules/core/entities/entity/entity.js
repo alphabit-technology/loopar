@@ -506,8 +506,8 @@ export default class Entity extends BaseDocument {
       for (const context of ["list", "form"]) {
         await makeView(context);
       }
-    }else{
-      await makeView(type.toLowerCase(), type == "Page" ? "view" : type.toLowerCase());
+    } else {
+      await makeView(type.toLowerCase(), type.toLowerCase());
     }
   }
 

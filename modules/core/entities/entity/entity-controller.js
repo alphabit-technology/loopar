@@ -10,11 +10,13 @@ export default class EntityController extends BaseController {
   }
 
   async actionSetTailwind() {
+    console.log(["set tailwind", this.data])
     if (this.hasData()) {
       const { to_element, classes } = this.data;
 
       if (classes) {
         loopar.setTailwind(to_element, decodeURIComponent(classes));
+        console.log(["ta"])
         return this.success("Tailwind set successfully");
       }
     }

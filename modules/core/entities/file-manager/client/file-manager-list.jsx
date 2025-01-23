@@ -2,14 +2,13 @@
 
 import ListContext from '@context/list-context';
 import {loopar} from 'loopar';
-import fileManager from "@tools/file-manager";
+import fileManager from "@@file/file-manager";
 import FilePreview from "@file-preview";
 import FileUploader from "@file-uploader";
 import {Button} from "@/components/ui/button";
 import { UploadIcon } from 'lucide-react';
 import {Link} from '@link';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
 
 export default class FileManagerList extends ListContext {
   renderGrid = true;
@@ -63,8 +62,7 @@ export default class FileManagerList extends ListContext {
     return this.props.multiple !== 0;
   }
 
-  gridTemplate(row, action, grid) {
-    row.extention = row.name.split('.').pop();
+  gridTemplate(row, action, onSelect) {
     const file = this.file([row])[0];
 
     return (
@@ -72,14 +70,8 @@ export default class FileManagerList extends ListContext {
         data={row}
         file={file}
         onSelect={(src) => {
+          onSelect && onSelect(src);
           this.props.onSelect && this.props.onSelect(src);
-        }}
-        accept={this.props.accept || "/*"}
-        multiple={this.props.multiple !== 0}
-        docRef={this}
-        grid={grid}
-        ref={(ref) => {
-          this.filesRefs[row.name] = ref;
         }}
       />
     );
@@ -109,14 +101,12 @@ export default class FileManagerList extends ListContext {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //super.componentDidUpdate(prevProps, prevState);
     if (prevProps.meta.rows !== this.props.meta.rows) {
       this.setState({});
     }
   }
 
   componentDidMount() {
-    //super.componentDidMount();
     this.setCustomActions();
   }
 
@@ -140,17 +130,6 @@ export default class FileManagerList extends ListContext {
         <UploadIcon className="pr-1" />
         Upload
       </Button>
-    )
-    /*return button({
-      className: "btn btn-primary",
-      type: "button",
-      onClick: (e) => {
-        e.preventDefault();
-        this.setState({ uploading: true });
-      }
-    }, [
-      i({ className: "fa fa-fw fa-plus" }),
-      " Upload"
-    ])*/
+    );
   }
 }

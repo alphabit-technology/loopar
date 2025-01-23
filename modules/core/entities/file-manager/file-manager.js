@@ -5,7 +5,7 @@ import { BaseDocument, loopar, fileManage } from 'loopar';
 import mime from "mime-types";
 import fs from "fs";
 import sharp from "sharp";
-import path from 'path';
+import path from 'pathe';
 
 export default class FileManager extends BaseDocument {
     #reqUploadFile = null;
@@ -204,5 +204,112 @@ export default class FileManager extends BaseDocument {
                 fs.existsSync(thumbnailFile) && fs.unlinkSync(thumbnailFile);
             }
         }*/
+    }
+
+    loadDiskFiles(rows = []) {
+        const apps = fs.readdirSync(loopar.makePath(loopar.pathRoot, 'apps'));
+
+        const loadFiles = (source = "public") => {
+            const diskFiles = fs.readdirSync(path.join(loopar.pathRoot, source, 'public', 'uploads'));
+
+            diskFiles.forEach(file => {
+                const stat = fs.statSync(path.join(loopar.pathRoot, source, 'public', 'uploads', file));
+                if (!stat.isDirectory()) {
+                    rows.push({
+                        name: file,
+                        created_at: stat.birthtime,
+                        extention: file.split('.').pop(),
+                        size: stat.size,
+                        app: this.app
+                    });
+                }
+            });
+        }
+
+        if (this.app) {
+            loadFiles(`apps/${this.app}`)
+        } else {
+            for (const app of apps) {
+                loadFiles(`apps/${app}`);
+            }
+        }
+
+        return rows;
+    }
+
+    paginate(array, pageNumber, pageSize) {
+        array = array.filter(row =>
+            (row.name || "").toLowerCase().includes((this.name || "").toLowerCase()) &&
+            (row.extention || "").toLowerCase().includes((this.extention || "").toLowerCase())
+        );
+        // Validación de entrada
+        if (!Array.isArray(array)) {
+            throw new Error("El primer argumento debe ser un array.");
+        }
+        if (pageNumber < 1 || pageSize < 1) {
+            throw new Error("El número de página y el tamaño de página deben ser mayores a 0.");
+        }
+
+        const startIndex = (pageNumber - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+
+        return array.slice(startIndex, endIndex);
+    }
+
+    async getList({ fields = null, filters = {}, q = null, rowsOnly = false } = {}) {
+        if (this.__ENTITY__.is_single) {
+            return loopar.throw({
+                code: 404,
+                message: "This document is single, you can't get list"
+            });
+        }
+
+        const pagination = {
+            page: loopar.session.get(this.__ENTITY__.name + "_page") || 1,
+            pageSize: 10,
+            totalPages: 4,
+            totalRecords: 1,
+            sortBy: "id",
+            sortOrder: "asc",
+            __ENTITY__: this.__ENTITY__.name
+        };
+
+        const listFields = fields || this.getFieldListNames();
+        /*if (this.__ENTITY__.name === 'Document' && currentController.document !== "Document") {
+            listFields.push('is_single');
+        }*/
+
+        if (this.__ENTITY__.name === 'Entity') {
+            listFields.push('is_single');
+        }
+
+        const condition = { ...this.buildCondition(q), ...filters };
+
+        const diskFiles = this.loadDiskFiles();
+
+        pagination.totalRecords = await this.records(condition) + diskFiles.length;
+
+        pagination.totalPages = Math.ceil(pagination.totalRecords / pagination.pageSize);
+        const selfPagination = JSON.parse(JSON.stringify(pagination));
+        loopar.db.pagination = pagination;
+
+        const rows = this.paginate(
+            this.loadDiskFiles(await loopar.db.getList(this.__ENTITY__.name, [...listFields, "id"], condition)),
+            pagination.page,
+            pagination.pageSize
+        )
+
+        if (rows.length === 0 && pagination.page > 1) {
+            await loopar.session.set(this.__ENTITY__.name + "_page", 1);
+            return await this.getList({ fields, filters, q, rowsOnly });
+        }
+
+        return Object.assign((rowsOnly ? {} : await this.__data__()), {
+            labels: this.getFieldListLabels(),
+            fields: listFields,
+            rows: rows,
+            pagination: selfPagination,
+            q
+        });
     }
 }
