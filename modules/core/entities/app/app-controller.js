@@ -8,7 +8,7 @@ export default class AppController extends BaseController {
    }
 
   async actionIncrementPatch() {
-    const model = await loopar.getDocument("App", this.data.name);
+    const model = await loopar.getDocument("App", this.name);
 
     if (await model.incrementPatch()) {
       return await this.success(`App ${model.name} update to new version: ${model.version}`);
@@ -16,7 +16,7 @@ export default class AppController extends BaseController {
   }
 
   async actionIncrementMinor() {
-    const model = await loopar.getDocument("App", this.data.name)
+    const model = await loopar.getDocument("App", this.name)
 
     if (await model.incrementMinor()) {
       return await this.success(`App ${model.name} update to new version: ${model.version}`);
@@ -24,7 +24,7 @@ export default class AppController extends BaseController {
   }
 
   async actionIncrementMajor() {
-    const model = await loopar.getDocument("App", this.data.name)
+    const model = await loopar.getDocument("App", this.name)
 
     if (await model.incrementMajor()) {
       return await this.success(`App ${model.name} update to new version: ${model.version}`);

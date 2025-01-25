@@ -7,6 +7,4 @@ export default class PageBuilder extends Entity {
   constructor(props) {
     super(props);
   }
-
-  
 }

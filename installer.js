@@ -40,9 +40,10 @@ export default class Installer extends CoreInstaller {
     return await super.validate();
   }
 
-  async install() {
-    await this.validate();
-
+  async install(reinstall = false) {
+    if(reinstall) return super.install(true);
+    await this.validate(reinstall);
+    
     console.log("Installing Loopar");
     loopar.installingApp = "loopar";
     await this.setDbConfig();

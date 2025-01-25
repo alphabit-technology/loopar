@@ -498,6 +498,8 @@ export default class Entity extends BaseDocument {
     }
     //const type = this.__ENTITY__.build || this.__ENTITY__.__TYPE__
 
+    console.log("makeViews", type);
+
     if (type === "Entity") {
       for (const context of ["list", "form", "view", "report"]) {
         await makeView(context);
