@@ -40,6 +40,7 @@ export default class AppManagerController extends SystemController {
         }
       }
     }
+    console.log(appsList);
 
     apps.rows = appsList;
 

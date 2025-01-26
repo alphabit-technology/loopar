@@ -72,6 +72,7 @@ export default class Installer extends CoreInstaller {
     user.confirm_password = this.confirm_password;
     user.__document_status__ = "Active";
     
+    console.log("Administrator User Created");  
     await user.save({validate: false});
   }
 
