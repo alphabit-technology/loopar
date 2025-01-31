@@ -20,7 +20,7 @@ export default class ModuleController extends BaseController {
       getTypes().map(async t => await loopar.db.count(t.name, { "=": { module: this.name || q.module } }) > 0 ? t : null)
     )).filter(Boolean);
 
-    const type = (!types.some(t => t.name == this.type)) ? (types.find(t => t.name == "Entity") || types[0])?.name : this.type;
+    const type = ((!types.some(t => t.name == this.type)) ? (types.find(t => t.name == "Entity") || types[0])?.name : this.type) || "Entity";
     const eType = `${type}DocumentQ`;
     const eModule = `${eType}Module`;
 

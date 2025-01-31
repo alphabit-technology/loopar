@@ -40,25 +40,9 @@ export default class AppManagerController extends SystemController {
         }
       }
     }
-    console.log(appsList);
 
     apps.rows = appsList;
 
-    /*apps.rows.forEach(installedApp => {
-      const app = appsList.find(app => app.name === installedApp.name);
-
-      if (app) {
-        Object.assign(app, installedApp);
-      }
-    });
-
-    for(const app of appsList) {
-      if(!apps.rows.find(row => row.name === app.name)) {
-        apps.rows.push(app);
-      }
-    }*/
-
-    /**Because need that action return to this Controller */
     apps.__ENTITY__.name = "App Manager";
 
 

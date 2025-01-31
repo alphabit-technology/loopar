@@ -210,20 +210,22 @@ export default class FileManager extends BaseDocument {
         const apps = fs.readdirSync(loopar.makePath(loopar.pathRoot, 'apps'));
 
         const loadFiles = (source = "public") => {
-            const diskFiles = fs.readdirSync(path.join(loopar.pathRoot, source, 'public', 'uploads'));
+            if (fs.existsSync(path.join(loopar.pathRoot, source, 'public', 'uploads'))) {
+                const diskFiles = fs.readdirSync(path.join(loopar.pathRoot, source, 'public', 'uploads'));
 
-            diskFiles.forEach(file => {
-                const stat = fs.statSync(path.join(loopar.pathRoot, source, 'public', 'uploads', file));
-                if (!stat.isDirectory()) {
-                    rows.push({
-                        name: file,
-                        created_at: stat.birthtime,
-                        extention: file.split('.').pop(),
-                        size: stat.size,
-                        app: this.app
-                    });
-                }
-            });
+                diskFiles.forEach(file => {
+                    const stat = fs.statSync(path.join(loopar.pathRoot, source, 'public', 'uploads', file));
+                    if (!stat.isDirectory()) {
+                        rows.push({
+                            name: file,
+                            created_at: stat.birthtime,
+                            extention: file.split('.').pop(),
+                            size: stat.size,
+                            app: this.app
+                        });
+                    }
+                });
+            }
         }
 
         if (this.app) {

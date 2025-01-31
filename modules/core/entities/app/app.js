@@ -7,7 +7,7 @@ export default class App extends BaseDocument {
     super(props);
   }
 
-  async save() {
+  async save(makeStructure = true) {
     const args = arguments[0] || {};
     if (this.__IS_NEW__ && this.git_repo && !["null", "undefined"].includes(this.git_repo)) {
       loopar.validateGitRepository(this.git_repo);
@@ -29,14 +29,14 @@ export default class App extends BaseDocument {
             return;
           }
 
-          const data_info = appData.DeskWorkspace[app_name];
+          const dataInfo = appData.DeskWorkspace[app_name];
 
           this.name = app_name;
-          this.autor = data_info.autor;
-          this.version = data_info.version;
-          this.description = data_info.description;
-          this.git_repo = data_info.git_repo;
-          this.app_info = data_info.app_info;
+          this.autor = dataInfo.autor;
+          this.version = dataInfo.version;
+          this.description = dataInfo.description;
+          this.git_repo = dataInfo.git_repo;
+          this.app_info = dataInfo.app_info;
 
           await super.save(args);
         });
@@ -45,7 +45,7 @@ export default class App extends BaseDocument {
       this.autor = !this.autor || this.autor === '' ? loopar.currentUser.email : this.autor;
       this.version = !this.version || this.version === '' ? '0.0.1' : this.version;
       await super.save(args);
-      await this.makeAppStructure();
+      makeStructure && await this.makeAppStructure();
     }
 
     await loopar.build();
@@ -57,9 +57,19 @@ export default class App extends BaseDocument {
     if (loopar.installing) return;
 
     await fileManage.makeFolder(loopar.makePath('apps', this.name), 'modules');
+    await fileManage.makeFolder(loopar.makePath('apps', this.name), 'public', 'uploads', 'thumbnails');
 
-    if (!fileManage.existFileSync(loopar.makePath('apps', this.name, 'installer.json'))) {
-      await fileManage.setConfigFile('installer', {}, loopar.makePath('apps', this.name));
+    if (!await loopar.db.count('Module', this.name)) {
+      const newModule = await loopar.newDocument('Module', {
+        name: this.name,
+        description: this.name,
+        module_group: 'modules',
+        app_name: this.name,
+        icon: this.icon,
+        in_sidebar: 1
+      });
+
+      await newModule.save();
     }
 
     await fileManage.makeClass(loopar.makePath('apps', this.name), 'installer', {
@@ -69,6 +79,8 @@ export default class App extends BaseDocument {
       EXTENDS: 'CoreInstaller',
     });
 
+    this.__IS_NEW__ = false;
+    await this.incrementPatch();
   }
 
   async updateEntities() {
@@ -127,7 +139,7 @@ export default class App extends BaseDocument {
     const version = this.version.split('.');
     version[2] = parseInt(version[2]) + 1;
     this.version = version.join('.');
-    await this.save();
+    await this.save(false);
 
     await this.syncFilesInstaller();
   }
@@ -137,7 +149,7 @@ export default class App extends BaseDocument {
     version[1] = parseInt(version[1]) + 1;
     version[2] = 0;
     this.version = version.join('.');
-    await this.save();
+    await this.save(false);
 
     await this.syncFilesInstaller();
   }
@@ -149,12 +161,13 @@ export default class App extends BaseDocument {
     version[2] = 0;
 
     this.version = version.join('.');
-    await this.save();
+    await this.save(false);
 
     await this.syncFilesInstaller();
   }
 
-  async syncFilesInstaller(){
+  async syncFilesInstaller() {
+    console.log('syncFilesInstaller');
     /**
      * List of all entities
      */
