@@ -14,11 +14,11 @@ export default class EntityController extends BaseController {
     if (this.hasData()) {
       const { to_element, classes } = this.data;
 
-      if (classes) {
-        loopar.setTailwind(to_element, decodeURIComponent(classes));
-        console.log(["ta"])
-        return this.success("Tailwind set successfully");
-      }
+      loopar.setTailwind(to_element, decodeURIComponent(classes || ""));
+
+      return this.success("Tailwind set successfully");
+    } else {
+      return this.error("No data provided");
     }
   }
 }
