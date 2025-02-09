@@ -1,7 +1,7 @@
 
 'use strict';
 
-import { loopar, BaseDocument } from 'loopar';
+import { loopar, BaseDocument, themes } from 'loopar';
 import fs, { access, mkdir } from 'fs'
 
 const shadcnCssHeader = `@tailwind base;
@@ -26,35 +26,55 @@ export default class SystemSettings extends BaseDocument {
 
   async save() {
     await super.save();
-    await this.setShadcnCss();
+    await this.setTheme();
 
     await loopar.build();
   }
 
+  
   async onLoad() {
     await super.onLoad();
 
-    await this.readShadcnCss();
+    //await this.readShadcnCss();
     //this.shadcn_css = "test value"// await loopar.getSetting('shadcn_css');
   }
 
-  async readShadcnCss() {
-    if(!this.shadcn_css || this.shadcn_css.length <= 0) {
-      const shadcn_css = fs.readFileSync(loopar.makePath(loopar.pathRoot, 'src', 'app', 'styles', 'globals.css'), 'utf8');
-
-      this.shadcn_css = shadcn_css.replace(shadcnCssHeader, '').replace(shadcnCssFooter, '');
-    }
+  readCSS() {
+    return fs.readFileSync(loopar.makePath(loopar.pathRoot, 'src', 'app', 'styles', 'main.css'), 'utf8');
   }
 
-  async setShadcnCss() {
-    if(!this.shadcn_css || this.shadcn_css.length <= 0) return;
-    const dark_background = loopar.utils.isJSON(this.dark_background) ? JSON.parse(this.dark_background) : {color: '#000000', alpha: 1};
-    const shadcn_css = `${shadcnCssHeader}${this.shadcn_css}${shadcnCssFooter}`
-    .replace(/(\.dark\s*{[^}]*--background:\s*)[^;]+(;)/, `$1${this.hexToHsl(dark_background.color, dark_background.alpha)}$2`);
+  // async setShadcnCss() {
+  //   if(!this.shadcn_css || this.shadcn_css.length <= 0) return;
+  //   const dark_background = loopar.utils.isJSON(this.dark_background) ? JSON.parse(this.dark_background) : {color: '#000000', alpha: 1};
+  //   const shadcn_css = `${shadcnCssHeader}${this.shadcn_css}${shadcnCssFooter}`
+  //     .replace(/(\.dark\s*{[^}]*--background:\s*)[^;]+(;)/, `$1${this.hexToHsl(dark_background.color, dark_background.alpha)}$2`)
+  //     .replace(/(\.dark\s*{[^}]*--card:\s*)[^;]+(;)/, `$1${this.hexToHsl(dark_background.color, dark_background.alpha)}$2`);
+
+  //   fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'src','app','styles', 'globals.css'), shadcn_css, 'utf8');
+  // }
+
+  async setTheme() {
+    if (!themes[this.theme]) return;
+    const darkBackground = loopar.utils.isJSON(this.dark_background) ? JSON.parse(this.dark_background) : { color: '#000000', alpha: 1 };
+    
+    const theme = themes[this.theme]
+      .replace(/(\.dark\s*{[^}]*--background:\s*)[^;]+(;)/, `$1${this.hexToHsl(darkBackground.color, darkBackground.alpha)}$2`)
+      .replace(/(\.dark\s*{[^}]*--card:\s*)[^;]+(;)/, `$1${this.hexToHsl(darkBackground.color, (darkBackground.alpha * 1.20))}$2`);
+
+    
+    const css = this.replaceCSSContent(this.readCSS(), theme);
+    //const darkDackground = loopar.utils.isJSON(this.dark_background) ? JSON.parse(this.dark_background) : {color: '#000000', alpha: 1};
+    // const shadcn_css = `${shadcnCssHeader}${this.shadcn_css}${shadcnCssFooter}`
+    // .replace(/(\.dark\s*{[^}]*--background:\s*)[^;]+(;)/, `$1${this.hexToHsl(darkDackground.color, darkDackground.alpha)}$2`);
 
 
-    fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'src','app','styles', 'globals.css'), shadcn_css, 'utf8');
+    fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'src','app','styles', 'main.css'), css, 'utf8');
   }
+
+  replaceCSSContent(input, newContent) {
+    return input.replace(/\/\* CSSBegin \*\/[\s\S]*?\/\* CSSEnd \*\//, `/* CSSBegin */\n${newContent}\n/* CSSEnd */`);
+  }
+
 
   hexToHsl(hex, alpha = 1) {
     // Convert hex to RGB first
