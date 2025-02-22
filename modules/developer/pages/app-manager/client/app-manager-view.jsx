@@ -7,11 +7,11 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter} 
 import {
   Avatar,
   AvatarFallback
-} from "@/components/ui/avatar"
+} from "@cn/components/ui/avatar"
 
-import {Badge} from "@/components/ui/badge";
+import {Badge} from "@cn/components/ui/badge";
 import {Link} from "@link"
-import {Button} from "@/components/ui/button";
+import {Button} from "@cn/components/ui/button";
 
 import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon } from 'lucide-react';
 

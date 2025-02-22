@@ -2,7 +2,7 @@
 
 import FormContext from '@context/form-context';
 import {loopar} from 'loopar';
-import { Button } from '@/components/ui/button';
+import { Button } from '@cn/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 
 export default class AppForm extends FormContext {

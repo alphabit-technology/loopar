@@ -5,9 +5,9 @@ import { Card, CardHeader, CardDescription, CardContent, CardFooter} from '@card
 import {
   Avatar,
   AvatarFallback
-} from "@/components/ui/avatar"
+} from "@cn/components/ui/avatar"
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@cn/components/ui/badge";
 import { MenuIcon, EyeIcon, PlusIcon, PencilIcon, BrushIcon } from 'lucide-react';
 import {Link} from "@link"
 

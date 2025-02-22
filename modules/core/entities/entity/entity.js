@@ -518,46 +518,6 @@ export default class Entity extends BaseDocument {
     const data = await this.__data__();
     await fileManage.setConfigFile(this.name, { ...data.__DOCUMENT__, ...{ __ENTITY__: data.__ENTITY__.name } }, await this.documentPath());
   }
-
-  async getList1({ fields = null, filters = {}, q = null, rowsOnly = false } = {}) {
-    const pagination = {
-      page: loopar.session.get(this.__ENTITY__.name + "_page") || 1,
-      pageSize: 10,
-      totalPages: 4,
-      totalRecords: 1,
-      sortBy: "id",
-      sortOrder: "asc",
-      __ENTITY__: this.__ENTITY__.name
-    };
-
-    const listFields = fields || this.getFieldListNames();
-    /*if (this.__ENTITY__.name === 'Document' && currentController.document !== "Document") {
-       listFields.push('is_single');
-    }*/
-
-    const condition = { ...this.buildCondition({ ...q || {}, __builder__: this.name }), ...filters};
-
-    pagination.totalRecords = await this.records(condition);
-
-    pagination.totalPages = Math.ceil(pagination.totalRecords / pagination.pageSize);
-    const selfPagination = JSON.parse(JSON.stringify(pagination));
-    loopar.db.pagination = pagination;
-
-    const rows = await loopar.db.getList(this.__ENTITY__.name, listFields, condition);
-
-    if (rows.length === 0 && pagination.page > 1) {
-      await loopar.session.set(this.__ENTITY__.name + "_page", 1);
-      return await this.getList({ fields, filters, q, rowsOnly });
-    }
-
-    return Object.assign((rowsOnly ? {} : await this.__data__()), {
-      labels: this.getFieldListLabels(),
-      fields: listFields,
-      rows: rows,
-      pagination: selfPagination,
-      q
-    });
-  }
 }
 
 export {

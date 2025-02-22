@@ -43,6 +43,10 @@ export default class User extends BaseDocument {
       loopar.throw('The "Administrator" user cannot be disabled.');
     }
 
+    if(this.disabled && this.name == loopar.auth.authUser()?.name) {
+      loopar.throw('You cannot disable your own account.');
+    }
+
     await super.validate();
     await this.validateUserName();
     this.validatePasswordStrong();

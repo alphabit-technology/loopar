@@ -21,7 +21,7 @@ export default class Login extends BaseDocument {
         resolve();
       } else {
         loopar.auth.killSession();
-        
+
         loopar.throw({
           code: 401,
           trow: 'Login Error',
