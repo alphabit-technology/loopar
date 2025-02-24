@@ -9,7 +9,6 @@ export default class BuilderController extends BaseController {
   }
 
   async actionList() {
-    console.log(["BuilderController", this.data]);
     const builder = await loopar.newDocument("Builder", { name: "Builder", ...(this.data || {}).q || {} });
     return this.render(await builder.getList());
   }
