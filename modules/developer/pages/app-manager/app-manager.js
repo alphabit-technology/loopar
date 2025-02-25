@@ -1,7 +1,7 @@
 
 'use strict';
 
-import { CoreInstaller, loopar } from 'loopar';
+import { CoreInstaller } from 'loopar';
 
 export default class AppManager extends CoreInstaller {
   async clone() {
