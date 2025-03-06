@@ -8,7 +8,7 @@ import chroma from 'chroma-js';
  * @returns {string} CSS string with the generated styles.
  */
 
-export function generateThemeCSS(dark_background_color, themeName) {
+export function generateThemeCSS(dark_background_color, themeName, includeTitles=true) {
   // Mapping of theme names to base colors (inspired by Tailwind)
   const themeColors = themes.map(theme => theme.color).reduce((acc, color, index) => {
     acc[themes[index].name] = color;
@@ -102,6 +102,10 @@ export function generateThemeCSS(dark_background_color, themeName) {
     return `${h} ${s}% ${l}%`;
   }
 
+  const titleApply = includeTitles ? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((selector, index) => {
+      return `${selector} {@apply text-foreground/${95 - index * 10};}`;
+    }).join('\n') : '';
+
   // Build the CSS string with the calculated values
   const css = `
 @theme {
@@ -148,6 +152,7 @@ export function generateThemeCSS(dark_background_color, themeName) {
   --input: ${toHSLString(darkInput)};
   --ring: ${toHSLString(darkRing)};
 }
-  `;
-  return css;
+${titleApply}
+`;
+return css;
 }

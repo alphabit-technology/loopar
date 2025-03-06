@@ -26,8 +26,8 @@ export default class SystemSettings extends BaseDocument {
   }
 
   async setTheme() {
-    const darkBackground = loopar.utils.isJSON(this.dark_background) ? JSON.parse(this.dark_background) : { color: '#000000', alpha: 1 };
-    const theme = generateThemeCSS(darkBackground.color, this.theme || 'blue');
+    const darkBackground = loopar.utils.objToRGBA(loopar.utils.JSONparse(this.dark_background));
+    const theme = generateThemeCSS(darkBackground, this.theme || 'blue', this.include_titles);
     const css = this.replaceCSSContent(this.readCSS(), theme);
     fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'app', 'src', 'styles', 'main.css'), css, 'utf8');
   }
