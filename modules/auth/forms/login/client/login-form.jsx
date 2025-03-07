@@ -16,7 +16,6 @@ export default class LoginForm extends AuthContext {
           this.setError("password", { message: "Invalid user name or password" });
           
           this.get("login_action").hide();
-          console.log(this.__REFS__);
           /*this.formFields.user_name.setState({ is_invalid: true });
           this.formFields.password.setState({ is_invalid: true });*/
         }, 10);

@@ -21,15 +21,10 @@ export default class SystemSettings extends BaseDocument {
     await super.onLoad();
   }
 
-  readCSS() {
-    return fs.readFileSync(loopar.makePath(loopar.pathRoot, 'app', 'src', 'styles', 'main.css'), 'utf8');
-  }
-
   async setTheme() {
     const darkBackground = loopar.utils.objToRGBA(loopar.utils.JSONparse(this.dark_background));
     const theme = generateThemeCSS(darkBackground, this.theme || 'blue', this.include_titles);
-    const css = this.replaceCSSContent(this.readCSS(), theme);
-    fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'app', 'src', 'styles', 'main.css'), css, 'utf8');
+    fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'config', 'tailwind.css'), theme, 'utf8');
   }
 
   replaceCSSContent(input, newContent) {
