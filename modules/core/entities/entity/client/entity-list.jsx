@@ -39,6 +39,8 @@ export default class EntityList extends ListContext {
       )
     }
 
+    action = row.name == "File Manager" ? "list" : action;
+
     const entity = row.type || this.props.meta.__ENTITY__.name;
     
     return (

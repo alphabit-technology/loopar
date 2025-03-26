@@ -1,6 +1,7 @@
+
 'use strict';
 
-import { BaseController, loopar } from 'loopar';
+import {BaseController, loopar} from 'loopar';
 
 export default class FileManagerController extends BaseController {
   constructor(props) {
@@ -23,5 +24,15 @@ export default class FileManagerController extends BaseController {
     }
 
     return this.success(filesNames.join(', ') + ' uploaded successfully');
+  }
+
+  async actionDelete() {
+    const fileManager = await loopar.newDocument("File Manager");
+
+    fileManager.name = this.file_name;
+    fileManager.app = this.app;
+    await fileManager.delete();
+
+    return this.success('File deleted successfully');
   }
 }

@@ -2,7 +2,7 @@
 'use strict';
 
 import ViewContext from '@context/view-context';
-import { FileBrowser } from '@file-browser';
+import { Browser } from '@file-browser';
 
 export default class FileManagerView extends ViewContext {
   has_header = false;
@@ -12,7 +12,7 @@ export default class FileManagerView extends ViewContext {
 
   render() {
     return (
-      <FileBrowser
+      <Browser
         hasTitle={true}
         files={this.props.meta.rows}
       />
