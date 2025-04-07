@@ -226,9 +226,9 @@ export default class Entity extends BaseDocument {
           updatedData[key] = 1;
         }
 
-        if (key === "background_image" && value) {
-          //console.log(["background_image", value]);
+        /*if (key === "background_image" && value) {
           const files = value;
+          const filesToSave = [];
 
           for (const file of files || []) {
             if (typeof file === "string") continue;
@@ -236,23 +236,31 @@ export default class Entity extends BaseDocument {
             const typeMatches = file.src.match(/^data:(.*);base64,/);
             const isFile = typeMatches ? typeMatches[1] : null;
 
-            if (!isFile) continue;
-            const binaryData = Buffer.from(file.src.split(';base64,')[1], 'base64');
-            const fileType = await fileTypeFromBuffer(binaryData);
+            if (isFile) {
+              const binaryData = Buffer.from(file.src.split(';base64,')[1], 'base64');
+              file.src = "public/" + file.name
 
-            file.src = "uploads/" + file.name
-            //this.__CORE_FILES__ ??= [];
+              this.__CORE_FILES__.push({
+                buffer: binaryData,
+                originalname: file.name,
+                size: binaryData.length,
+              });
 
-            this.__CORE_FILES__.push({
-              buffer: binaryData,
-              originalname: file.name,
-              size: binaryData.length,
-            });
+              filesToSave.push({
+                name: file.name,
+                size: binaryData.length,
+                src: file.src,
+              });
+            }else{
+              filesToSave.push(file);
+            }
           }
-        }
+
+          updatedData[key] = JSON.stringify(filesToSave);
+        }*/
 
         if ((key === "background_color" || key === "color_overlay") && JSON.stringify(value) === '{"color":"#000000","alpha":0.5}') {
-          updatedData[key] = "";
+          delete updatedData[key];
         }
       }
 
@@ -496,9 +504,6 @@ export default class Entity extends BaseDocument {
         EXTENDS: importContext
       }, 'default', "jsx");
     }
-    //const type = this.__ENTITY__.build || this.__ENTITY__.__TYPE__
-
-    console.log("makeViews", type);
 
     if (type === "Entity") {
       for (const context of ["list", "form", "view", "report"]) {

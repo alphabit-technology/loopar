@@ -1,7 +1,7 @@
 {
   "App": {
     "name": "loopar",
-    "version": "0.2.17"
+    "version": "0.2.18"
   },
   "documents": [
     {
@@ -32,10 +32,10 @@
                   "__document_status__": "Active",
                   "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Entity\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select125_el286292828785\",\"format\":\"data\",\"type\":\"default\",\"id\":\"select29_el1471896952853\",\"required\":1},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"input134_el57728266819\",\"format\":\"data\",\"type\":\"default\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"required\":1,\"id\":\"input19_el1190911040421\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select405_el86013028163\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"id\":\"select9_el1105910237313\",\"format\":\"data\",\"type\":\"default\"},\"elements\":[]}]}]",
                   "resources": [],
-                  "deleted_at": "2025-03-25 23:00:13",
-                  "__created_at__": "2025-03-25 23:00:13",
-                  "__updated_at__": "2025-03-25 23:00:13",
-                  "__deleted_at__": "2025-03-25 23:00:13"
+                  "deleted_at": "2025-04-02 08:38:13",
+                  "__created_at__": "2025-04-02 08:38:13",
+                  "__updated_at__": "2025-04-02 08:38:13",
+                  "__deleted_at__": "2025-04-02 08:38:13"
                 }
               ]
             }
@@ -72,7 +72,7 @@
                 "module_group": "administration",
                 "icon": "Settings",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             },
@@ -88,7 +88,7 @@
                 "module_group": "developer",
                 "icon": "LucideCode",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             },
@@ -104,7 +104,7 @@
                 "module_group": "administration",
                 "icon": "LucideUserCheck2",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             },
@@ -120,7 +120,7 @@
                 "module_group": "administration",
                 "icon": "ComponentIcon",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             }
@@ -138,11 +138,11 @@
               "data": {
                 "__document_status__": "Active",
                 "id": 1,
-                "deleted_at": null,
+                "deleted_at": "2025-04-02 08:38:13",
                 "type": "Desk App",
                 "name": "loopar",
                 "description": "Loopar",
-                "version": "0.2.17",
+                "version": "0.2.18",
                 "autor": "Administrator",
                 "icon": "Infinity",
                 "logo": "[]",
@@ -282,7 +282,7 @@
                 "name": "administration",
                 "description": "Administration",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             },
@@ -295,7 +295,7 @@
                 "name": "modules",
                 "description": "Modules",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             },
@@ -308,7 +308,7 @@
                 "name": "developer",
                 "description": "Developer",
                 "in_sidebar": 1,
-                "deleted_at": "2025-03-25 23:00:13"
+                "deleted_at": "2025-04-02 08:38:13"
               },
               "requires": []
             }
@@ -323,7 +323,7 @@
           "requires": []
         },
         {
-          "id": 8,
+          "id": 9,
           "name": "User",
           "path": "/apps/loopar/modules/auth/entities/user",
           "documents": [],
@@ -405,9 +405,23 @@
           "requires": []
         },
         {
-          "id": null,
+          "id": 50,
+          "name": "Menu Button",
+          "path": "/apps/loopar/modules/developer/entities/menu-button",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 51,
           "name": "File",
           "path": "/apps/loopar/modules/core/entities/file",
+          "documents": [],
+          "requires": []
+        },
+        {
+          "id": 52,
+          "name": "File Manager",
+          "path": "/apps/loopar/modules/core/entities/file-manager",
           "documents": [],
           "requires": []
         },
@@ -416,19 +430,6 @@
           "name": "Menu Action",
           "path": "/apps/loopar/modules/developer/entities/menu-action",
           "documents": [],
-          "requires": []
-        },
-        {
-          "id": 50,
-          "name": "Menu Button",
-          "path": "/apps/loopar/modules/developer/entities/menu-button",
-          "documents": [],
-          "requires": []
-        },
-        {
-          "id": null,
-          "name": "File",
-          "path": "/apps/loopar/modules/core/entities/file",
           "requires": []
         },
         {
@@ -457,13 +458,6 @@
           "id": 11,
           "name": "App Manager",
           "path": "/apps/loopar/modules/developer/pages/app-manager",
-          "documents": [],
-          "requires": []
-        },
-        {
-          "id": 30,
-          "name": "File Manager",
-          "path": "/apps/loopar/modules/core/pages/file-manager",
           "documents": [],
           "requires": []
         }

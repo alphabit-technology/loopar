@@ -6,9 +6,11 @@ import fileManager from "@@file/file-manager";
 import FilePreview from "@file-preview";
 import FileUploader from "@file-uploader";
 import {Button} from "@cn/components/ui/button";
-import { UploadIcon, TrashIcon } from 'lucide-react';
+import { UploadIcon, TrashIcon, PencilIcon } from 'lucide-react';
 import {Link} from '@link';
-import { Avatar, AvatarFallback, AvatarImage } from "@cn/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@cn/components/ui/avatar";
+import {fileIcons} from "@@file/defaults";
+import {cn} from "@cn/lib/utils";
 
 export default class FileManagerList extends ListContext {
   renderGrid = true;
@@ -38,13 +40,20 @@ export default class FileManagerList extends ListContext {
           name: "name",
           value: (row) => {
             const type = fileManager.getFileType(row);
-            const icon = fileManager.getRenderedFileIcon(type);
-            const avatarRoute = row.extention == "svg" ? `/uploads/` : `/uploads/thumbnails/`;
+            const avatarRoute = `/assets/public/images${row.extention == "svg" ? "" : "/thumbnails"}`;
+            const icon = fileIcons[type] || fileIcons["default"];
+            const Icon = icon.icon;
+            const color = icon.color;
+
             return (
-              <Link className='flex flex-row' to={`update?name=${row.name}`}>
+              <Link className='flex flex-row' to={`view?name=${row.name}&app=${row.app}`}>
                 <Avatar>
-                  <AvatarImage src={`${avatarRoute}${row.name}`} />
-                  <AvatarFallback>{loopar.utils.avatar(row.name)}</AvatarFallback>
+                  <AvatarImage src={`${avatarRoute}/${row.name}`} style={{objectFit: "contain"}}/>
+                  <AvatarFallback>
+                    <Icon
+                      className={cn(`w-full p-3 h-full object-cover transition-all ease-in duration-300 hover:scale-105 aspect-square`, color)}
+                    />
+                  </AvatarFallback>
                 </Avatar>
                 <div className='flex flex-col items-start p-0 pl-3'>
                   {row.name}
@@ -61,28 +70,37 @@ export default class FileManagerList extends ListContext {
           name: "actions",
           value: (row) => {
             return (
-              <Button
-                variant="outline"
-                onClick={(e) => {
-                  e.preventDefault();
-                  loopar.confirm(`Are you sure you want to delete ${row.name}?`, () => {
-                    loopar.method("File Manager", "delete", {
-                      file_name: row.name,
-                      app: row.app,
-                    }, {
-                      success: () => {
-                        loopar.refresh();
-                      },
-                      error: (message) => {
-                        loopar.throw(message);
-                      },
+              <div className="flex flex-row items-center gap-0">
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    loopar.confirm(`Are you sure you want to delete ${row.name}?`, () => {
+                      loopar.method("File Manager", "delete", {
+                        file_name: row.name,
+                        app: row.app,
+                      }, {
+                        success: () => {
+                          loopar.refresh();
+                        },
+                        error: (message) => {
+                          loopar.throw(message);
+                        },
+                      });
                     });
-                  });
-                  //this.deleteRow(row);
-                }}
-              >
-                <TrashIcon className="text-red-500" />
-              </Button>
+                  }}
+                >
+                  <TrashIcon className="text-red-500" />
+                </Button>
+                <Link
+                  className='ml-2'
+                  to={`update?name=${row.name}&app=${row.app}`}
+                >
+                  <Button variant="outline">
+                    <PencilIcon className="text-blue-500" />
+                  </Button>
+                </Link>
+              </div>
             );
           },
         }
