@@ -50,6 +50,7 @@ export default class ModuleController extends BaseController {
     list.__ENTITY__.name = "Module";
     list.__TYPES__ = types;
     list.__TYPE__ = type;
+    list.key = queryData.module
 
     return this.render(list);
   }
