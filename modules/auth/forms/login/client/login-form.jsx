@@ -4,20 +4,14 @@ import AuthContext from '@context/auth-context';
 
 export default class LoginForm extends AuthContext {
   async login() {
-    console.log("Login");
     await this.send({
       action: 'login',
       error: () => {
-        /*this.setState({
-          logued: false
-        });*/
         setTimeout(() => {
           this.setError("user_name", { message: "Invalid user name or password" });
           this.setError("password", { message: "Invalid user name or password" });
           
           this.get("login_action").hide();
-          /*this.formFields.user_name.setState({ is_invalid: true });
-          this.formFields.password.setState({ is_invalid: true });*/
         }, 10);
       },
     });
@@ -25,8 +19,8 @@ export default class LoginForm extends AuthContext {
 
   getFormValues() {
     return {
-      user_name: this.getValue("user_name"),//) this.formFields.user_name.val(),
-      password: this.getValue("password")//.password.val(),
+      user_name: this.user_name,
+      password: this.password,
     }
   }
 

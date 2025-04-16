@@ -1,5 +1,6 @@
 import ListContext from '@context/list-context';
 import loopar from "loopar";
+const {Capitalize, avatar} = loopar.utils;
 
 import { Card, CardHeader, CardDescription, CardContent, CardFooter} from '@card';
 import {
@@ -43,6 +44,8 @@ export default class EntityList extends ListContext {
 
     const entity = row.type || this.props.meta.__ENTITY__.name;
     
+    const baseUrl = `/desk/${row.name}/${action}`
+
     return (
       <div>
         <Card className="w-full min-w-[300px] -p-5">
@@ -59,7 +62,7 @@ export default class EntityList extends ListContext {
           <CardContent>
             <div className="justify-left flex gap-3">
               <Avatar className={`rounded-3 h-14 w-14`} style={{ backgroundColor: color }}>
-                <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{loopar.utils.avatar(row.name)}</AvatarFallback>
+                <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{avatar(row.name)}</AvatarFallback>
               </Avatar>
               <div>
                 <h4>{row.name}</h4>
@@ -69,9 +72,9 @@ export default class EntityList extends ListContext {
           </CardContent>
           <CardFooter className="flex justify-between">
             <div>
-              {action === "update" && getAction(`/desk/${row.name}/${action}`, PencilIcon, loopar.utils.Capitalize(action), "primeblue")}
-              {action === "list" && getAction(`/desk/${row.name}/${action}`, MenuIcon, loopar.utils.Capitalize(action), "primeblue")}
-              {action === "view" && getAction(`/desk/${row.name}/${action}?name=${row.name}`, EyeIcon, loopar.utils.Capitalize(action), "primeblue")}
+              {action === "update" && getAction(`${baseUrl}`, PencilIcon, Capitalize(action), "primeblue")}
+              {action === "list" && getAction(`${baseUrl}`, MenuIcon, Capitalize(action), "primeblue")}
+              {action === "view" && getAction(`${baseUrl}?name=${row.name}`, EyeIcon, Capitalize(action), "primeblue")}
             </div>
             <div className='flex justify-end'>
               <Link 

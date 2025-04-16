@@ -13,7 +13,7 @@ import {Badge} from "@cn/components/ui/badge";
 import {Link} from "@link"
 import {Button} from "@cn/components/ui/button";
 
-import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon } from 'lucide-react';
+import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon, PencilIcon } from 'lucide-react';
 
 export default class AppManagerView extends ListContext {
   onlyGrid = true;
@@ -32,7 +32,6 @@ export default class AppManagerView extends ListContext {
         loopar.method('App Manager', 'clone', { git_repo: gitRepo });
       },
       validate: (gitRepo) => {
-        console.log(gitRepo);
         if (!gitRepo || gitRepo.length === 0) return loopar.throw("Please enter a valid Github URL");
         return true;
       },
@@ -108,16 +107,24 @@ export default class AppManagerView extends ListContext {
                 )}
               </Button>
             </div>
-            <div className='flex justify-end'>
-              {
-                app.installed && (
-                <Button
-                  variant="destructive"
-                  onClick={() => this.sendAppAction(app.name, 'uninstall')}
-                >
-                  <Trash2Icon/>
-                </Button>)
-              }
+            <div className='flex justify-end gap-1'>
+              {app.installed && (
+                <>
+                  <Button
+                    variant="destructive"
+                    onClick={() => this.sendAppAction(app.name, 'uninstall')}
+                  >
+                    <Trash2Icon/>
+                  </Button>
+                  <Link
+                    variant="outline"
+                    className="bg-secondary text-white hover:bg-secondary/80"
+                    to={`/desk/App/update?name=${app.name}`}
+                  >
+                    <PencilIcon/>
+                  </Link>
+                </>
+              )}
             </div>
           </CardFooter>
         </Card>

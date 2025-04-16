@@ -13,7 +13,7 @@ export default class FileManagerForm extends FormContext {
     super.componentDidMount();
 
     this.on("file_ref", "change", (e) => {
-      const data = e.target.value[0] || {};
+      const data = e.target?.value ? e.target?.value[0] || {} : {};
 
       this.name = data.name || "";
       this.extention = (data.name || "").split(".").pop();

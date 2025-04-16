@@ -32,77 +32,82 @@ export default class FileManagerList extends ListContext {
     return fileManager.getMappedFiles(file);
   }
 
-  get mappedColumns() {
+  customColumns(baseColumns) {
+    baseColumns = baseColumns.filter(col => !["type", "size", "extention"].includes(col.data.name));
+
     return [
       {
         data: {
-          label: "Name",
-          name: "name",
-          value: (row) => {
-            const type = fileManager.getFileType(row);
-            const avatarRoute = `/assets/public/images${row.extention == "svg" ? "" : "/thumbnails"}`;
-            const icon = fileIcons[type] || fileIcons["default"];
-            const Icon = icon.icon;
-            const color = icon.color;
+          name: "name:"
+        },
+        render: (row) => {
+          const type = fileManager.getFileType(row);
+          const avatarRoute = `/assets/public/images${row.extention == "svg" ? "" : "/thumbnails"}`;
+          const icon = fileIcons[type] || fileIcons["default"];
+          const Icon = icon.icon;
+          const color = icon.color;
 
-            return (
-              <Link className='flex flex-row' to={`view?name=${row.name}&app=${row.app}`}>
-                <Avatar>
-                  <AvatarImage src={`${avatarRoute}/${row.name}`} style={{objectFit: "contain"}}/>
-                  <AvatarFallback>
-                    <Icon
-                      className={cn(`w-full p-3 h-full object-cover transition-all ease-in duration-300 hover:scale-105 aspect-square`, color)}
-                    />
-                  </AvatarFallback>
-                </Avatar>
-                <div className='flex flex-col items-start p-0 pl-3'>
-                  {row.name}
-                  <span className='text-gray-500'>{fileManager.getFileSize(row.size)}</span>
-                </div>
-              </Link>
-            )
-          }
+          return (
+            <Link className='flex flex-row' to={`view?name=${row.name}&app=${row.app}`}>
+              <Avatar>
+                <AvatarImage src={`${avatarRoute}/${row.name}`} style={{objectFit: "contain"}}/>
+                <AvatarFallback>
+                  <Icon
+                    className={cn(`w-full p-3 h-full object-cover transition-all ease-in duration-300 hover:scale-105 aspect-square`, color)}
+                  />
+                </AvatarFallback>
+              </Avatar>
+              <div className='flex flex-col items-start p-0 pl-3'>
+                {row.name}
+                <span className='text-gray-500'>{fileManager.getFileSize(row.size)}</span>
+              </div>
+            </Link>
+          )
         }
       },
+      ...baseColumns,
       {
         data: {
           label: "...",
           name: "actions",
-          value: (row) => {
-            return (
-              <div className="flex flex-row items-center gap-0">
-                <Button
-                  variant="outline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    loopar.confirm(`Are you sure you want to delete ${row.name}?`, () => {
-                      loopar.method("File Manager", "delete", {
-                        file_name: row.name,
-                        app: row.app,
-                      }, {
-                        success: () => {
-                          loopar.refresh();
-                        },
-                        error: (message) => {
-                          loopar.throw(message);
-                        },
-                      });
+        },
+        headProps: {
+          className: "w-10 p-2 text-center",
+        },
+        render: (row) => {
+          return (
+            <div className="flex flex-row items-center gap-0">
+              <Button
+                variant="outline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  loopar.confirm(`Are you sure you want to delete ${row.name}?`, () => {
+                    loopar.method("File Manager", "delete", {
+                      file_name: row.name,
+                      app: row.app,
+                    }, {
+                      success: () => {
+                        loopar.refresh();
+                      },
+                      error: (message) => {
+                        loopar.throw(message);
+                      },
                     });
-                  }}
-                >
-                  <TrashIcon className="text-red-500" />
+                  });
+                }}
+              >
+                <TrashIcon className="text-red-500" />
+              </Button>
+              <Link
+                className='ml-2'
+                to={`update?name=${row.name}&app=${row.app}`}
+              >
+                <Button variant="outline">
+                  <PencilIcon className="text-blue-500" />
                 </Button>
-                <Link
-                  className='ml-2'
-                  to={`update?name=${row.name}&app=${row.app}`}
-                >
-                  <Button variant="outline">
-                    <PencilIcon className="text-blue-500" />
-                  </Button>
-                </Link>
-              </div>
-            );
-          },
+              </Link>
+            </div>
+          );
         }
       }
     ];
