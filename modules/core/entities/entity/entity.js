@@ -469,6 +469,16 @@ export default class Entity extends BaseDocument {
     await fileManage.makeFolder(await this.documentPath(), 'client');
   }
 
+  async __data__() {
+    const data = await super.__data__();
+    const spacing = loopar.__installed__ ? await loopar.db.getDoc("App", await this.targetApp(), ["spacing", "col_padding", "col_margin"]) : {};
+
+    return {
+      ...data,
+      __SPACING__: spacing,
+    }
+  }
+
   async makeViews() {
     const documentPath = await this.documentPath();
     const clientPath = await this.clientPath();
