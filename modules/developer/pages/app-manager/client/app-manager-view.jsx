@@ -12,12 +12,80 @@ import {
 import {Badge} from "@cn/components/ui/badge";
 import {Link} from "@link"
 import {Button} from "@cn/components/ui/button";
-
 import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon, PencilIcon } from 'lucide-react';
+
+function AppCard({app, action}) {
+  const color = loopar.bgColor(app.name);
+  
+  return (
+    <div>
+      <Card className="w-full min-w-[300px] p-2">
+        <CardHeader>
+          <CardTitle>{app.name}</CardTitle>
+          <CardDescription>
+            <Badge
+              className={`${app.installed ? 'bg-success' : 'bg-danger'} text-white`}
+            />
+            {app.info}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="justify-left flex gap-3">
+            <Avatar className={`rounded-3 h-14 w-14`} style={{ backgroundColor: color }}>
+              <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{loopar.utils.avatar(app.name)}</AvatarFallback>
+            </Avatar>
+            <div>
+              <h4>Autor: {app.autor}</h4>
+              <h6 className='font-bold text-slate-500 dark:text-slate-400'>App Version: {app.version}</h6>
+              <h6 className='font-bold text-slate-500 dark:text-slate-400'>Installed Version: {app.installed_version}</h6>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <div>
+            <Button
+              variant={app.installed && app.installed_version === app.version ? "secondary" : "primary"}
+              disabled={app.installed && app.installed_version === app.version}
+              onClick={() => action(app.name, !app.installed ? 'install' : 'reinstall')}
+            >
+              {!app.installed ? (
+                <><FolderDownIcon className="mr-2"/> Install</>
+              ) : (
+                app.installed_version !== app.version ? <><RefreshCcwDotIcon className="mr-2"/> Update</> :
+                <><CheckCircle2Icon className="mr-2"/> Installed</>
+              )}
+            </Button>
+          </div>
+          <div className='flex justify-end gap-1'>
+            {app.installed && (
+              <>
+                <Button
+                  variant="destructive"
+                  onClick={() => action(app.name, 'uninstall')}
+                >
+                  <Trash2Icon/>
+                </Button>
+                <Link
+                  variant="outline"
+                  className="bg-secondary text-white hover:bg-secondary/80"
+                  to={`/desk/App/update?name=${app.name}`}
+                >
+                  <PencilIcon/>
+                </Link>
+              </>
+            )}
+          </div>
+        </CardFooter>
+      </Card>
+    </div>
+  )
+}
 
 export default class AppManagerView extends ListContext {
   onlyGrid = true;
   hasSearchForm = false;
+  hasSelectAll = false;
+  hasSelectRow = false;
 
   constructor(props) {
     super(props);
@@ -66,110 +134,9 @@ export default class AppManagerView extends ListContext {
   }
 
   gridTemplate(app){
-    const color = loopar.bgColor(app.name);
-    
     return (
-      <div>
-        <Card className="w-full min-w-[300px] p-2">
-          <CardHeader>
-            <CardTitle>{app.name}</CardTitle>
-            <CardDescription>
-              <Badge
-                className={`${app.installed ? 'bg-success' : 'bg-danger'} text-white`}
-              />
-              {app.info}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="justify-left flex gap-3">
-              <Avatar className={`rounded-3 h-14 w-14`} style={{ backgroundColor: color }}>
-                <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{loopar.utils.avatar(app.name)}</AvatarFallback>
-              </Avatar>
-              <div>
-                <h4>Autor: {app.autor}</h4>
-                <h6 className='font-bold text-slate-500 dark:text-slate-400'>App Version: {app.version}</h6>
-                <h6 className='font-bold text-slate-500 dark:text-slate-400'>Installed Version: {app.installed_version}</h6>
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <div>
-              <Button
-                variant={app.installed && app.installed_version === app.version ? "secondary" : "primary"}
-                disabled={app.installed && app.installed_version === app.version}
-                onClick={() => this.sendAppAction(app.name, !app.installed ? 'install' : 'reinstall')}
-              >
-                {!app.installed ? (
-                  <><FolderDownIcon className="mr-2"/> Install</>
-                ) : (
-                  app.installed_version !== app.version ? <><RefreshCcwDotIcon className="mr-2"/> Update</> :
-                  <><CheckCircle2Icon className="mr-2"/> Installed</>
-                )}
-              </Button>
-            </div>
-            <div className='flex justify-end gap-1'>
-              {app.installed && (
-                <>
-                  <Button
-                    variant="destructive"
-                    onClick={() => this.sendAppAction(app.name, 'uninstall')}
-                  >
-                    <Trash2Icon/>
-                  </Button>
-                  <Link
-                    variant="outline"
-                    className="bg-secondary text-white hover:bg-secondary/80"
-                    to={`/desk/App/update?name=${app.name}`}
-                  >
-                    <PencilIcon/>
-                  </Link>
-                </>
-              )}
-            </div>
-          </CardFooter>
-        </Card>
-      </div>
+      <AppCard app={app} action={this.sendAppAction} />
     )
-  }
-
-  makeApps() {
-    const meta = this.props.meta;
-    const apps = meta.apps || [];
-
-    return apps.map(app => {
-      const color = loopar.bgColor(app.name);
-      return (
-      <div>
-        <Card className="w-full min-w-[300px] p-2">
-          <CardHeader>
-            <CardDescription>
-              <Badge
-                variant="secondary"
-                className="bg-secondary text-white"
-              >
-                {app.name}
-              </Badge>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="justify-left flex gap-3">
-              <Avatar className={`rounded-3 h-14 w-14`} style={{ backgroundColor: color }}>
-                <AvatarFallback className={`bg-transparent text-2xl font-bold`}>{loopar.utils.avatar(app.name)}</AvatarFallback>
-              </Avatar>
-              <p>
-                <h4>{app.name}</h4>
-                <h6 className='font-bold text-slate-500 dark:text-slate-400'>{app.info}</h6>
-              </p>
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <div className='flex justify-end'>
-
-            </div>
-          </CardFooter>
-        </Card>
-      </div>
-    )});
   }
 
   sendAppAction(appName, action) {
