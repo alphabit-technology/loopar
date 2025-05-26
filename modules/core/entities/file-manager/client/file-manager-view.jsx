@@ -74,6 +74,7 @@ export default class FileManagerView extends ViewContext {
 
     const icon = fileIcons[type] || fileIcons["default"];
     const Icon = icon.icon;
+    
     return (
       <DeskGUI
         docRef={this}

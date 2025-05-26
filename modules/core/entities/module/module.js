@@ -24,15 +24,4 @@ export default class Module extends BaseDocument {
   async makeModuleRoute() {
     await fileManage.makeFolder(this.modulePath(), this.name.replaceAll(/\s+/g, '-').toLowerCase());
   }
-
-  async getDocumentList(data) {
-    const documentList = await loopar.getList("Entity", data);
-    /*return Object.assign((rowsOnly ? {} : await this.__data__()), {
-       labels: this.getFieldListLabels(),
-       fields: listFields,
-       rows: rows,
-       pagination: selfPagination,
-       q
-    });*/
-  }
 }
