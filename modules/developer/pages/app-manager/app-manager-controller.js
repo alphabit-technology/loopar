@@ -51,8 +51,7 @@ export default class AppManagerController extends SystemController {
 
   async actionClone() {
     const model = await loopar.newDocument('App Manager');
-
-    Object.assign(model, { git_repo: this.data.git_repo });
+    Object.assign(model, { git_repo: this.git_repo });
 
     if (await model.clone()) {
       return this.redirect();
