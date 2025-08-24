@@ -20,8 +20,7 @@ export default class AuthController extends BaseController {
   }
 
   async actionLogout() {
-    loopar.cookie.remove('auth_token');
-    loopar.cookie.remove('logged');
+    loopar.auth.logout();
     return this.redirect('/auth/login');
   }
 
