@@ -2,15 +2,25 @@
 'use strict';
 
 import { BaseController, loopar } from 'loopar';
+import EntityController from "../entity/entity-controller.js"
 
-export default class BuilderController extends BaseController {
+export default class BuilderController extends EntityController {
   constructor(props) {
     super(props);
   }
 
-  async actionList() {
+  async actionList2() {
     const builder = await loopar.newDocument("Builder", { name: "Builder", ...(this.data || {}).q || {} });
-    return this.render(await builder.getList());
+    const list = await builder.getList();
+
+    list.rows = list.rows.map(row => {
+      //const ref = loopar.getRef(row.name);
+      return {
+        ...row,
+        type: 'builder',
+      };
+    });
+    return this.render(list);
   }
 
   async actionList1() {

@@ -33,7 +33,7 @@ export default class User extends BaseDocument {
     }
 
     /**Test Email */
-    if (await loopar.db.getValue('User', 'id', { '=': { email: this.email } }, { distinctToId: this.id })) {
+    if (await loopar.db.getValue('User', 'id', {email: this.email}, { distinctToId: this.id })) {
       loopar.throw(`The email <strong>${this.email}</strong> is invalid`);
     }
   }

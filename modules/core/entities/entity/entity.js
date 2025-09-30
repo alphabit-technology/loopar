@@ -1,5 +1,4 @@
-import { BaseDocument, fileManage, loopar, Helpers } from "loopar";
-import { fileTypeFromBuffer } from 'file-type';
+import { BaseDocument, fileManage, loopar, Helpers } from "loopar";3
 import { pluralize } from "inflection";
 
 export default class Entity extends BaseDocument {
@@ -13,6 +12,51 @@ export default class Entity extends BaseDocument {
     return (["Page", "Form", "Report", "View", "Controller"].includes(this.getEntityType()) || this.is_single) ? 1 : 0;
   }
 
+  validateEntityName() {
+    const entityName = this.name;
+
+    if (entityName.length < 3) {
+      loopar.throw('Entity name must be at least 3 characters long.');
+    }
+
+    if (entityName.length > 64) {
+      loopar.throw('Entity name must be at most 64 characters long.');
+    }
+
+    if (!/^[a-zA-Z0-9 ]+$/.test(entityName)) {
+      loopar.throw('Entity name must contain only letters, numbers and spaces.');
+    }
+
+    if (/^[0-9]/.test(entityName)) {
+      loopar.throw('Entity name must not start with a number.');
+    }
+
+    if (!/^[A-Z]/.test(entityName)) {
+      loopar.throw('Entity name must start with an uppercase letter (PascalCase convention).');
+    }
+
+    const words = entityName.split(' ');
+    for (const word of words) {
+      if (!/^[A-Z][a-zA-Z0-9]*$/.test(word)) {
+        loopar.throw('Each word in Entity name must start with uppercase letter.');
+      }
+    }
+  }
+
+  validateUniqueEntityName() {
+    if (!loopar.installing && this.__IS_NEW__) {
+      const ref = loopar.getRef(this.name, false);
+      
+      if (ref) {
+        loopar.throw(
+          `An entity with a similar name already exists: "${ref.__NAME__}" ` +
+          `(${ref.__ENTITY__} in app "${ref.__APP__}"). ` +
+          `Names like "${this.name}", "${ref.__NAME__}", and similar variations are considered duplicates.`
+        );
+      }
+    }
+  }
+
   async save() {
     this.is_single = this.entityIsSingle();
     this.is_static = 0;
@@ -24,7 +68,8 @@ export default class Entity extends BaseDocument {
 
     if (validate) {
       this.validateFields();
-      this.validateTableName();
+      this.validateEntityName();
+      this.validateUniqueEntityName();
 
       if(!loopar.installing){
         await this.validateLinkedDocument(SELECT);
@@ -418,26 +463,6 @@ export default class Entity extends BaseDocument {
 
     if (errors.length > 0) {
       loopar.throw(errors.join("<br/>"));
-    }
-  }
-
-  validateTableName() {
-    const table_name = this.name;
-
-    if (table_name.length < 3) {
-      loopar.throw('Entity name must be at least 3 characters long.');
-    }
-
-    if (table_name.length > 64) {
-      loopar.throw('Entity name must be at most 64 characters long.');
-    }
-
-    if (!/^[a-zA-Z0-9 ]+$/.test(table_name)) {
-      loopar.throw('Entity name must contain only letters, numbers and spaces.');
-    }
-
-    if (/^[0-9_]+$/.test(table_name)) {
-      loopar.throw('DocumEntityent name must not start with a number.');
     }
   }
 

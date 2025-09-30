@@ -22,7 +22,7 @@ export default class EntityController extends BaseController {
     if (this.hasData()) {
       const { to_element, classes } = this.data;
 
-      loopar.setTailwind(to_element, decodeURIComponent(classes || ""));
+      loopar.setTailwindTemp(to_element, decodeURIComponent(classes || ""));
 
       return this.success("Tailwind set successfully");
     } else {

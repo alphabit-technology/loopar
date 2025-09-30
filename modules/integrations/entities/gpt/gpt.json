@@ -3,123 +3,17 @@
   "name": "GPT",
   "module": "Integrations",
   "default_list_view": "List",
-  "type": "Entity",
   "is_single": 1,
   "is_static": 0,
   "include_in_installer": 0,
   "is_child": 0,
   "is_builder": 0,
   "__document_status__": "Active",
-  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"7iq9afq3w\",\"label\":\"Row2\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"lqbfgwcm1\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"s88mwu6jq\"},\"elements\":[]}]},{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"not_validate_type\":0,\"required\":1,\"unique\":1,\"set_only_time\":1,\"readonly\":0,\"in_list_view\":1,\"searchable\":1,\"id\":\"input47_el54262823476\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"x0ag1upbs\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"row1_el1235782781905\",\"id\":\"row1_el1235782781905\",\"label\":\"Row1\",\"key\":\"6sokjjljd\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el103951524304\",\"id\":\"col1_el103951524304\",\"label\":\"Col1\",\"key\":\"b10oi8rtu\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Model\",\"name\":\"model\",\"multiple\":0,\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"background_image\":\"[]\",\"color_overlay\":\"\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"l69i164to\"},\"elements\":[]}]},{\"element\":\"col\",\"data\":{\"name\":\"col2_el337400563646\",\"id\":\"col2_el337400563646\",\"label\":\"Col2\",\"key\":\"hw4494qg9\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"API Key\",\"name\":\"api_key\",\"multiple\":0,\"not_validate_type\":0,\"required\":1,\"unique\":0,\"set_only_time\":0,\"readonly\":0,\"in_list_view\":0,\"searchable\":0,\"background_image\":\"[]\",\"color_overlay\":\"\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"4kswjynzs\"},\"elements\":[]}]}]},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"key\":\"35hq1hjmb\"},\"elements\":[]}]",
-  "resources": {
-    "__ENTITY__": {
-      "id": "21",
-      "name": "Resources",
-      "module": "core",
-      "default_list_view": "List",
-      "type": "Document",
-      "is_single": 0,
-      "is_static": 0,
-      "include_in_installer": 1,
-      "is_child": 1,
-      "__document_status__": "Active",
-      "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select125_el286292828785\",\"format\":\"data\",\"type\":\"default\",\"id\":\"select29_el1471896952853\",\"required\":1},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"input134_el57728266819\",\"format\":\"data\",\"type\":\"default\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"required\":1,\"id\":\"input19_el1190911040421\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select405_el86013028163\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"id\":\"select9_el1105910237313\",\"format\":\"data\",\"type\":\"default\"},\"elements\":[]}]}]",
-      "resources": {
-        "__ENTITY__": {
-          "doc_structure": "[{\"element\":\"input\",\"data\":{\"name\":\"parent_id\",\"label\":\"Parent ID\",\"type\":\"integer\",\"hidden\":1,\"key\":\"2hqg17jxh\"},\"elements\":[]},{\"element\":\"input\",\"data\":{\"name\":\"parent_document\",\"label\":\"Parent Document\",\"type\":\"integer\",\"hidden\":1,\"key\":\"j9cqffpa3\"},\"elements\":[]},{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"34f5tizy5\",\"label\":\"Row1\"},\"elements\":[{\"element\":\"input\",\"data\":{\"name\":\"name\",\"label\":\"Name\",\"required\":1,\"type\":\"text\",\"in_list_view\":1,\"set_only_time\":1,\"unique\":1,\"searchable\":1,\"key\":\"zf9flejzr\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"6izdtjjaw\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\"},\"elements\":[]},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"in_list_view\":0,\"hidden\":1,\"key\":\"lywn9q498\"},\"elements\":[]}]},{\"element\":\"row\",\"data\":{\"name\":\"row2_el283428372152\",\"id\":\"row2_el283428372152\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"class\":\"p-2\",\"hidden\":0,\"disabled\":0,\"collapsed\":0,\"key\":\"row2_el283428372152\",\"label\":\"Row7\"},\"elements\":[{\"element\":\"select\",\"data\":{\"label\":\"Type\",\"name\":\"type\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"JS\\nCSS\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select125_el286292828785\",\"format\":\"data\",\"type\":\"default\",\"id\":\"select29_el1471896952853\",\"required\":1},\"elements\":[]},{\"element\":\"input\",\"data\":{\"label\":\"Path\",\"name\":\"path\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"input134_el57728266819\",\"format\":\"data\",\"type\":\"default\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"required\":1,\"id\":\"input19_el1190911040421\"},\"elements\":[]},{\"element\":\"select\",\"data\":{\"label\":\"Apply on\",\"name\":\"apply_on\",\"not_validate_type\":0,\"unique\":0,\"set_only_time\":0,\"in_list_view\":1,\"searchable\":1,\"options\":\"list\\nform\\nall\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"background_image\":\"[]\",\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"collapsed\":0,\"key\":\"select405_el86013028163\",\"background_blend_mode\":\"overlay\",\"background_size\":\"cover\",\"text_align\":\"left\",\"size\":\"md\",\"id\":\"select9_el1105910237313\",\"format\":\"data\",\"type\":\"default\"},\"elements\":[]}]}]",
-          "id": 21,
-          "name": "Resources",
-          "module": "core",
-          "default_list_view": "List",
-          "type": "Document",
-          "is_single": 0,
-          "is_static": 0,
-          "include_in_installer": 1,
-          "is_child": 1,
-          "__document_status__": "Active",
-          "search_fields": null,
-          "title_fields": null,
-          "resources": "",
-          "deleted_at": null,
-          "__created_at__": null,
-          "__updated_at__": null,
-          "__deleted_at__": null,
-          "__APP__": "loopar"
-        },
-        "__DOCUMENT_NAME__": null,
-        "__DOCUMENT__": {
-          "__document_status__": "Active"
-        },
-        "__IS_NEW__": true,
-        "labels": [
-          "Name",
-          "Type",
-          "Path",
-          "Apply on"
-        ],
-        "fields": [
-          "name",
-          "type",
-          "path",
-          "apply_on"
-        ],
-        "rows": [],
-        "pagination": {
-          "page": 1,
-          "pageSize": 10,
-          "totalPages": 0,
-          "totalRecords": 0,
-          "sortBy": "id",
-          "sortOrder": "asc",
-          "__ENTITY__": "Resources"
-        },
-        "q": null
-      },
-      "deleted_at": null,
-      "__created_at__": null,
-      "__updated_at__": null,
-      "__deleted_at__": null,
-      "__REF__": {
-        "__NAME__": "Resources",
-        "__APP__": "Loopar",
-        "__ENTITY__": "Entity",
-        "entityRoot": "/apps/loopar/modules/core/entities/resources",
-        "is_single": 0,
-        "is_builder": 0
-      }
-    },
-    "__DOCUMENT_NAME__": null,
-    "__DOCUMENT__": {
-      "__document_status__": "Active"
-    },
-    "__IS_NEW__": true,
-    "labels": [
-      "Name",
-      "Type",
-      "Path",
-      "Apply on"
-    ],
-    "fields": [
-      "name",
-      "type",
-      "path",
-      "apply_on"
-    ],
-    "rows": [],
-    "pagination": {
-      "page": 1,
-      "pageSize": 10,
-      "totalPages": 0,
-      "totalRecords": 0,
-      "sortBy": "id",
-      "sortOrder": "asc",
-      "__ENTITY__": "Resources"
-    },
-    "q": null
-  },
-  "deleted_at": null,
-  "__created_at__": null,
-  "__updated_at__": null,
-  "__deleted_at__": null,
+  "doc_structure": "[{\"element\":\"row\",\"data\":{\"name\":\"name_and_status_container\",\"key\":\"7iq9afq3w\",\"label\":\"Row2\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"select\",\"data\":{\"name\":\"__document_status__\",\"label\":\"Status\",\"options\":\"Active\\nInactive\\nDraft\\nPending\\nApproved\\nRejected\\nArchived\\nDeleted\",\"default_value\":\"Active\",\"hidden\":1,\"key\":\"lqbfgwcm1\",\"id\":\"select6_el630517293161\"},\"imageProps\":{},\"style\":{}},{\"element\":\"id\",\"data\":{\"name\":\"id\",\"label\":\"ID\",\"type\":\"integer\",\"required\":1,\"hidden\":1,\"key\":\"s88mwu6jq\",\"id\":\"id2_el768362042344\"},\"imageProps\":{},\"style\":{}}],\"imageProps\":{},\"style\":{}},{\"element\":\"input\",\"data\":{\"label\":\"Name\",\"name\":\"name\",\"type\":\"text\",\"required\":1,\"unique\":1,\"set_only_time\":1,\"in_list_view\":1,\"searchable\":1,\"id\":\"input47_el54262823476\",\"background_color\":{\"color\":\"\",\"alpha\":0.5},\"color_overlay\":{\"color\":\"\",\"alpha\":0.5},\"key\":\"x0ag1upbs\"},\"imageProps\":{},\"style\":{}},{\"element\":\"row\",\"data\":{\"name\":\"row1_el1235782781905\",\"id\":\"row1_el1235782781905\",\"label\":\"Row1\",\"key\":\"6sokjjljd\",\"layout\":\"[50,50]\"},\"elements\":[{\"element\":\"col\",\"data\":{\"name\":\"col1_el103951524304\",\"id\":\"col1_el103951524304\",\"label\":\"Col1\",\"key\":\"b10oi8rtu\"},\"elements\":[{\"element\":\"input\",\"data\":{\"label\":\"Model\",\"name\":\"model\",\"required\":1,\"color_overlay\":\"\",\"key\":\"l69i164to\",\"id\":\"input7_el339620323513\"},\"imageProps\":{},\"style\":{}},{\"data\":{\"label\":\"Temperature\",\"name\":\"temperature\",\"id\":\"input67_el907633427538\",\"format\":\"Decimal\",\"key\":\"input8_el271692020431\"},\"element\":\"input\",\"imageProps\":{},\"style\":{}},{\"data\":{\"label\":\"Frequency Penalty\",\"name\":\"frequency_penalty\",\"id\":\"input77_el416936397874\",\"format\":\"Decimal\",\"key\":\"input74_el380453343697\"},\"element\":\"input\",\"imageProps\":{},\"style\":{}}],\"imageProps\":{},\"style\":{}},{\"element\":\"col\",\"data\":{\"name\":\"col2_el337400563646\",\"id\":\"col2_el337400563646\",\"label\":\"Col2\",\"key\":\"hw4494qg9\"},\"elements\":[{\"element\":\"password\",\"data\":{\"label\":\"API Key\",\"name\":\"api_key\",\"required\":1,\"color_overlay\":\"\",\"key\":\"4kswjynzs\",\"id\":\"password2_el570684723857\"},\"imageProps\":{},\"style\":{}},{\"data\":{\"label\":\"Top P\",\"name\":\"top_p\",\"id\":\"input73_el49991725458\",\"format\":\"Decimal\",\"key\":\"input68_el346471084955\"},\"element\":\"input\",\"imageProps\":{},\"style\":{}},{\"element\":\"input\",\"data\":{\"label\":\"Presence Penalty\",\"name\":\"presence_penalty\",\"id\":\"input81_el526129249971\",\"format\":\"Decimal\",\"key\":\"input78_el706064142824\"},\"imageProps\":{},\"style\":{}}],\"imageProps\":{},\"style\":{}}],\"imageProps\":{},\"style\":{}},{\"element\":\"date_time\",\"data\":{\"name\":\"deleted_at\",\"label\":\"Deleted At\",\"hidden\":1,\"key\":\"35hq1hjmb\",\"id\":\"date_time62_el688223468594\"},\"imageProps\":{},\"style\":{}}]",
+  "resources": [],
+  "deleted_at": "2025-09-10 10:59:59",
+  "__created_at__": "2025-09-10 10:59:59",
+  "__updated_at__": "2025-09-10 10:59:59",
+  "__deleted_at__": "2025-09-10 10:59:59",
   "__ENTITY__": "Entity"
 }

@@ -31,7 +31,7 @@ const CardTemplate = (props) => {
     )
   }
 
-  const entity = row.type || this.props.meta.__ENTITY__.name;
+  const entity = row.type || props.meta.__ENTITY__.name;
   const baseUrl = `/desk/${row.name}/${action}`
 
   return (
