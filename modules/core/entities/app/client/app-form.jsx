@@ -33,8 +33,12 @@ export default class AppForm extends FormContext {
           variant="link"
           onClick={(e) => {
             e.preventDefault();
-            loopar.confirm(`Are you sure you want to increment the ${type} version of the app ${this.getValue("name")}?`, async () => {
-              await loopar.method("App", `increment${type}`, this.getValue('name'));
+            loopar.confirm(`Are you sure you want to increment the ${type} version of the app ${this.getValue("name")}?`, () => {
+              loopar.method("App", `increment${type}`, this.getValue('name'), {
+                success: (result) => {
+                  this.setValue('version', result.version);
+                }
+              });
             });
           }}
         >

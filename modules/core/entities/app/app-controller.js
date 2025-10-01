@@ -8,26 +8,26 @@ export default class AppController extends BaseController {
    }
 
   async actionIncrementPatch() {
-    const model = await loopar.getDocument("App", this.name);
-
-    if (await model.incrementPatch()) {
-      return await this.success(`App ${model.name} update to new version: ${model.version}`);
-    }
+    return await this.#execute('incrementPatch');
   }
 
   async actionIncrementMinor() {
-    const model = await loopar.getDocument("App", this.name)
-
-    if (await model.incrementMinor()) {
-      return await this.success(`App ${model.name} update to new version: ${model.version}`);
-    }
+    return await this.#execute('incrementMinor');
   }
 
   async actionIncrementMajor() {
-    const model = await loopar.getDocument("App", this.name)
+    return await this.#execute('incrementMajor');
+  }
 
-    if (await model.incrementMajor()) {
-      return await this.success(`App ${model.name} update to new version: ${model.version}`);
+  async #execute(method){
+    const model = await loopar.getDocument("App", this.name);
+    if (model[method] && await model[method]()) {
+      return await this.success(
+        {version: model.version},
+        {
+          notify: { type: "success", message: `App ${model.name} update to new version: ${model.version}` }
+        }
+      );
     }
   }
 }

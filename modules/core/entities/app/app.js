@@ -16,7 +16,7 @@ export default class App extends BaseDocument {
       const appStatus = await loopar.appStatus(app_name);
 
       if (fileManage.existFileSync(loopar.makePath('apps', app_name))) {
-        if (appStatus === 'installer')
+        if (appStatus === 'installed')
           loopar.throw('App already exists, update or install it in <a href="/developer/App%20Manager/view">App Manage</a>');
         else
           await super.save(args);
