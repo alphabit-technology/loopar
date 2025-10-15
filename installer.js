@@ -84,8 +84,9 @@ export default class Installer extends CoreInstaller {
   }
 
   async #makeCoreTable() {
-    const coreData = await this.getDocumentData("Entity");
-    
+    const ref = loopar.getRef("Entity");
+    const coreData = await this.getDocumentData("Entity", ref.__ROOT__);
+
     const Entity = await loopar.newDocument("Entity", coreData);
     await Entity.save({ save: false, validate: false });
   }
