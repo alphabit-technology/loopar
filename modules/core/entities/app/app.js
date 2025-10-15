@@ -16,7 +16,7 @@ export default class App extends BaseDocument {
       const appStatus = await loopar.appStatus(app_name);
 
       if (fileManage.existFileSync(loopar.makePath('apps', app_name))) {
-        if (appStatus === 'installed')
+        if (appStatus === 'installer')
           loopar.throw('App already exists, update or install it in <a href="/developer/App%20Manager/view">App Manage</a>');
         else
           await super.save(args);
@@ -102,7 +102,7 @@ export default class App extends BaseDocument {
       if (fieldIsModel(field)) {
         const [type, name] = field.data.options.split(":");
 
-        if (field.element == SELECT && doc && !(Entity.isBuilder)) {
+        if (field.element == SELECT && doc && !(Entity.is_builder)) {
           const relatedParentEntity = await loopar.getDocument(name ? type : "Entity", name || field.data.options);
           const relatedEntity = await loopar.getDocument(field.data.options, doc[field.data.name]);
           
@@ -136,12 +136,12 @@ export default class App extends BaseDocument {
   }
 
   async incrementPatch() {
-    const version = this.version.split('.');
+   /*  const version = this.version.split('.');
     version[2] = parseInt(version[2]) + 1;
     this.version = version.join('.');
     await this.save(false);
-
-    await this.syncFilesInstaller();
+ */
+    return await this.buildInstaller();
   }
 
   async incrementMinor() {
@@ -151,7 +151,7 @@ export default class App extends BaseDocument {
     this.version = version.join('.');
     await this.save(false);
 
-    await this.syncFilesInstaller();
+    return await this.buildInstaller();
   }
 
   async incrementMajor() {
@@ -163,7 +163,7 @@ export default class App extends BaseDocument {
     this.version = version.join('.');
     await this.save(false);
 
-    await this.syncFilesInstaller();
+    return await this.buildInstaller();
   }
 
   async syncFilesInstaller() {
@@ -172,19 +172,19 @@ export default class App extends BaseDocument {
      * List of all entities
      */
 
-    const allEntities = loopar.getEntities().map(entity => ({
-      ...entity,
-      id: parseInt(entity.id)
-    })).sort((a, b) => a.id - b.id);
+    const checkIfHaveAnApp = (els) => {
+      for (let i = 0; i < els.length; i++) {
+        if (els[i]?.data?.options === "App") {
+          return true
+        } else if (Array.isArray(els[i]?.elements)) {
+          const found = checkIfHaveAnApp(els[i].elements);
+          if (found) return found;
+        }
+      }
 
-    /**
-     * Filter entities when the entity is related to an app
-     */
-    const entities = allEntities.filter(entity => (
-      (loopar.utils.compare(entity.__APP__, this.name) || entity.name === "App") || 
-      (entity.doc_structure || "").includes("app_name")
-    ));
-
+      return false;
+    }
+    
     const entitiesStructure = {
       App: {
         name: this.name,
@@ -225,16 +225,22 @@ export default class App extends BaseDocument {
           const fields = Entity.writableFieldsList().map(field => field.data.name);
 
           const filters = {
-            "!=": { name: "Entity" },
-            ...(fields.includes("app_name") ? {"and": { "=": { app_name: this.name } }} : {}),
-            ...(Entity.name === "App" ? {"and": { "=": { name: this.name } }} : {})
+            name: { [loopar.db.Op.ne]: "Entity" }
           };
+          
+          if (fields.includes("app_name")) {
+            filters.app_name = this.name;
+          }
+          
+          if (Entity.name === "App") {
+            filters.name = this.name;
+          }
 
           const entityDocuments = await loopar.db.getAll(
             Entity.name,
             fields,
             filters,
-            {isSingle: Entity.entityIsSingle()}
+            { isSingle: Entity.entityIsSingle() }
           );
 
           for (const doc of entityDocuments.sort((a, b) => a.id - b.id)) {
@@ -277,6 +283,200 @@ export default class App extends BaseDocument {
       entitiesStructure,
       loopar.makePath('apps', this.name)
     );
+  }
+
+  async buildInstaller(){
+    const app = this.name;
+    const queueDocuments = {};
+    
+    const modules = await loopar.db.getAll(
+      "Module", ["name"], { app_name: app }
+    ).then(modules => modules.map(m => m.name));
+
+    const entities = loopar.getEntities(app).map(entity => ({
+      id: parseInt(entity.id),
+      __ENTITY__: entity.__ENTITY__ || "Entity",
+      __NAME__: entity.name,
+      __APP__: entity.__APP__,
+      __ROOT__: entity.entityRoot,
+    })).sort((a, b) => a.id - b.id);
+
+    const entitiesName = entities.map(e => e.__NAME__);
+
+    const fieldIsModel = (field) => {
+      if ([SELECT, FORM_TABLE].includes(field.element) && field.data.options && typeof field.data.options === 'string') {
+        const options = (field.data.options || "").split("\n");
+
+        return !(options.length > 1 || options[0] === "");
+      }
+    }
+
+    const evaluatedDocument = {};
+
+    const requireOfDocument = async (constructor, doc) => {
+      if(evaluatedDocument[`${constructor.__NAME__}:${doc?.name || 'null'}`]) return;
+      evaluatedDocument[`${constructor.__NAME__}:${doc?.name || 'null'}`] = true;
+
+      const checkRequires = async (els, d) => {
+        await Promise.all(els.map(async el => {
+          if (el.data && fieldIsModel(el)) {
+            const relatedEntity = loopar.getRef(el.data.options);
+            await queueEntity(relatedEntity);
+
+            if(el.element == SELECT) {
+              if(d){
+                const relatedDoc = await loopar.getDocument(el.data.options, d[el.data.name], null, { ifNotFound: false });
+                if(relatedDoc) {
+                  const rawValues = await relatedDoc.rawValues();
+                  await requireOfDocument(relatedEntity, rawValues);
+                  await queue(relatedEntity, rawValues);
+                }else{
+                  console.log(['relatedDoc not found', constructor.__NAME__, el.data.options, d[el.data.name]]);
+                }
+              }
+            }
+
+            if(el.element == FORM_TABLE && d){
+              await Promise.all((d[el.data.name] || []).map(async item => {
+                await requireOfDocument(relatedEntity, item);
+              }));
+            }
+          }
+ 
+          if(el.element == DESIGNER && d){
+            await checkRequires(JSON.parse(d[el.data.name] || "[]"));
+          }
+
+          if (Array.isArray(el?.elements)) {
+            await checkRequires(el.elements, d);
+          }
+        }));
+      }
+      
+      const constructorData = await fileManage.getConfigFile(constructor.__NAME__, constructor.__ROOT__);
+      await checkRequires(JSON.parse(constructorData.doc_structure || "[]"));
+
+      if(doc){
+        await checkRequires(JSON.parse(constructorData.doc_structure || "[]"), doc);
+      }
+    }
+
+    const queue = async (entity, doc) => {
+      await queueEntity(entity);
+
+      if(doc) {
+        const ref = loopar.getRef(doc.name);
+        if(ref && ref.__ENTITY__ == entity.__NAME__) {
+          await queueEntity(ref);
+        } else {
+          queueDocuments[`${entity.__NAME__}:${doc.name}`] = doc;
+        }
+        
+        await requireOfDocument(entity, doc);
+      }
+    }
+
+    const findFieldInStructure = (elements, criteria) => {
+      for (const el of elements) {
+        if (criteria(el)) {
+          return el.data?.name || true;
+        }
+        
+        if (Array.isArray(el?.elements)) {
+          const found = findFieldInStructure(el.elements, criteria);
+          if (found) return found;
+        }
+      }
+      return false;
+    };
+
+    const checkIfHaveAnEntity = (els, entityName) => findFieldInStructure(els, el => 
+      el.element === SELECT && el?.data?.options === entityName
+    );
+
+    const buildDocuments = async (entity) => {
+      const ref = loopar.getRef(entity.__NAME__);
+
+      if (!ref || ref.is_child || ref.is_single) return;
+      const include_in_installer = await loopar.db.getValue(entity.__ENTITY__ || "Entity", "include_in_installer", entity.__NAME__,);
+
+      if (include_in_installer !== 1) return;
+      
+      const data = fileManage.getConfigFile(ref.__NAME__, ref.__ROOT__);
+      
+      const filters = {};
+      const haveAnModule = checkIfHaveAnEntity(JSON.parse(data.doc_structure || "[]"), "Module");
+
+      if (haveAnModule) {
+        filters[loopar.db.Op.or] = [
+          {
+            name: { [loopar.db.Op.notIn]: [...entitiesName] },
+            [haveAnModule]: { [loopar.db.Op.in]: modules }
+          },
+          {
+            name: { [loopar.db.Op.in]: [...entitiesName] }
+          }
+        ];
+      }
+
+      data.name === "Module" && (filters.app_name = app);
+      data.name === "App" && (filters.name = app);
+
+      const docs = await loopar.db.getAll(ref.__NAME__, ["*"], filters);
+
+      await Promise.all(docs.filter(d => d.name !== "Entity").map(async currentDoc => {
+        await queue(ref, currentDoc);
+      }));
+    };
+    
+    const queueEntity = async (entity, previus) => {
+      if(!entity) return;
+
+      const constructor = loopar.getRef(entity.__ENTITY__ || "Entity");
+      if(queueDocuments[`${constructor.__NAME__}:${entity.__NAME__}`]) return;
+
+      if(entity.__NAME__ !== entity.__ENTITY__) {
+        await queueEntity(constructor, entity);
+      }
+
+      if(previus && previus.__APP__ !== app) return;
+
+      queueDocuments[`${constructor.__NAME__}:${entity.__NAME__}`] = {
+        id: entity.id,
+        name: entity.__NAME__,
+        app: entity.__APP__,
+        root: entity.__ROOT__,
+      }
+
+      if(entity.__APP__ == app) {
+        await requireOfDocument(constructor, null);
+        const ent = await  loopar.getDocument(entity.__ENTITY__ || "Entity", entity.__NAME__, {}, { ifNotFound: false, parse: true });
+        if(ent) await requireOfDocument(constructor, await ent?.rawValues());
+      }
+
+      if(entitiesName.includes(entity.__NAME__)) {
+        await buildDocuments(entity);
+      }
+    }
+
+    await Promise.all(entities.map(async entity => {
+      await queueEntity(entity);
+    }));
+
+    const entitiesStructure = {
+      App: {
+        name: this.name,
+        version: this.version,
+      },
+      documents: queueDocuments
+    };
+
+    await fileManage.setConfigFile('installer', 
+      entitiesStructure,
+      loopar.makePath('apps', this.name)
+    );
+
+    return true;
   }
 
   async unInstall() {

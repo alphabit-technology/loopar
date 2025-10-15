@@ -3,7 +3,9 @@ import { pluralize } from "inflection";
 
 export default class Entity extends BaseDocument {
   __CORE_FILES__ = [];
-  isBuilder = true;
+
+  get is_builder() {return true};
+  
   constructor(props) {
     super(props);
   }
