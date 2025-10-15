@@ -71,9 +71,11 @@ export default class Installer extends CoreInstaller {
     user.password = this.admin_password;
     user.confirm_password = this.confirm_password;
     user.__document_status__ = "Active";
-    
-    console.log("Administrator User Created");  
+
+    console.log("Creating Administrator User");
+
     await user.save({validate: false});
+    return true;
   }
 
   async setDbConfig() {
