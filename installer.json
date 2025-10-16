@@ -158,7 +158,7 @@
       "module_group": "administration",
       "icon": "Settings",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
+      "deleted_at": "2025-10-15 21:41:54"
     },
     "Module:developer": {
       "__document_status__": "Active",
@@ -169,40 +169,7 @@
       "module_group": "developer",
       "icon": "LucideCode",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
-    },
-    "Module:Integrations": {
-      "__document_status__": "Active",
-      "id": 4,
-      "name": "Integrations",
-      "description": "Integrations",
-      "app_name": "loopar",
-      "module_group": "administration",
-      "icon": "ComponentIcon",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
-    },
-    "Module:auth": {
-      "__document_status__": "Active",
-      "id": 3,
-      "name": "auth",
-      "description": "Auth",
-      "app_name": "loopar",
-      "module_group": "administration",
-      "icon": "LucideUserCheck2",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
-    },
-    "Module:loopar": {
-      "__document_status__": "Active",
-      "id": 57,
-      "name": "loopar",
-      "description": "loopar",
-      "app_name": "loopar",
-      "module_group": "modules",
-      "icon": "Infinity",
-      "in_sidebar": 0,
-      "deleted_at": "2025-08-24 09:31:59"
+      "deleted_at": "2025-10-15 21:41:54"
     },
     "Builder:View Builder": {
       "id": 1,
@@ -220,21 +187,46 @@
       "app": "loopar",
       "root": "/apps/loopar/modules/developer/builders/controller-builder"
     },
+    "Module:Integrations": {
+      "__document_status__": "Active",
+      "id": 4,
+      "name": "Integrations",
+      "description": "Integrations",
+      "app_name": "loopar",
+      "module_group": "administration",
+      "icon": "ComponentIcon",
+      "in_sidebar": 1,
+      "deleted_at": "2025-10-15 21:41:54"
+    },
     "Module Group:administration": {
       "__document_status__": "Active",
       "id": 1,
       "name": "administration",
       "description": "Administration",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
+      "deleted_at": "2025-10-15 21:41:54"
     },
-    "Module Group:modules": {
+    "Module:auth": {
       "__document_status__": "Active",
-      "id": 2,
-      "name": "modules",
-      "description": "Modules",
+      "id": 3,
+      "name": "auth",
+      "description": "Auth",
+      "app_name": "loopar",
+      "module_group": "administration",
+      "icon": "LucideUserCheck2",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
+      "deleted_at": "2025-10-15 21:41:54"
+    },
+    "Module:loopar": {
+      "__document_status__": "Active",
+      "id": 57,
+      "name": "loopar",
+      "description": "loopar",
+      "app_name": "loopar",
+      "module_group": "modules",
+      "icon": "Infinity",
+      "in_sidebar": 0,
+      "deleted_at": "2025-08-24 09:31:59"
     },
     "Module Group:developer": {
       "__document_status__": "Active",
@@ -242,16 +234,24 @@
       "name": "developer",
       "description": "Developer",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-13 22:36:27"
+      "deleted_at": "2025-10-15 21:41:54"
+    },
+    "Module Group:modules": {
+      "__document_status__": "Active",
+      "id": 5,
+      "name": "modules",
+      "description": "Modules",
+      "in_sidebar": 1,
+      "deleted_at": "2025-10-15 21:41:54"
     },
     "App:loopar": {
       "__document_status__": "Active",
       "id": 1,
-      "deleted_at": null,
+      "deleted_at": "2025-10-15 21:41:54",
       "type": "Desk App",
       "name": "loopar",
       "description": "Loopar",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "autor": "Administrator",
       "icon": "Infinity",
       "spacing": "1",

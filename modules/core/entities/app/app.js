@@ -136,11 +136,11 @@ export default class App extends BaseDocument {
   }
 
   async incrementPatch() {
-   /*  const version = this.version.split('.');
+    const version = this.version.split('.');
     version[2] = parseInt(version[2]) + 1;
     this.version = version.join('.');
     await this.save(false);
- */
+
     return await this.buildInstaller();
   }
 
