@@ -72,15 +72,15 @@ export default class Installer extends CoreInstaller {
     user.confirm_password = this.confirm_password;
     user.__document_status__ = "Active";
 
-    console.log("Creating Administrator User");
-
+    console.log(["Creating Administrator User"]);
     await user.save({validate: false});
+    console.log(["Administrator User Created successfully"]);
     return true;
   }
 
   async setDbConfig() {
     const db_config = fileManage.getConfigFile('db.config');
-    db_config.database = 'db_' + sha1(this.company);
+    db_config.database = 'db_' + sha1(this.company + new Date().toISOString()).substring(0, 16);
     env.dbConfig = db_config;
     return await fileManage.setConfigFile('db.config', db_config);
   }
