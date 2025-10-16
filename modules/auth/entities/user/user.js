@@ -56,13 +56,16 @@ export default class User extends BaseDocument {
     const password = this.password;
     const confirmPassword = this.confirm_password;
 
+    console.log(["User", password]);
     if (this.__IS_NEW__) {
+      console.log(['New User']);
       this.password = loopar.hash(password);
       this.confirm_password = loopar.hash(confirmPassword);
     } else {
       const user = await loopar.getDocument('User', this.name);
 
       if (password && password.length > 0 && password !== this.protectedPassword) {
+        console.log(['Update Password', password, loopar.hash(password)]);
         this.password = loopar.hash(password);
         this.confirm_password = loopar.hash(confirmPassword);
       } else {
