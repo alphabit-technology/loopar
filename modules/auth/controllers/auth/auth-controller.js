@@ -41,7 +41,7 @@ export default class AuthController extends BaseController {
     if (this.hasData()) {
       return await fn(form);
     } else {
-      return await this.render(await form.__data__());
+      return await this.render(await form.__meta__());
     }
   }
 }

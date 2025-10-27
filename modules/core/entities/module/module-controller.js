@@ -36,7 +36,7 @@ export default class ModuleController extends BaseController {
     await loopar.session.set(eType, queryData);
     await loopar.session.set(`${type}_page`, this.data.page || 1);
 
-    const list = await loopar.getList(type, { q: queryData });
+    const list = await loopar.getList(type, { q: queryData, rowsOnly: this.preloaded === 'true'});
 
     list.rows = list.rows.map(row => {
       const ref = loopar.getRef(row.name);
@@ -47,10 +47,15 @@ export default class ModuleController extends BaseController {
       };
     });
 
-    list.__ENTITY__.name = "Module";
+    if(this.preloaded == 'true') return {
+      instance: this.getInstance(),
+      rows: list.rows
+    };
+
+    list.Entity.name = "Module";
     list.__TYPES__ = types;
     list.__TYPE__ = type;
-    list.key = queryData.module
+    list.key = `${list.Entity.name}:${list.Entity.id}`// queryData.module
 
     return this.render(list);
   }

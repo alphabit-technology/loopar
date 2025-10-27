@@ -35,7 +35,8 @@ export default class ModuleView extends EntityList {
 
   setCustomActions() {
     super.setCustomActions();
-    const actions = this.props.meta?.__TYPES__ || [];
+    const {Document} = this.props;
+    const actions = Document?.__TYPES__ || [];
 
     actions.forEach((action, index) => {
       this.setCustomAction(
@@ -45,7 +46,7 @@ export default class ModuleView extends EntityList {
           action={action.name} 
           label={action.label}
           actions={actions}
-          current={this.props.meta.__TYPE__}
+          current={Document.__TYPE__}
         />
       );
     });

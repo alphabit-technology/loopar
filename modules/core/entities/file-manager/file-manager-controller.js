@@ -62,7 +62,7 @@ export default class FileManagerController extends BaseController {
         `File ${document.name} saved successfully`, { name: document.name }
       );
     } else {
-      return await this.render({ ...await document.__data__(), ...this.response || {} });
+      return await this.render({ ...await document.__meta__(), ...this.response || {} });
     }
   }
 
@@ -86,7 +86,7 @@ export default class FileManagerController extends BaseController {
     fileManager.name = this.name;
     fileManager.app = this.app;
     if(await fileManager.loadFile()){
-      return await this.render(await fileManager.__data__());
+      return await this.render(await fileManager.__meta__());
     }else{
       return await this.notFound(`File [${this.name}] not found`);
     }

@@ -41,9 +41,16 @@ export default class AppManagerController extends SystemController {
       }
     }
 
+    if(this.preloaded == 'true') {
+      return {
+        instance: this.getInstance(),
+        rows: appsList
+      }
+    }
+
     apps.rows = appsList;
 
-    apps.__ENTITY__.name = "App Manager";
+    apps.Entity.name = "App Manager";
 
 
     return await this.render(apps);

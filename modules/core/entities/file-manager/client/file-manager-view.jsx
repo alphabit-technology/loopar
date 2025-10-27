@@ -2,14 +2,13 @@
 'use strict';
 
 import ViewContext from '@context/view-context';
-import FilePreview from "@@file/file-preview";
 import DeskGUI from "@context/base/desk-gui";
 
 import { fileIcons } from "@@file/defaults";
 
-import fileManager, {getExtention} from "@@file/file-manager";
+import fileManager from "@@file/file-manager";
 
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ImageIcon} from "lucide-react";
 import LazyLoad from 'react-lazy-load';
 import {cn} from "@cn/lib/utils";
@@ -66,9 +65,8 @@ export default class FileManagerView extends ViewContext {
   }
 
   render() {
-    const meta = this.props.meta || {};
-    const document = meta.__DOCUMENT__ || {};
-    const file = JSON.parse(document.file_ref)[0];
+    const {data} = this.Document;
+    const file = JSON.parse(data.file_ref)[0];
 
     const type = fileManager.getFileType(file);
 

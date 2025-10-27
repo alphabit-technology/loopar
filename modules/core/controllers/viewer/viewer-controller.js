@@ -11,7 +11,7 @@ export default class ViewerController extends BaseController {
 
     async actionView() {
         const document = await loopar.getDocument(this.document, this.name);
-        return await this.render(await document.__data__());
+        return await this.render(await document.__meta__());
     }
 
     async actionList() {

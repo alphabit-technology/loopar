@@ -496,13 +496,13 @@ export default class Entity extends BaseDocument {
     await fileManage.makeFolder(await this.documentPath(), 'client');
   }
 
-  async __data__() {
-    const data = await super.__data__();
+  async __meta__(withData = true) {
+    const meta = await super.__meta__(withData);
     const spacing = loopar.__installed__ ? await loopar.db.getDoc("App", await this.targetApp(), ["spacing", "col_padding", "col_margin"]) : {};
 
     return {
-      ...data,
-      __SPACING__: spacing,
+      ...meta,
+      spacing,
     }
   }
 
@@ -557,8 +557,8 @@ export default class Entity extends BaseDocument {
 
   /**installer**/
   async makeJSON() {
-    const data = await this.__data__();
-    await fileManage.setConfigFile(this.name, { ...data.__DOCUMENT__, ...{ __ENTITY__: data.__ENTITY__.name } }, await this.documentPath());
+    const meta = await this.__meta__();
+    await fileManage.setConfigFile(this.name, { ...meta.data, ...{ __ENTITY__: meta.Entity.name } }, await this.documentPath());
   }
 }
 

@@ -214,7 +214,7 @@ export default class FileManagerList extends ListContext {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.meta.rows !== this.props.meta.rows) {
+    if (prevProps.Document.rows !== this.props.Document.rows) {
       this.setState({});
     }
   }
@@ -229,7 +229,7 @@ export default class FileManagerList extends ListContext {
   }
 
   getFiles() {
-    return this.props.meta.rows;
+    return this.props.Document.rows;
   }
 
   primaryAction() {

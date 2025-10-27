@@ -45,7 +45,7 @@ export default class EntityController extends BaseController {
 
     const list = await loopar.getList(this.document, { data, q: (data && Object.keys(data).length > 0) ? data : null });
 
-    list.rows = list.rows.map(row => {
+    const rows = list.rows.map(row => {
       const ref = loopar.getRef(row.name);
       return {
         ...row,
@@ -53,6 +53,16 @@ export default class EntityController extends BaseController {
         type: ref?.__ENTITY__ || "Entity",
       };
     });
+
+    if(this.hasData()) {
+      return {
+        rows: rows,
+        pagination: list.pagination,
+        q: data,
+      }
+    }
+
+    list.rows = rows;
 
     return await this.render(list);
   }

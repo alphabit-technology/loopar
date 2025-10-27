@@ -339,7 +339,7 @@ export default class FileManager extends BaseDocument {
       return await this.getList({ fields, filters, q, rowsOnly });
     }
 
-    return Object.assign((rowsOnly ? {} : await this.__data__()), {
+    return Object.assign((rowsOnly ? {} : await this.__meta__()), {
       labels: this.getFieldListLabels(),
       fields: listFields,
       rows: rows,

@@ -1,7 +1,7 @@
 {
   "App": {
     "name": "loopar",
-    "version": "1.0.10"
+    "version": "1.0.11"
   },
   "documents": {
     "Entity:Entity": {
@@ -13,6 +13,12 @@
       "name": "Builder",
       "app": "loopar",
       "root": "/apps/loopar/modules/core/entities/builder"
+    },
+    "Entity:Menu Action": {
+      "id": 1,
+      "name": "Menu Action",
+      "app": "loopar",
+      "root": "/apps/loopar/modules/developer/entities/menu-action"
     },
     "Entity:Resources": {
       "name": "Resources",
@@ -120,12 +126,6 @@
       "app": "loopar",
       "root": "/apps/loopar/modules/core/entities/file-manager"
     },
-    "Entity:Menu Action": {
-      "id": null,
-      "name": "Menu Action",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/menu-action"
-    },
     "Entity:AI Attribute": {
       "id": 53,
       "name": "AI Attribute",
@@ -158,18 +158,7 @@
       "module_group": "administration",
       "icon": "Settings",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
-    },
-    "Module:developer": {
-      "__document_status__": "Active",
-      "id": 2,
-      "name": "developer",
-      "description": "Developer",
-      "app_name": "loopar",
-      "module_group": "developer",
-      "icon": "LucideCode",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
+      "deleted_at": "2025-10-27 16:27:24"
     },
     "Builder:View Builder": {
       "id": 1,
@@ -187,24 +176,16 @@
       "app": "loopar",
       "root": "/apps/loopar/modules/developer/builders/controller-builder"
     },
-    "Module:Integrations": {
+    "Module:developer": {
       "__document_status__": "Active",
-      "id": 4,
-      "name": "Integrations",
-      "description": "Integrations",
+      "id": 2,
+      "name": "developer",
+      "description": "Developer",
       "app_name": "loopar",
-      "module_group": "administration",
-      "icon": "ComponentIcon",
+      "module_group": "developer",
+      "icon": "LucideCode",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
-    },
-    "Module Group:administration": {
-      "__document_status__": "Active",
-      "id": 1,
-      "name": "administration",
-      "description": "Administration",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
+      "deleted_at": "2025-10-27 16:27:24"
     },
     "Module:auth": {
       "__document_status__": "Active",
@@ -215,7 +196,18 @@
       "module_group": "administration",
       "icon": "LucideUserCheck2",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
+      "deleted_at": "2025-10-27 16:27:24"
+    },
+    "Module:Integrations": {
+      "__document_status__": "Active",
+      "id": 4,
+      "name": "Integrations",
+      "description": "Integrations",
+      "app_name": "loopar",
+      "module_group": "administration",
+      "icon": "ComponentIcon",
+      "in_sidebar": 1,
+      "deleted_at": "null"
     },
     "Module:loopar": {
       "__document_status__": "Active",
@@ -234,24 +226,24 @@
       "name": "developer",
       "description": "Developer",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
+      "deleted_at": "null"
     },
-    "Module Group:modules": {
+    "Module Group:administration": {
       "__document_status__": "Active",
-      "id": 5,
-      "name": "modules",
-      "description": "Modules",
+      "id": 1,
+      "name": "administration",
+      "description": "Administration",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-15 21:41:54"
+      "deleted_at": "2025-10-27 16:27:24"
     },
     "App:loopar": {
       "__document_status__": "Active",
       "id": 1,
-      "deleted_at": "2025-10-15 21:41:54",
+      "deleted_at": null,
       "type": "Desk App",
       "name": "loopar",
       "description": "Loopar",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "autor": "Administrator",
       "icon": "Infinity",
       "spacing": "1",
@@ -275,6 +267,14 @@
       "github_user": "",
       "github_pass": "",
       "info": "Loopar Javascript Drag and Drop Framework"
+    },
+    "Module Group:modules": {
+      "__document_status__": "Active",
+      "id": 5,
+      "name": "modules",
+      "description": "Modules",
+      "in_sidebar": 1,
+      "deleted_at": "2025-10-27 16:27:24"
     },
     "Page Builder:Desk": {
       "id": 1,
