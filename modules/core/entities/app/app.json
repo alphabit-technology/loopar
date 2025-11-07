@@ -1,5 +1,5 @@
 {
-  "id": "6",
+  "id": 6,
   "name": "App",
   "module": "core",
   "default_list_view": "Grid",
@@ -13,9 +13,9 @@
   "search_fields": "name",
   "title_fields": "name",
   "resources": [],
-  "deleted_at": "2025-05-21 19:20:11",
-  "__created_at__": "2025-05-21 19:20:11",
-  "__updated_at__": "2025-05-21 19:20:11",
-  "__deleted_at__": "2025-05-21 19:20:11",
+  "deleted_at": "2025-11-06 08:10:26",
+  "__created_at__": "2025-11-06 08:10:26",
+  "__updated_at__": "2025-11-06 08:10:26",
+  "__deleted_at__": "2025-11-06 08:10:26",
   "__ENTITY__": "Entity"
 }

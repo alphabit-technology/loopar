@@ -1,240 +1,14 @@
 {
   "App": {
     "name": "loopar",
-    "version": "1.0.11"
+    "version": "2.0.1"
   },
   "documents": {
-    "Entity:Entity": {
-      "name": "Entity",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/entity"
-    },
-    "Entity:Builder": {
-      "name": "Builder",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/builder"
-    },
-    "Entity:Menu Action": {
-      "id": 1,
-      "name": "Menu Action",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/menu-action"
-    },
-    "Entity:Resources": {
-      "name": "Resources",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/resources"
-    },
-    "Entity:User": {
-      "id": 9,
-      "name": "User",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/auth/entities/user"
-    },
-    "Entity:Document History": {
-      "id": 3,
-      "name": "Document History",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/document-history"
-    },
     "Entity:Module": {
-      "name": "Module",
-      "app": "loopar",
       "root": "/apps/loopar/modules/core/entities/module"
     },
     "Entity:App": {
-      "id": 6,
-      "name": "App",
-      "app": "loopar",
       "root": "/apps/loopar/modules/core/entities/app"
-    },
-    "Entity:Module Group": {
-      "id": 6,
-      "name": "Module Group",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/module-group"
-    },
-    "Entity:Document Single Values": {
-      "id": 7,
-      "name": "Document Single Values",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/document-single-values"
-    },
-    "Entity:System Settings": {
-      "id": 13,
-      "name": "System Settings",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/system-settings"
-    },
-    "Entity:Menu": {
-      "id": 16,
-      "name": "Menu",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/menu"
-    },
-    "Entity:Menu Item": {
-      "id": 17,
-      "name": "Menu Item",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/menu-item"
-    },
-    "Entity:GPT": {
-      "id": 18,
-      "name": "GPT",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/integrations/entities/gpt"
-    },
-    "Entity:Stripe": {
-      "id": 19,
-      "name": "Stripe",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/integrations/entities/stripe"
-    },
-    "Entity:Connected Document": {
-      "id": 20,
-      "name": "Connected Document",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/connected-document"
-    },
-    "Entity:Side Menu": {
-      "id": 22,
-      "name": "Side Menu",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/side-menu"
-    },
-    "Entity:Side Menu Item": {
-      "id": 23,
-      "name": "Side Menu Item",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/side-menu-item"
-    },
-    "Entity:Menu Button": {
-      "id": 50,
-      "name": "Menu Button",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/entities/menu-button"
-    },
-    "Entity:File": {
-      "id": 51,
-      "name": "File",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/file"
-    },
-    "Entity:File Manager": {
-      "id": 52,
-      "name": "File Manager",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/entities/file-manager"
-    },
-    "Entity:AI Attribute": {
-      "id": 53,
-      "name": "AI Attribute",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/integrations/entities/ai-attribute"
-    },
-    "Entity:AI Model": {
-      "id": 54,
-      "name": "AI Model",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/integrations/entities/ai-model"
-    },
-    "Entity:AI Provider": {
-      "id": 55,
-      "name": "AI Provider",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/integrations/entities/ai-provider"
-    },
-    "Builder:Page Builder": {
-      "name": "Page Builder",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/builders/page-builder"
-    },
-    "Module:core": {
-      "__document_status__": "Active",
-      "id": 1,
-      "name": "core",
-      "description": "Core",
-      "app_name": "loopar",
-      "module_group": "administration",
-      "icon": "Settings",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-27 16:27:24"
-    },
-    "Builder:View Builder": {
-      "id": 1,
-      "name": "View Builder",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/builders/view-builder"
-    },
-    "Builder:Form Builder": {
-      "name": "Form Builder",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/builders/form-builder"
-    },
-    "Builder:Controller Builder": {
-      "name": "Controller Builder",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/developer/builders/controller-builder"
-    },
-    "Module:developer": {
-      "__document_status__": "Active",
-      "id": 2,
-      "name": "developer",
-      "description": "Developer",
-      "app_name": "loopar",
-      "module_group": "developer",
-      "icon": "LucideCode",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-27 16:27:24"
-    },
-    "Module:auth": {
-      "__document_status__": "Active",
-      "id": 3,
-      "name": "auth",
-      "description": "Auth",
-      "app_name": "loopar",
-      "module_group": "administration",
-      "icon": "LucideUserCheck2",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-27 16:27:24"
-    },
-    "Module:Integrations": {
-      "__document_status__": "Active",
-      "id": 4,
-      "name": "Integrations",
-      "description": "Integrations",
-      "app_name": "loopar",
-      "module_group": "administration",
-      "icon": "ComponentIcon",
-      "in_sidebar": 1,
-      "deleted_at": "null"
-    },
-    "Module:loopar": {
-      "__document_status__": "Active",
-      "id": 57,
-      "name": "loopar",
-      "description": "loopar",
-      "app_name": "loopar",
-      "module_group": "modules",
-      "icon": "Infinity",
-      "in_sidebar": 0,
-      "deleted_at": "2025-08-24 09:31:59"
-    },
-    "Module Group:developer": {
-      "__document_status__": "Active",
-      "id": 3,
-      "name": "developer",
-      "description": "Developer",
-      "in_sidebar": 1,
-      "deleted_at": "null"
-    },
-    "Module Group:administration": {
-      "__document_status__": "Active",
-      "id": 1,
-      "name": "administration",
-      "description": "Administration",
-      "in_sidebar": 1,
-      "deleted_at": "2025-10-27 16:27:24"
     },
     "App:loopar": {
       "__document_status__": "Active",
@@ -243,7 +17,7 @@
       "type": "Desk App",
       "name": "loopar",
       "description": "Loopar",
-      "version": "1.0.11",
+      "version": "2.0.1",
       "autor": "Administrator",
       "icon": "Infinity",
       "spacing": "1",
@@ -268,49 +42,199 @@
       "github_pass": "",
       "info": "Loopar Javascript Drag and Drop Framework"
     },
-    "Module Group:modules": {
+    "Entity:Module Group": {
+      "root": "/apps/loopar/modules/core/entities/module-group"
+    },
+    "Module Group:administration": {
+      "__document_status__": "Active",
+      "id": 4,
+      "name": "administration",
+      "description": "Administration",
+      "in_sidebar": 1,
+      "deleted_at": "null"
+    },
+    "Module:core": {
+      "__document_status__": "Active",
+      "id": 1,
+      "name": "core",
+      "description": "Core",
+      "app_name": "loopar",
+      "module_group": "administration",
+      "icon": "Settings",
+      "in_sidebar": 1,
+      "deleted_at": "2025-11-06 20:55:56"
+    },
+    "Entity:Builder": {
+      "root": "/apps/loopar/modules/core/entities/builder"
+    },
+    "Module Group:developer": {
       "__document_status__": "Active",
       "id": 5,
+      "name": "developer",
+      "description": "Developer",
+      "in_sidebar": 1,
+      "deleted_at": "2025-11-06 08:12:12"
+    },
+    "Module:developer": {
+      "__document_status__": "Active",
+      "id": 2,
+      "name": "developer",
+      "description": "Developer",
+      "app_name": "loopar",
+      "module_group": "developer",
+      "icon": "LucideCode",
+      "in_sidebar": 1,
+      "deleted_at": "2025-11-06 20:55:56"
+    },
+    "Builder:Controller Builder": {
+      "root": "/apps/loopar/modules/developer/builders/controller-builder"
+    },
+    "Controller Builder:Viewer": {
+      "root": "/apps/loopar/modules/core/controllers/viewer"
+    },
+    "Entity:Resources": {
+      "root": "/apps/loopar/modules/core/entities/resources"
+    },
+    "Entity:Entity": {
+      "root": "/apps/loopar/modules/core/entities/entity"
+    },
+    "Module Group:modules": {
+      "__document_status__": "Active",
+      "id": 6,
       "name": "modules",
       "description": "Modules",
       "in_sidebar": 1,
-      "deleted_at": "2025-10-27 16:27:24"
+      "deleted_at": "null"
+    },
+    "Entity:Menu Item": {
+      "root": "/apps/loopar/modules/developer/entities/menu-item"
+    },
+    "Entity:Menu Action": {
+      "root": "/apps/loopar/modules/developer/entities/menu-action"
+    },
+    "Module:auth": {
+      "__document_status__": "Active",
+      "id": 3,
+      "name": "auth",
+      "description": "Auth",
+      "app_name": "loopar",
+      "module_group": "administration",
+      "icon": "LucideCode",
+      "in_sidebar": 1,
+      "deleted_at": "2025-11-06 20:55:56"
+    },
+    "Controller Builder:Auth": {
+      "root": "/apps/loopar/modules/auth/controllers/auth"
+    },
+    "Builder:Page Builder": {
+      "root": "/apps/loopar/modules/developer/builders/page-builder"
     },
     "Page Builder:Desk": {
-      "id": 1,
-      "name": "Desk",
-      "app": "loopar",
       "root": "/apps/loopar/modules/core/pages/desk"
     },
     "Page Builder:App Manager": {
-      "id": 11,
-      "name": "App Manager",
-      "app": "loopar",
       "root": "/apps/loopar/modules/developer/pages/app-manager"
     },
+    "Builder:View Builder": {
+      "root": "/apps/loopar/modules/developer/builders/view-builder"
+    },
+    "Builder:Form Builder": {
+      "root": "/apps/loopar/modules/developer/builders/form-builder"
+    },
     "Form Builder:Login": {
-      "id": 1,
-      "name": "Login",
-      "app": "loopar",
       "root": "/apps/loopar/modules/auth/forms/login"
     },
     "Form Builder:Reset Password": {
-      "id": 2,
-      "name": "Reset Password",
-      "app": "loopar",
       "root": "/apps/loopar/modules/auth/forms/reset-password"
     },
-    "Controller Builder:Viewer": {
-      "id": null,
-      "name": "Viewer",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/core/controllers/viewer"
+    "Entity:User": {
+      "root": "/apps/loopar/modules/auth/entities/user"
     },
-    "Controller Builder:Auth": {
-      "id": 1,
-      "name": "Auth",
-      "app": "loopar",
-      "root": "/apps/loopar/modules/auth/controllers/auth"
+    "Entity:Document History": {
+      "root": "/apps/loopar/modules/core/entities/document-history"
+    },
+    "Entity:Document Single Values": {
+      "root": "/apps/loopar/modules/core/entities/document-single-values"
+    },
+    "Entity:System Settings": {
+      "root": "/apps/loopar/modules/core/entities/system-settings"
+    },
+    "Entity:Menu": {
+      "root": "/apps/loopar/modules/developer/entities/menu"
+    },
+    "Module:Integrations": {
+      "__document_status__": "Active",
+      "id": 4,
+      "name": "Integrations",
+      "description": "Integrations",
+      "app_name": "loopar",
+      "module_group": "administration",
+      "icon": "ComponentIcon",
+      "in_sidebar": 1,
+      "deleted_at": "2025-11-06 20:55:56"
+    },
+    "Entity:GPT": {
+      "root": "/apps/loopar/modules/integrations/entities/gpt"
+    },
+    "Entity:Stripe": {
+      "root": "/apps/loopar/modules/integrations/entities/stripe"
+    },
+    "Entity:Connected Document": {
+      "root": "/apps/loopar/modules/core/entities/connected-document"
+    },
+    "Entity:Menu Button": {
+      "root": "/apps/loopar/modules/developer/entities/menu-button"
+    },
+    "Entity:File": {
+      "root": "/apps/loopar/modules/core/entities/file"
+    },
+    "Entity:File Manager": {
+      "root": "/apps/loopar/modules/core/entities/file-manager"
+    },
+    "Entity:AI Attribute": {
+      "root": "/apps/loopar/modules/integrations/entities/ai-attribute"
+    },
+    "Entity:AI Model": {
+      "root": "/apps/loopar/modules/integrations/entities/ai-model"
+    },
+    "Entity:AI Provider": {
+      "root": "/apps/loopar/modules/integrations/entities/ai-provider"
+    },
+    "Module:loopar": {
+      "__document_status__": "Active",
+      "id": 57,
+      "name": "loopar",
+      "description": "loopar",
+      "app_name": "loopar",
+      "module_group": "modules",
+      "icon": "Infinity",
+      "in_sidebar": 0,
+      "deleted_at": "null"
     }
+  },
+  "postInstaller": {
+    "Entity:App": "link",
+    "Entity:Entity": "link",
+    "Entity:Module Group": "link",
+    "Entity:Builder": "link",
+    "Entity:Menu Item": "link",
+    "App:loopar": "link",
+    "Entity:Menu Action": "link",
+    "Entity:User": "link",
+    "Entity:Document History": "link",
+    "Entity:Document Single Values": "link",
+    "Entity:System Settings": "link",
+    "Entity:Menu": "link",
+    "Entity:GPT": "link",
+    "Entity:Stripe": "link",
+    "Entity:Connected Document": "link",
+    "Entity:Menu Button": "link",
+    "Entity:File": "link",
+    "Entity:File Manager": "link",
+    "Entity:AI Attribute": "link",
+    "Entity:AI Model": "link",
+    "Entity:AI Provider": "link",
+    "Entity:Resources": "link",
+    "Entity:Module": "link"
   }
 }

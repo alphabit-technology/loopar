@@ -90,6 +90,6 @@ export default class Installer extends CoreInstaller {
     const coreData = await this.getDocumentData("Entity", ref.__ROOT__);
 
     const Entity = await loopar.newDocument("Entity", coreData);
-    await Entity.save({ save: false, validate: false });
+    await Entity.initialize({ validate: false });
   }
 }

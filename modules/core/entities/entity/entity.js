@@ -93,6 +93,14 @@ export default class Entity extends BaseDocument {
     }
   }
 
+  async initialize() {
+    this.is_single = this.entityIsSingle();
+    this.is_static = 0;
+   
+    await this.fixFields(this.doc_structure);
+    await loopar.db.makeTable("Entity", this.doc_structure);
+  }
+
   async save__CORE_FILES__() {
     for (const file of this.__CORE_FILES__ || []) {
       const fileManager = await loopar.newDocument("File Manager");

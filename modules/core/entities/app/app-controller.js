@@ -8,20 +8,20 @@ export default class AppController extends BaseController {
    }
 
   async actionIncrementPatch() {
-    return await this.#execute('incrementPatch');
+    return await this.#execute('patch');
   }
 
   async actionIncrementMinor() {
-    return await this.#execute('incrementMinor');
+    return await this.#execute('minor');
   }
 
   async actionIncrementMajor() {
-    return await this.#execute('incrementMajor');
+    return await this.#execute('major');
   }
 
-  async #execute(method){
+  async #execute(type){
     const model = await loopar.getDocument("App", this.name);
-    if (model[method] && await model[method]()) {
+    if (model.bump && await model.bump(type)) {
       return await this.success(
         {version: model.version},
         {
