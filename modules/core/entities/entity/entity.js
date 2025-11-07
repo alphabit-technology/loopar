@@ -432,6 +432,7 @@ export default class Entity extends BaseDocument {
     const fields = this.clientFieldsList();
 
     for (const field of fields) {
+      if(!fieldIsWritable(field)) continue;
       this.validateFieldName(field.data.name);
     }
 
