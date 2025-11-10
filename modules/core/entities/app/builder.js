@@ -274,6 +274,10 @@ class InstallerBuilder {
       await this.queueEntity(entity, null);
     }
 
+    const app = await loopar.getDocument("App", this.app);
+    
+    await this.queue(loopar.getRef("App"), await app.rawValues());
+
     this.Queues = { ...this.Queues, ...Object.entries(postInstaller.Queues).reduce((acc, [key, value]) => {
       if(this.Queues[key]) return acc;
       acc[key] = value;

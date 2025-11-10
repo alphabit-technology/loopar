@@ -11,7 +11,8 @@ export default class App extends BaseDocument {
 
   async save(makeStructure = true) {
     const args = arguments[0] || {};
-    if (this.__IS_NEW__ && this.git_repo && !["null", "undefined"].includes(this.git_repo)) {
+    const isNew = this.__IS_NEW__;
+    if (isNew && this.git_repo && !["null", "undefined"].includes(this.git_repo)) {
       loopar.validateGitRepository(this.git_repo);
 
       const app_name = this.git_repo.split('/').pop().replace('.git', '');
@@ -50,6 +51,10 @@ export default class App extends BaseDocument {
       makeStructure && await this.makeAppStructure();
     }
 
+    if(isNew){
+      await this.setOnInstall();
+    }
+    
     await loopar.build();
 
     return true;
@@ -107,6 +112,15 @@ export default class App extends BaseDocument {
     await this.save(false);
     
     await buildInstaller({app: this.name, version: this.version});
+    return true;
+  }
+
+  async setOnInstall() {
+    await fileManage.setConfigFile('installed-apps', {
+      ...fileManage.getConfigFile('installed-apps'),
+      [this.name]: this.version
+    });
+
     return true;
   }
 
