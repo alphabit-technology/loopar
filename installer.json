@@ -1,7 +1,7 @@
 {
   "App": {
     "name": "loopar",
-    "version": "2.0.1"
+    "version": "3.0.0"
   },
   "documents": {
     "Entity:Module": {
@@ -17,13 +17,13 @@
       "type": "Desk App",
       "name": "loopar",
       "description": "Loopar",
-      "version": "2.0.1",
+      "version": "3.0.0",
       "autor": "Administrator",
       "icon": "Infinity",
       "spacing": "1",
       "col_padding": "p-2",
-      "logo": "",
-      "logo_dark": "",
+      "logo": "[{\"name\":\"logo.svg\",\"size\":17901,\"type\":\"image/svg+xml\"}]",
+      "logo_dark": "[{\"name\":\"logo.svg\",\"size\":17901,\"type\":\"image/svg+xml\"}]",
       "logo_mini": "",
       "logo_mini_dark": "",
       "logo_width": "",
@@ -51,7 +51,7 @@
       "name": "administration",
       "description": "Administration",
       "in_sidebar": 1,
-      "deleted_at": "null"
+      "deleted_at": "2025-11-21 19:23:16"
     },
     "Module:core": {
       "__document_status__": "Active",
@@ -62,7 +62,7 @@
       "module_group": "administration",
       "icon": "Settings",
       "in_sidebar": 1,
-      "deleted_at": "2025-11-06 20:55:56"
+      "deleted_at": "2025-12-01 21:29:37"
     },
     "Entity:Builder": {
       "root": "/apps/loopar/modules/core/entities/builder"
@@ -73,7 +73,7 @@
       "name": "developer",
       "description": "Developer",
       "in_sidebar": 1,
-      "deleted_at": "2025-11-06 08:12:12"
+      "deleted_at": "null"
     },
     "Module:developer": {
       "__document_status__": "Active",
@@ -84,7 +84,7 @@
       "module_group": "developer",
       "icon": "LucideCode",
       "in_sidebar": 1,
-      "deleted_at": "2025-11-06 20:55:56"
+      "deleted_at": "2025-12-01 21:29:37"
     },
     "Builder:Controller Builder": {
       "root": "/apps/loopar/modules/developer/builders/controller-builder"
@@ -104,7 +104,7 @@
       "name": "modules",
       "description": "Modules",
       "in_sidebar": 1,
-      "deleted_at": "null"
+      "deleted_at": "2025-11-21 19:23:16"
     },
     "Entity:Menu Item": {
       "root": "/apps/loopar/modules/developer/entities/menu-item"
@@ -121,10 +121,13 @@
       "module_group": "administration",
       "icon": "LucideCode",
       "in_sidebar": 1,
-      "deleted_at": "2025-11-06 20:55:56"
+      "deleted_at": "2025-12-01 21:29:37"
     },
     "Controller Builder:Auth": {
       "root": "/apps/loopar/modules/auth/controllers/auth"
+    },
+    "Controller Builder:Tenant Manage": {
+      "root": "/apps/loopar/modules/developer/controllers/tenant-manage"
     },
     "Builder:Page Builder": {
       "root": "/apps/loopar/modules/developer/builders/page-builder"
@@ -171,7 +174,7 @@
       "module_group": "administration",
       "icon": "ComponentIcon",
       "in_sidebar": 1,
-      "deleted_at": "2025-11-06 20:55:56"
+      "deleted_at": "2025-12-01 21:29:37"
     },
     "Entity:GPT": {
       "root": "/apps/loopar/modules/integrations/entities/gpt"
@@ -200,6 +203,9 @@
     "Entity:AI Provider": {
       "root": "/apps/loopar/modules/integrations/entities/ai-provider"
     },
+    "Entity:Tenant Manager": {
+      "root": "/apps/loopar/modules/developer/entities/tenant-manager"
+    },
     "Module:loopar": {
       "__document_status__": "Active",
       "id": 57,
@@ -209,7 +215,7 @@
       "module_group": "modules",
       "icon": "Infinity",
       "in_sidebar": 0,
-      "deleted_at": "null"
+      "deleted_at": "2025-11-21 19:23:16"
     }
   },
   "postInstaller": {
@@ -234,6 +240,7 @@
     "Entity:AI Attribute": "link",
     "Entity:AI Model": "link",
     "Entity:AI Provider": "link",
+    "Entity:Tenant Manager": "link",
     "Entity:Resources": "link",
     "Entity:Module": "link"
   }

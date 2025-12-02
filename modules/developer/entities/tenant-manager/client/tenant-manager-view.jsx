@@ -3,7 +3,7 @@
 
 import ViewContext from '@context/view-context';
 
-export default class AIModelView extends ViewContext {
+export default class TenantManagerView extends ViewContext {
     constructor(props){
         super(props);
     }

@@ -453,6 +453,7 @@ export default class Entity extends BaseDocument {
         if (options.length === 1 && options[0] !== "") {
           const name = options[0].split(":")[0];
           const ref = loopar.getRef(name);
+          if(!ref) continue;
 
           if (await loopar.db.count(ref.__ENTITY__, name) === 0) {
             errors.push(`${ref.__ENTITY__} ${name} is not a valid Entity for ${field.data.name}, please check the options.`);

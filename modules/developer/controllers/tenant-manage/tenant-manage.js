@@ -3,7 +3,7 @@
 
 import {BaseDocument} from 'loopar';
 
-export default class AIAttribute extends BaseDocument {
+export default class TenantManage extends BaseDocument {
     constructor(props){
         super(props);
     }

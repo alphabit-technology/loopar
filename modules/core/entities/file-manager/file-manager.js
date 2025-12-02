@@ -46,7 +46,7 @@ export default class FileManager extends BaseDocument {
     if (this.app && this.app.length > 0) {
       return loopar.makePath(loopar.pathRoot, 'apps', this.app, 'uploads', this.visible || "public");
     } else {
-      return loopar.makePath(loopar.pathRoot, 'uploads', this.visible || "public");
+      return loopar.makePath(loopar.tenantPath, 'uploads', this.visible || "public");
     }
   }
 
@@ -150,7 +150,7 @@ export default class FileManager extends BaseDocument {
        * The file is saved with a new name
        * */
 
-      if (savedFile && !savedFile.equals(file.buffer)) {
+      if (savedFile && file.buffer && !savedFile.equals(file.buffer)) {
         this.name = newName;
         this.#reqUploadFile.name = newName;
         this.#reqUploadFile.originalname = newName;
@@ -252,6 +252,7 @@ export default class FileManager extends BaseDocument {
       }
 
       loadFiles("uploads");
+      loadFiles(path.join(loopar.tenantPath, "uploads"));
     }
 
     return rows;

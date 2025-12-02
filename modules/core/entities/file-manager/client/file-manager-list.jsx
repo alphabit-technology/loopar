@@ -11,7 +11,7 @@ import {Link} from '@link';
 import { Avatar, AvatarFallback, AvatarImage } from "@cn/components/ui/avatar";
 import {fileIcons} from "@@file/defaults";
 import {cn} from "@cn/lib/utils";
-import { useTable } from "@@table/TableContext"
+import { useTable } from "@@table/TableContext";
 import { useDialogContext} from "@dialog";
 import Emitter from '@services/emitter/emitter';
 import {useEffect} from "react";
@@ -151,7 +151,7 @@ export default class FileManagerList extends ListContext {
     return [
       {
         data: {
-          name: "name:"
+          name: "name:",
         },
         render: row => (
           <NameRender row={row} />
