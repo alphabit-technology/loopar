@@ -350,7 +350,7 @@ export default class CaddyManager {
       if (checkResponse.ok) return true;
   
       console.log("Initializing Caddy HTTP configuration...");
-      const httpConfig = {
+      const config = {
         "apps": {
           "http": {
             "servers": {
@@ -363,9 +363,7 @@ export default class CaddyManager {
           "tls": {
             "automation": {
               "policies": [{
-                "issuers": [{
-                  "module": "acme"
-                }]
+                "issuers": [{ "module": "acme" }]
               }]
             }
           }
@@ -375,7 +373,7 @@ export default class CaddyManager {
       const response = await fetch(`${this.adminUrl}/config/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(httpConfig)
+        body: JSON.stringify(config)
       });
   
       return response.ok;
@@ -385,21 +383,27 @@ export default class CaddyManager {
     }
   }
 
-  _getCaddyConfigPath() {
-    const possiblePaths = [
-      '/etc/caddy/config.json',
-      '/usr/local/etc/caddy/config.json',
-      '/opt/homebrew/etc/caddy/config.json',
-      path.join(process.cwd(), 'caddy-config.json')
-    ];
-
-    for (const p of possiblePaths) {
-      if (fs.existsSync(p)) return p;
-    }
-
-    const dir = os.platform() === 'darwin' ? '/opt/homebrew/etc/caddy' : '/etc/caddy';
+  _createDefaultCaddyConfig(filePath) {
+    const defaultConfig = {
+      "admin": { "listen": "localhost:2019" },
+      "apps": {
+        "http": {
+          "servers": {
+            "srv0": { "listen": [":443", ":80"], "routes": [] }
+          }
+        },
+        "tls": {
+          "automation": {
+            "policies": [{ "issuers": [{ "module": "acme" }] }]
+          }
+        }
+      }
+    };
+    
+    const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    return path.join(dir, 'config.json');
+    fs.writeFileSync(filePath, JSON.stringify(defaultConfig, null, 2));
+    console.log(`Created default Caddy config at ${filePath}`);
   }
 
   _createDefaultCaddyConfig(filePath) {
