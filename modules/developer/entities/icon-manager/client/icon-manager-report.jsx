@@ -3,7 +3,7 @@
 
 import ReportContext from '@context/report-context';
 
-export default class TenantManagerReport extends ReportContext {
+export default class IconManagerReport extends ReportContext {
     constructor(props){
         super(props);
     }

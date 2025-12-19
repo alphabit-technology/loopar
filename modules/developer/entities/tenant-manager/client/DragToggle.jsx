@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
+import {TenantManagerListContext} from "./tenant-manager-list.jsx";
 
 function DragToggle({ 
   value = false, 
@@ -9,21 +10,32 @@ function DragToggle({
   OffIcon = ()=>{},
   onColor = 'green',
   offColor = 'red',
-  disabled = false
+  disabled = false,
+  site
 }) {
+  const {updateRows} = useContext(TenantManagerListContext);
   const [isOn, setIsOn] = useState(value);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const sliderRef = useRef(null);
   const startPosRef = useRef(0);
+  const [isDisabled, setIsDisabled] = useState(disabled);
+
+  useEffect(() => {
+    setIsOn(value);
+  }, [value, onChange]);
+
+  useEffect(() => {
+    setIsDisabled(disabled || updateRows.includes(site))
+  }, [disabled, onChange, updateRows, site])
 
   const colorClasses = {
-    blue: 'from-blue-600/60 to-blue-600/50',
-    amber: 'from-amber-600/70 to-amber-600/50',
-    green: 'from-green-600/70 to-green-600/50',
-    red: 'from-red-600/70 to-red-600/50',
-    purple: 'from-purple-600/70 to-purple-600/50',
-    pink: 'from-pink-600/70 to-pink-600/50',
+    blue: "from-blue-600/60 to-blue-600/50",
+    amber: "from-amber-600/70 to-amber-600/50",
+    green: "from-green-600/70 to-green-600/50",
+    red: "from-red-600/70 to-red-600/50",
+    purple: "from-purple-600/70 to-purple-600/50",
+    pink: "from-pink-600/70 to-pink-600/50",
   };
 
   const handleMouseDown = (e) => {
@@ -105,8 +117,8 @@ function DragToggle({
   return (
     <div
       ref={sliderRef}
-      disabled={disabled}
-      className={`relative inline-flex h-8 w-40 items-center rounded-full bg-gray-300/50 dark:bg-gray-800/50 dark:border-gray-700 cursor-grab active:cursor-grabbing select-none ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none disabled' : ''}`}
+      disabled={isDisabled}
+      className={`relative inline-flex h-8 w-40 items-center rounded-full bg-gray-300/50 dark:bg-gray-800/50 dark:border-gray-700 cursor-grab active:cursor-grabbing select-none ${isDisabled ? 'opacity-50 cursor-not-allowed pointer-events-none disabled' : ''}`}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >

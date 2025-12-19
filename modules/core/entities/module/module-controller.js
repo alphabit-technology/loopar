@@ -26,6 +26,7 @@ export default class ModuleController extends BaseController {
 
     if (!data.q) await loopar.session.set(eModule, this.name);
 
+    
     const queryData = {
       ...(data.q || await loopar.session.get(eType) || {}),
       module: await loopar.session.get(eModule),
@@ -36,6 +37,7 @@ export default class ModuleController extends BaseController {
     await loopar.session.set(eType, queryData);
     await loopar.session.set(`${type}_page`, this.data.page || 1);
 
+    
     const list = await loopar.getList(type, { q: queryData, rowsOnly: this.preloaded === 'true'});
 
     list.rows = list.rows.map(row => {

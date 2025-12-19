@@ -12,8 +12,8 @@ import {
 import {Badge} from "@cn/components/ui/badge";
 import {Link} from "@link"
 import {Button} from "@cn/components/ui/button";
-import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, Trash2Icon, CheckCircle2Icon, PencilIcon } from 'lucide-react';
-
+import { PlusIcon, DownloadIcon, RefreshCcwDotIcon, FolderDownIcon, FolderUp, CheckCircle2Icon, PencilIcon } from 'lucide-react';
+import {PiTrashSimpleDuotone} from "react-icons/pi"
 function AppCard({app, action}) {
   const color = loopar.bgColor(app.name);
   
@@ -44,9 +44,10 @@ function AppCard({app, action}) {
         <CardFooter className="flex justify-between">
           <div>
             <Button
-              variant={app.installed && app.installed_version === app.version ? "secondary" : "primary"}
+              ///variant={app.installed && app.installed_version === app.version ? "secondary" : "primary"}
               disabled={app.installed && app.installed_version === app.version}
               onClick={() => action(app.name, !app.installed ? 'install' : 'reinstall')}
+              className={app.installed_version !== app.version ? 'bg-orange-500' : 'bg-secondary'}
             >
               {!app.installed ? (
                 <><FolderDownIcon className="mr-2"/> Install</>
@@ -63,7 +64,7 @@ function AppCard({app, action}) {
                   variant="destructive"
                   onClick={() => action(app.name, 'uninstall')}
                 >
-                  <Trash2Icon/>
+                  <FolderUp/>
                 </Button>
                 <Link
                   variant="outline"

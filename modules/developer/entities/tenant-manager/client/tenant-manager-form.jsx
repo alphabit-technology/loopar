@@ -5,6 +5,8 @@ import FormContext from '@context/form-context';
 import loopar from "loopar";
 
 export default class TenantManagerForm extends FormContext {
+  notRequireChanges = true;
+  
   constructor(props){
     super(props);
   }

@@ -77,6 +77,84 @@ export default class TenantManager extends BaseDocument {
     return await getTenantData(this.name);
   }
 
+  async getCaddyRoutes() {
+    try {
+      const response = await fetch(`${this.caddy.adminUrl}/config/apps/http/servers`);
+      if (!response.ok) {
+        throw new Error('Caddy API not available');
+      }
+      return await response.json();
+    } catch (err) {
+      console.error('Error getting Caddy routes:', err.message);
+      return {};
+    }
+  }
+
+  async getAllConnectedDomains() {
+    const servers = await this.getCaddyRoutes();
+    const domains = [];
+
+    for (const [serverName, server] of Object.entries(servers)) {
+      if (!server.routes) continue;
+
+      for (const route of server.routes) {
+        if (!route.match) continue;
+
+        for (const match of route.match) {
+          if (!match.host) continue;
+
+          for (const host of match.host) {
+            const upstream = route.handle?.find(h => h.handler === 'reverse_proxy');
+            const dialMatch = upstream?.upstreams?.[0]?.dial?.match(/localhost:(\d+)/);
+            const port = dialMatch ? parseInt(dialMatch[1]) : null;
+
+            const routeId = route['@id'] || null;
+
+            domains.push({
+              domain: host,
+              port: port,
+              routeId: routeId,
+              serverName: serverName
+            });
+          }
+        }
+      }
+    }
+
+    return domains;
+  }
+
+  async isDomainInUse(domain) {
+    const allDomains = await this.getAllConnectedDomains();
+    const currentDomain = allDomains.find(d => d.domain === domain);
+
+    if(currentDomain && currentDomain.port != this.port){
+      return true;
+    }
+
+    return false;
+  }
+
+  async disconnectDomain(){
+    const tenantPath = path.join(tenantsDir, this.name);
+     const envFile = path.join(tenantPath, '.env');
+     if (fs.existsSync(envFile)) {
+      const envContent = fs.readFileSync(envFile, 'utf8');
+      const oldDomain = envContent.match(/DOMAIN=(\d+)/);
+      if (oldDomain) {
+        await this.removeDomain(oldDomain);
+      }
+    }
+
+    if(await this.isDomainInUse(this.domain)){
+      if(this.force_connect !== 1){
+        return loopar.throw("Domain already in use, try another domain or use force to override");
+      }else{
+        await this.removeDomain(this.domain);
+      }
+    }
+  }
+
   async save(){
     await this.validate();
     if(this.__IS_NEW__ && this.allApps.find(app => app.name === this.name)){
@@ -86,13 +164,7 @@ export default class TenantManager extends BaseDocument {
     const tenantPath = path.join(tenantsDir, this.name);
     const envFile = path.join(tenantPath, '.env');
     
-    if (fs.existsSync(envFile)) {
-      const envContent = fs.readFileSync(envFile, 'utf8');
-      const oldDomain = envContent.match(/DOMAIN=(\d+)/);
-      if (oldDomain) {
-        await this.disconnectDomine(oldDomain);
-      }
-    }
+    await this.disconnectDomain();
 
     if(!fs.existsSync(tenantPath)){
       fs.mkdirSync(tenantPath);
@@ -145,7 +217,7 @@ export default class TenantManager extends BaseDocument {
     return await this.#pm2Action("stop");
   }
 
-  async disconnectDomine(dommain){
+  async removeDomain(dommain){
     await this.caddy.removeTenant(dommain);
   }
 
@@ -153,6 +225,7 @@ export default class TenantManager extends BaseDocument {
     const restarted = await this.#pm2Action("restart");
     
     if (restarted && this.domain) {
+      await this.removeDomain();
       await this.caddy.registerTenant(this.domain, this.port);
     }
     
@@ -277,7 +350,7 @@ export default class TenantManager extends BaseDocument {
             return finish(false, "Tenant not found in ecosystem.");
           }
           config.exec_mode = (NODE_ENV == 'production' ? 'cluster' : 'fork');
-          config.instances = (NODE_ENV == 'production' ? 'max' : 1);
+          config.instances = (NODE_ENV == 'production' ? 1 : 1);
         }
 
         const handlePm2Operation = (operationFn, successMsg, errorMsg) => {
@@ -297,13 +370,21 @@ export default class TenantManager extends BaseDocument {
             break;
                 
           case "restart":
-            pm2.delete(this.name, () => {
-              handlePm2Operation(
-                (cb) => pm2.start(config, cb),
-                "restarted with NEW config successfully",
-                "PM2 restart (re-spawn) error:"
-              );
-            });
+            if(this.name != "dev"){
+                pm2.delete(this.name, () => {
+                  handlePm2Operation(
+                    (cb) => pm2.start(config, cb),
+                    "restarted with NEW config successfully",
+                    "PM2 restart (re-spawn) error:"
+                  );
+                });
+              }else{
+                handlePm2Operation(
+                  (cb) => pm2.restart(config, cb),
+                  "restarted with NEW config successfully",
+                  "PM2 restart (re-spawn) error:"
+                );
+              }
             break;
 
           default:
@@ -348,8 +429,7 @@ const tenantList = async () => {
   }
 
   const model = await loopar.getList("Tenant Manager");
-  
-  model.rows = mappedallApps;
+  model.rows = [...mappedallApps].sort((a, b) => (b.name === "dev") - (a.name === "dev"));
   return model;
 }
 

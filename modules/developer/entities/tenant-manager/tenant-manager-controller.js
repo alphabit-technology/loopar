@@ -7,9 +7,18 @@ import {loopar} from 'loopar';
 import {getTenant, tenantList} from "./tenant-manager.js";
 
 export default class TenantManagerController extends BaseController {
+  unRestrictedActions = ["list", "create", "update"]
   constructor(props){
     super(props);
-    if(loopar.tenantId != "core") loopar.throw("Access restricted")
+    if(loopar.tenantId != "dev") loopar.throw("Access restricted")
+  }
+
+  async beforeAction(){
+    await super.beforeAction();
+
+   /*  if(this.name == "dev" && !this.unRestrictedActions.includes(this.action)){
+      loopar.throw("Action not valid for Dev Site");
+    } */
   }
 
   async getTenant(name=this.name){
@@ -44,37 +53,41 @@ export default class TenantManagerController extends BaseController {
   }
 
   async actionProduction(){
-    const r = await this.makeAction("setOnProduction");
-    return this.success(r ? "Tenant set on production successfully" : "Tenant set on production failed", { notify: { type: r ? "success" : "error" } });
+    return await this.makeAction("setOnProduction");
   }
 
   async actionDevelopment(){
-    const r = await this.makeAction("setOnDevelopment");
-    return this.success(r ? "Tenant set on development successfully" : "Tenant set on development failed", { notify: { type: r ? "success" : "error" } });
+    return await this.makeAction("setOnDevelopment");
   }
 
   async actionStart(){
-    const r = await this.makeAction("start");
-    return this.success(r ? "Tenant started successfully" : "Tenant start failed", { notify: { type: r ? "success" : "error" } });
+    return await this.makeAction("start");
   }
 
   async actionStop(){
-    const r = await this.makeAction("stop");
-    return this.success(r ? "Tenant stopped successfully" : "Tenant stop failed", { notify: { type: r ? "warning" : "error" } });
+    return await this.makeAction("stop");
   }
 
   async actionRestart(){
-    const r = await this.makeAction("restart");
-    return this.success(r ? "Tenant restarted successfully" : "Tenant restart failed", { notify: { type: r ? "warning" : "error" } });
+    return await this.makeAction("restart");
   }
 
   async actionSetOnProduction(){
-    const r = await this.makeAction("setOnProduction");
-    return this.success(r ? "Tenant set on production successfully" : "Tenant set on production failed", { notify: { type: r ? "success" : "error" } });
+    return await this.makeAction("setOnProduction");
   }
 
   async makeAction(action){
     const tenant = await this.getTenant();
-    return await tenant[action]();
+    const r = await tenant[action]();
+
+    return this.success(
+      r ? `${this.name}.${action} completed successfully` :
+        `${this.name}.${action} failed`,
+      { 
+        notify: { 
+          type: r ? ["stop", "restart"].includes(action) ? "warning" : "success" : "error" 
+        }
+      }
+    )
   }
 }

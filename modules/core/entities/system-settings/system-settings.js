@@ -1,9 +1,8 @@
 
 'use strict';
 
-import { loopar, BaseDocument } from 'loopar';
+import { loopar, BaseDocument, generateThemeCSS } from 'loopar';
 import fs from 'fs'
-import { generateThemeCSS } from './tools.js';
 
 export default class SystemSettings extends BaseDocument {
   constructor(props) {
@@ -21,13 +20,33 @@ export default class SystemSettings extends BaseDocument {
     await super.onLoad();
   }
 
-  async setTheme() {
-    const darkBackground = loopar.utils.objToRGBA(loopar.utils.JSONparse(this.dark_background));
-    const theme = generateThemeCSS(darkBackground, this.theme || 'blue', this.include_titles);
-    fs.writeFileSync(loopar.makePath(loopar.pathRoot, 'config', 'tailwind.css'), theme, 'utf8');
+  clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
   }
 
-  replaceCSSContent(input, newContent) {
-    return input.replace(/\/\* CSSBegin \*\/[\s\S]*?\/\* CSSEnd \*\//, `/* CSSBegin */\n${newContent}\n/* CSSEnd */`);
+  validateConfig() {
+    const config = loopar.utils.JSONparse(this.theme, {});
+    return {
+      theme: config.theme || 'slate',
+      darkMode: ['auto', 'custom'].includes(config.darkMode) ? config.darkMode : 'auto',
+      darkIntensity: this.clamp(config.darkIntensity ?? 0.95, 0, 1),
+      darkCustomColor: config.darkCustomColor || '#0a0a0a',
+      includeTitles: config.includeTitles !== false
+    };
+  }
+
+  async setTheme() {
+    const config = this.validateConfig();
+
+    const css = generateThemeCSS(config.theme, {
+      darkMode: config.darkMode,
+      darkIntensity: config.darkIntensity,
+      darkCustomColor: config.darkCustomColor,
+      includeTitles: config.includeTitles,
+      minify: true,
+      contrastThreshold: 4.5
+    });
+    
+    fs.writeFileSync(loopar.makePath(loopar.tenantPath, 'theme.css'), css, 'utf8');
   }
 }

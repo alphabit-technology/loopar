@@ -169,21 +169,22 @@ export default class FileManager extends BaseDocument {
       await super.save();
     }
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       fs.writeFile(filePath, file.buffer, async (err) => {
         if (err) {
-          loopar.throw(err);
-          return;
+          return reject(err)
         }
 
         if (this.getFileType() === 'image') {
-          const thumbnailFile = path.join(thumbnailPath, file.originalname);
-          const thumbnail = await fileManage.existFile(thumbnailFile);
+          try {
+            const thumbnailFile = path.join(thumbnailPath, file.originalname);
+            const thumbnail = await fileManage.existFile(thumbnailFile);
 
-          !thumbnail && await sharp(file.buffer).resize(200, 200).toFile(thumbnailFile);
+            !thumbnail && await sharp(file.buffer).resize(200, 200).toFile(thumbnailFile);
+          } catch (error) {  }
         }
 
-        resolve(this);
+        return resolve(this);
       });
     });
   }

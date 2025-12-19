@@ -25,6 +25,7 @@ export default class CaddyManager {
     if (!isRunning) {
       console.log("Starting Caddy...");
       const started = await this.start();
+      console.log("Caddy started");
       if (!started) throw new Error("Could not start Caddy.");
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
@@ -81,21 +82,163 @@ export default class CaddyManager {
   }
 
   async removeTenant(domain) {
+    console.log(`🗑️  Removing tenant: ${domain}`);
+    
     try {
-      const response = await fetch(`${this.adminUrl}/id/tenant_${domain}`, {
-        method: 'DELETE'
-      });
-
-      if (response.status === 200) {
-        console.log(`✅ Tenant ${domain} removed from Caddy`);
-        return true;
-      } else if (response.status === 404) {
-        console.log(`ℹ️  Tenant ${domain} was not registered in Caddy`);
+      const getResponse = await fetch(`${this.adminUrl}/config/apps/http/servers`);
+      
+      if (!getResponse.ok) {
+        throw new Error('Failed to get Caddy config');
+      }
+      
+      const servers = await getResponse.json();
+      
+      let foundServerName = null;
+      let foundRouteIndex = -1;
+      
+      for (const [serverName, server] of Object.entries(servers)) {
+        if (!server.routes) continue;
+        
+        foundRouteIndex = server.routes.findIndex(route => {
+          const hasMatch = route.match?.some(match => 
+            match.host?.includes(domain)
+          );
+          
+          const hasId = route['@id'] === `tenant_${domain}` || route['@id']?.includes(domain);
+          
+          return hasMatch || hasId;
+        });
+        
+        if (foundRouteIndex !== -1) {
+          foundServerName = serverName;
+          break;
+        }
+      }
+      
+      if (!foundServerName || foundRouteIndex === -1) {
+        console.log(`ℹ️  Tenant ${domain} not found in Caddy`);
         return true;
       }
-      return false;
+      
+      console.log(`  Found in server "${foundServerName}" at route index ${foundRouteIndex}`);
+      
+      const deletePath = `/config/apps/http/servers/${foundServerName}/routes/${foundRouteIndex}`;
+      console.log(`  DELETE ${deletePath}`);
+      
+      const deleteResponse = await fetch(`${this.adminUrl}${deletePath}`, {
+        method: 'DELETE'
+      });
+      
+      if (!deleteResponse.ok) {
+        const errorText = await deleteResponse.text();
+        throw new Error(`Failed to delete route: ${deleteResponse.statusText} - ${errorText}`);
+      }
+      
+      console.log(`✅ Tenant ${domain} removed from Caddy`);
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const verifyResponse = await fetch(`${this.adminUrl}/config/apps/http/servers`);
+      const verifyServers = await verifyResponse.json();
+      
+      const stillExists = Object.values(verifyServers).some(server => 
+        server.routes?.some(route => 
+          route.match?.some(match => 
+            match.host?.includes(domain)
+          ) || route['@id']?.includes(domain)
+        )
+      );
+      
+      if (stillExists) {
+        console.error(`❌ Domain ${domain} still exists after deletion!`);
+        console.log('Attempting force removal...');
+        return await this.forceRemoveTenant(domain);
+      }
+      
+      return true;
+      
     } catch (e) {
-      console.error("Failed to remove from Caddy:", e);
+      console.error(`❌ Failed to remove tenant ${domain}:`, e.message);
+      return false;
+    }
+  }
+
+  async forceRemoveTenant(domain) {
+    console.log(`🔨 Force removing tenant: ${domain}`);
+    
+    try {
+      const getResponse = await fetch(`${this.adminUrl}/config/apps/http/servers`);
+      const servers = await getResponse.json();
+      
+      let removed = false;
+      
+      for (const [serverName, server] of Object.entries(servers)) {
+        if (!server.routes) continue;
+        
+        const originalLength = server.routes.length;
+        
+        server.routes = server.routes.filter(route => {
+          const hasMatch = route.match?.some(match => 
+            match.host?.includes(domain)
+          );
+          const hasId = route['@id']?.includes(domain);
+          
+          if (hasMatch || hasId) {
+            console.log(`  🗑️  Removing: ${route['@id'] || domain}`);
+            removed = true;
+            return false;
+          }
+          
+          return true;
+        });
+        
+        if (server.routes.length !== originalLength) {
+          console.log(`  Removed ${originalLength - server.routes.length} route(s) from ${serverName}`);
+        }
+      }
+      
+      if (!removed) {
+        console.log(`ℹ️  No routes found for ${domain}`);
+        return true;
+      }
+      
+      const updateResponse = await fetch(`${this.adminUrl}/config/apps/http/servers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(servers)
+      });
+      
+      if (!updateResponse.ok) {
+        throw new Error(`Failed to update config: ${updateResponse.statusText}`);
+      }
+      
+      console.log(`✅ Force removal successful for ${domain}`);
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const verifyResponse = await fetch(`${this.adminUrl}/config/apps/http/servers`);
+      const verifyServers = await verifyResponse.json();
+      
+      const stillExists = Object.values(verifyServers).some(server => 
+        server.routes?.some(route => 
+          route.match?.some(match => 
+            match.host?.includes(domain)
+          )
+        )
+      );
+      
+      if (stillExists) {
+        console.error(`❌ Force removal failed - domain still exists!`);
+        console.log('You may need to restart Caddy manually');
+        return false;
+      }
+      
+      return true;
+      
+    } catch (e) {
+      console.error(`❌ Force removal failed:`, e.message);
       return false;
     }
   }
@@ -174,15 +317,27 @@ export default class CaddyManager {
         this._createDefaultCaddyConfig(caddyConfigPath);
       }
 
-      try {
-        await execAsync(`caddy start --config ${caddyConfigPath} --adapter json`);
-        return true;
-      } catch (error) {
-        console.log("Trying alternative Caddy start method...");
-        exec(`caddy run --config ${caddyConfigPath} --adapter json > /dev/null 2>&1 &`);
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        return await this.isRunning();
+      const child = exec(`caddy start --config ${caddyConfigPath}`, (error, stdout, stderr) => {
+        if (error) console.log("Caddy start info:", error.message);
+        if (stdout) console.log("Caddy stdout:", stdout);
+        if (stderr) console.log("Caddy stderr:", stderr);
+      });
+
+      child.unref();
+
+      for (let i = 0; i < 10; i++) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const running = await this.isRunning();
+        if (running) {
+          console.log("✅ Caddy is running");
+          return true;
+        }
+        console.log(`⏳ Waiting for Caddy... (${i + 1}/10)`);
       }
+
+      console.error("❌ Caddy failed to start after 5 seconds");
+      return false;
+
     } catch (e) {
       console.error("Failed to start Caddy:", e);
       return false;

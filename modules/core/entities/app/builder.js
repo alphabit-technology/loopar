@@ -229,17 +229,22 @@ class InstallerBuilder {
         {}, 
         { ifNotFound: false, parse: true }
       );
-      const Doc = await ent.rawValues();
-      const requires = await this.getRequires(constructor, Doc);
-      
-      if (constructor.__NAME__ !== entity.__NAME__ && constructor.__NAME__ !== "Entity") {
-        requires.unshift(`${constructor.__ENTITY__}:${constructor.__NAME__}`);
-      }
 
-      this.Queues[`${constructor.__NAME__}:${entity.__NAME__}`] = {
-        requires: Array.from(new Set(requires)),
-        root: entity.__ROOT__
-      };
+      if(ent) {
+        const Doc = await ent.rawValues();
+        const requires = await this.getRequires(constructor, Doc);
+        
+        if (constructor.__NAME__ !== entity.__NAME__ && constructor.__NAME__ !== "Entity") {
+          requires.unshift(`${constructor.__ENTITY__}:${constructor.__NAME__}`);
+        }
+
+        this.Queues[`${constructor.__NAME__}:${entity.__NAME__}`] = {
+          requires: Array.from(new Set(requires)),
+          root: entity.__ROOT__
+        };
+      }else{
+        console.log(["ENt", ent])
+      }
     } else {
       this.Queues[`${constructor.__NAME__}:${entity.__NAME__}`] = {
         requires: [],

@@ -3,7 +3,7 @@
 
 import ViewContext from '@context/view-context';
 
-export default class TenantManagerView extends ViewContext {
+export default class IconManagerView extends ViewContext {
     constructor(props){
         super(props);
     }

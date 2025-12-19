@@ -3,18 +3,17 @@
 
 import ListContext from '@context/list-context';
 import loopar from "loopar";
-import React, {useState, useRef } from "react";
 import DragToggle from "./DragToggle.jsx";
 import { Code, Star } from 'lucide-react';
+import { useState, createContext, useContext } from "react";
 
 import {
   Avatar,
 } from "@cn/components/ui/avatar"
 
-import {Badge} from "@cn/components/ui/badge";
 import {Link} from "@link"
 import {Button} from "@cn/components/ui/button";
-import { StopCircle, Settings2Icon, EllipsisIcon, HardDrive, PlayCircle, RefreshCcwDot, CircleDot, Code2Icon, StarIcon } from 'lucide-react';
+import { Settings2Icon, EllipsisIcon, HardDrive, RefreshCcwDot } from 'lucide-react';
 
 import {cn} from "@cn/lib/utils";
 
@@ -23,6 +22,24 @@ import { useTable } from "@@table/TableContext"
 
 const tenantStatus = (row) => {
   return row.status != "online" || process.env.TENANT_ID == row.name;
+}
+
+export const TenantManagerListContext = createContext();
+
+const TenantManagerList = (props) => {
+  const {updateRows, setUpdateRows} = useContext(TenantManagerListContext);
+  return (
+    <TenantManagerListBase {...props} updateRows={updateRows} setUpdateRows={setUpdateRows} />
+  )
+}
+
+const TenantManagerListProvider = ({children}) => {
+  const [updateRows=[], setUpdateRows] = useState([]);
+  return (
+    <TenantManagerListContext.Provider value={{updateRows, setUpdateRows}}>
+      {children}
+    </TenantManagerListContext.Provider>
+  )
 }
 
 const NameRender = ({row}) => {
@@ -70,52 +87,60 @@ const NameRender = ({row}) => {
   )
 }
 
-const sendAction = (action, name, confirm=true) => {
+const sendAction = (action, name, confirm=true, onComplete) => {
   const doAction = () => {
     loopar.method("Tenant Manager", action, {
       name: name
     }, {
       success: () => {
+        onComplete?.(true);
         loopar.refresh();
       },
       error: (message) => {
-        loopar.throw(message);
+        onComplete?.(false);
+        loopar.refresh();
+        loopar.throw(message)
       },
+      freeze: false
     });
   }
 
   if(confirm){
     loopar.confirm(`Are you sure you want to ${action} ${name}?`, () => {
-      doAction(action, name);
+      doAction();
+    }, () => {
+      onComplete?.(false);
     });
   }else{
-    doAction(action, name)
+    doAction();
   }
 }
 
 const Buttons = ({row}) => {
   const {inDialog} = useDialogContext();
+  const {updateRows, setUpdateRows} = useContext(TenantManagerListContext);
 
+  const loading = updateRows.includes(row.name);
   if(inDialog) {
     return null
   }
 
   const status = row.status;
-  const action = status == "online" ? "stop" : "start";
-
-  
   
   return (
     <div className="flex flex-row items-center gap-0">
       <Button
         variant="outline"
-        disabled={row.name == process.env.TENANT_ID || row.name == "core" || status != "online"}
+        disabled={row.name == process.env.TENANT_ID || row.name == "dev" || status != "online" || updateRows.includes(row.name)}
         onClick={(e) => {
           e.preventDefault();
-          sendAction("restart", row.name);
+          setUpdateRows([...updateRows, row.name]);
+          sendAction("restart", row.name, true, () => {
+            setUpdateRows(updateRows.filter(name => name != row.name));
+          });
         }}
       >
-        <RefreshCcwDot className="text-orange-500/50" />
+        <RefreshCcwDot className={`text-orange-500/50 ${loading && "animate-spin"}`} />
       </Button>
       <Link
         to={`update?name=${row.name}&app=${row.app}`}
@@ -128,91 +153,110 @@ const Buttons = ({row}) => {
   );
 }
 
-export default class TenantManagerList extends ListContext {
+class TenantManagerListBase extends ListContext {
   onlyList=true;
-    constructor(props){
-        super(props);
-    }
+  constructor(props){
+    super(props);
+  }
 
-    customColumns(baseColumns) {
-      return [
-        {
-          data: {
-            name: "name:"
-          },
-          render: row => (
-            <NameRender row={row} />
-          ),
+  customColumns(baseColumns) {
+    const {updateRows, setUpdateRows} = this.props;
+    return [
+      {
+        data: {
+          name: "name:"
         },
-        {
-          data: {
-            name: "node_env:",
-            label: "Mode"
-          },
-          headProps: {
-            className: "w-10 p-2 text-center",
-          },
-          cellProps: {
-            className: "w-10 p-2 text-center",
-          },
-          render: row => {
-            const mode = row.node_env;
-   
-            return (
-              <DragToggle 
-                value={mode == "production"}
-                disabled={row.name == process.env.TENANT_ID || row.name == "core"}
-                onChange={(isProduction) => {
-                  sendAction(isProduction ? "production" : "development", row.name, false);
-                }}
-                offLabel="Dev"
-                onLabel="Prod"
-                OffIcon={Code}
-                OnIcon={Star}
-                offColor="amber"
-                onColor="blue"
-              />
-            )
-          }
+        render: row => (
+          <NameRender row={row} />
+        ),
+      },
+      {
+        data: {
+          name: "node_env:",
+          label: "Mode"
         },
-        {
-          data: {
-            name: "status:",
-            label: "Status"
-          },
-          headProps: {
-            className: "w-10 p-2 text-center",
-          },
-          cellProps: {
-            className: "w-10 p-2 text-center",
-          },
-          render: row => {
-            const status = row.status;
-            
-            return (
-              <DragToggle 
-                value={status=="online"}
-                disabled={row.name == process.env.TENANT_ID || row.name == "core"}
-                onChange={(isOnline) => {
-                  sendAction(isOnline ? "start" : "stop", row.name, false);
-                }}
-              />
-            )
-          }
+        headProps: {
+          className: "w-10 p-2 text-center",
         },
-        ...baseColumns,
-        {
-          data: {
-            label: () => <EllipsisIcon className="w-full"/>,
-            name: "actions",
-          },
-          headProps: {
-            className: "w-10 p-2 text-center",
-          },
-          render: row => (
-            <Buttons row={row} />
-          ),
+        cellProps: {
+          className: "w-10 p-2 text-center",
+        },
+        render: row => {
+          const mode = row.node_env;
+  
+          return (
+            <DragToggle 
+              value={mode == "production"}
+              site={row.name}
+              disabled={row.name =="dev"}
+              onChange={(isProduction) => {
+                setUpdateRows([...updateRows, row.name]);
+                sendAction(isProduction ? "production" : "development", row.name, false, () => {
+                  setUpdateRows(updateRows.filter(name => name != row.name))
+                });
+              }}
+              offLabel="Dev"
+              onLabel="Prod"
+              OffIcon={Code}
+              OnIcon={Star}
+              offColor="amber"
+              onColor="blue"
+            />
+          )
         }
-      ];
-    }
+      },
+      {
+        data: {
+          name: "status:",
+          label: "Status"
+        },
+        headProps: {
+          className: "w-10 p-2 text-center",
+        },
+        cellProps: {
+          className: "w-10 p-2 text-center",
+        },
+        render: row => {
+          const status = row.status;
+          
+          return (
+            <DragToggle 
+              value={status=="online"}
+              site={row.name}
+              disabled={row.name == process.env.TENANT_ID || row.name == "dev"}
+              onChange={(isOnline) => {
+                setUpdateRows([...updateRows, row.name]);
+                sendAction(isOnline ? "start" : "stop", row.name, false, () => {
+                  setUpdateRows(updateRows.filter(name => name != row.name))
+                });
+              }}
+            />
+          )
+        }
+      },
+      ...baseColumns,
+      {
+        data: {
+          label: () => <EllipsisIcon className="w-full"/>,
+          name: "actions",
+        },
+        headProps: {
+          className: "w-10 p-2 text-center",
+        },
+        render: row => (
+          <Buttons row={row} />
+        ),
+      }
+    ];
+  }
 }
+
+const TenantManagerMiddleware = (props) => {
+  return (
+    <TenantManagerListProvider>
+      <TenantManagerList {...props} />
+    </TenantManagerListProvider>
+  )
+}
+
+export default TenantManagerMiddleware;

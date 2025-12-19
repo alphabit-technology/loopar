@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 const __dirname = process.cwd();
+import {loopar} from "loopar";
 
 export function readEnvFile(envPath) {
   if (!fs.existsSync(envPath)) return {};
@@ -50,15 +51,10 @@ export function getAllApps() {
 
     try {
       installedApps = Object.keys(JSON.parse(fs.readFileSync(installedAppsPath, 'utf8')));
-    } catch (err) {
-      /* if (err.code === 'ENOENT') {
-        console.log("Installed apps not found:", installedAppsPath);
-      } else {
-        console.error("Error reading installed apps file:", err);
-      } */
-    }
+    } catch (err) {}
 
     return {
+      namespace: path.basename(process.cwd()),
       name: tenantId,
       script: 'node_modules/loopar/bin/pm2-wrapper.js',
       env: { 
