@@ -348,27 +348,36 @@ export default class CaddyManager {
     try {
       const checkResponse = await fetch(`${this.adminUrl}/config/apps/http`);
       if (checkResponse.ok) return true;
-
+  
       console.log("Initializing Caddy HTTP configuration...");
       const httpConfig = {
         "apps": {
           "http": {
             "servers": {
               "srv0": {
-                "listen": [":80"],
+                "listen": [":443", ":80"],
                 "routes": []
               }
+            }
+          },
+          "tls": {
+            "automation": {
+              "policies": [{
+                "issuers": [{
+                  "module": "acme"
+                }]
+              }]
             }
           }
         }
       };
-
+  
       const response = await fetch(`${this.adminUrl}/config/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(httpConfig)
       });
-
+  
       return response.ok;
     } catch (e) {
       console.error("Failed to ensure HTTP config:", e);
