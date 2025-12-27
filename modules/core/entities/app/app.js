@@ -51,9 +51,7 @@ export default class App extends BaseDocument {
       makeStructure && await this.makeAppStructure();
     }
 
-    if(isNew){
-      await this.setOnInstall();
-    }
+    isNew && loopar.setApp({[this.name]: this.version})
     
     await loopar.build();
 
