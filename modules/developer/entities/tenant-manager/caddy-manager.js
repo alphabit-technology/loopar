@@ -406,21 +406,20 @@ export default class CaddyManager {
     console.log(`Created default Caddy config at ${filePath}`);
   }
 
-  _createDefaultCaddyConfig(filePath) {
-    const defaultConfig = {
-      "admin": { "listen": "localhost:2019" },
-      "apps": {
-        "http": {
-          "servers": {
-            "srv0": { "listen": [":80"], "routes": [] }
-          }
-        }
-      }
-    };
-    
-    const dir = path.dirname(filePath);
+  _getCaddyConfigPath() {
+    const possiblePaths = [
+      '/etc/caddy/config.json',
+      '/usr/local/etc/caddy/config.json',
+      '/opt/homebrew/etc/caddy/config.json',
+      path.join(process.cwd(), 'caddy-config.json')
+    ];
+
+    for (const p of possiblePaths) {
+      if (fs.existsSync(p)) return p;
+    }
+
+    const dir = os.platform() === 'darwin' ? '/opt/homebrew/etc/caddy' : '/etc/caddy';
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(filePath, JSON.stringify(defaultConfig, null, 2));
-    console.log(`Created default Caddy config at ${filePath}`);
+    return path.join(dir, 'config.json');
   }
 }
