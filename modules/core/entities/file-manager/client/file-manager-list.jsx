@@ -190,7 +190,6 @@ export default class FileManagerList extends ListContext {
       <ListenerSelect onSelect={this.props.onSelect} />,
       this.state.uploading ? (
         <>
-          
           <FileUploader
             data={{
               name: "file",
